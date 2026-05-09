@@ -18,8 +18,8 @@ from datetime import datetime
 logging.basicConfig(level=logging.INFO, format="%(asctime)s  %(message)s")
 log = logging.getLogger(__name__)
 
-TELEGRAM_BOT_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
-TELEGRAM_CHAT_ID   = os.environ["TELEGRAM_CHAT_ID"]
+TELEGRAM_BOT_TOKEN = os.environ["BOT_TOKEN"]
+TELEGRAM_CHAT_ID   = os.environ["CHAT_ID"]
 
 STATE_FILE = "scanner_state.json"
 
