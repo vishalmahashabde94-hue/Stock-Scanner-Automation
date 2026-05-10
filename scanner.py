@@ -112,10 +112,11 @@ def fetch_dma_data(symbol):
         if hasattr(close, "squeeze"):
             close = close.squeeze()
 
-        dma50_today  = float(close.rolling(50).mean().iloc[-1])
-        dma200_today = float(close.rolling(200).mean().iloc[-1])
-        dma50_prev   = float(close.rolling(50).mean().iloc[-2])
-        dma200_prev  = float(close.rolling(200).mean().iloc[-2])
+dma50_today  = float(close.ewm(span=50, adjust=False).mean().iloc[-1])
+dma200_today = float(close.ewm(span=200, adjust=False).mean().iloc[-1])
+dma50_prev   = float(close.ewm(span=50, adjust=False).mean().iloc[-2])
+dma200_prev  = float(close.ewm(span=200, adjust=False).mean().iloc[-2])
+        
 
         if dma200_today == 0 or dma200_prev == 0:
             return None
