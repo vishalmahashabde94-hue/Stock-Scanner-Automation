@@ -74,15 +74,15 @@ WATCHLIST = [
 
 # ── Stage thresholds (gap is negative = 50EMA below 200EMA) ──────────────────
 # All values are NEGATIVE because 50EMA is below 200EMA
-STAGE1_MIN = -14.0   # Watchlist         : gap between -14% and -12%
-STAGE1_MAX = -12.0
-STAGE2_MIN = -10.0   # Accumulate        : gap between -10% and -8%
-STAGE2_MAX =  -8.0
-STAGE3_MIN =  -6.0   # Aggressive Accum  : gap between -6% and -4%
-STAGE3_MAX =  -4.0
-STAGE4_MIN =  -3.0   # Wait zone         : gap between -3% and -2%
-STAGE4_MAX =  -2.0
 
+STAGE1_MIN = -20.0
+STAGE1_MAX = -12.0
+STAGE2_MIN = -12.0
+STAGE2_MAX =  -8.0
+STAGE3_MIN =  -8.0
+STAGE3_MAX =  -4.0
+STAGE4_MIN =  -4.0
+STAGE4_MAX =  -2.0
 
 def load_state():
     try:
