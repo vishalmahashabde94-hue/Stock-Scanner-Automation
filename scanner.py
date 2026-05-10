@@ -287,8 +287,7 @@ def classify_and_build_message(data):
 
     # ── STAGE 4: WAIT ZONE (2-3% away) ───────────────────────────────────────
     # Gap almost closed — stock is primed. Too late to buy safely.
-    if STAGE4_MIN <= gap <= STAGE4_MAX:
-        msg = (
+    if STAGE4_MIN <= gap <= STAGE4_MAX and gap_closing:msg = (
             f"⏳ <b>WAIT ZONE — {ticker}</b>\n"
             f"━━━━━━━━━━━━━━━━━━━━━━\n"
             f"💵 Price   : ₹{price:,.2f}\n"
