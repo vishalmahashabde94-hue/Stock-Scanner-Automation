@@ -1,29 +1,23 @@
 """
 =======================================================
-  INDIAN STOCK DMA GAP SCANNER v2.0 — REVISED LOGIC
-  
-  FIXES:
-  - Uses SMA (not EMA) to match AngelOne/Screener/TradingView
-  
-  NEW INDICATORS:
-  - RSI(14)          : oversold bounce detection
-  - Volume Surge     : vs 20-day avg volume
-  - Momentum Score   : price vs 20 days ago
-  - Composite Score  : ranks buy quality 0-100
+  VISH_SCAN — INDIAN STOCK SCANNER
+  Final Version — EMA based, matches AngelOne/TradingView
 
-  STRATEGY: Buy BEFORE golden cross, sell after
-  
-  DMA GAP STAGES (50SMA vs 200SMA):
-  WATCH     : gap < -10%          (too early)
-  PREPARE   : gap -7% to -6%     (get ready)
-  BUY ZONE  : gap -3% to -2%     (buy here)
-  GOLDEN X  : 50SMA crosses above 200SMA (book profits)
+  STRATEGY:
+  Track 50 EMA closing towards 200 EMA from below.
+  Buy quietly before the crowd discovers the stock.
 
-  COMPOSITE BUY SCORE (0-100):
-  - DMA gap stage        : 40 pts max
-  - RSI in sweet spot    : 25 pts max
-  - Volume surge         : 20 pts max
-  - Momentum positive    : 15 pts max
+  STAGES (50 EMA below 200 EMA, gap closing):
+  Stage 1: 12-14% away → WATCHLIST
+  Stage 2: 8-10% away  → ACCUMULATE
+  Stage 3: 4-6% away   → AGGRESSIVE ACCUMULATION
+  Stage 4: 2-3% away   → WAIT, do not buy
+  Stage 5: Cross done  → GOLDEN CROSS, book profits
+
+  SUPPORTING INDICATORS:
+  RSI     — confirms oversold recovery
+  Volume  — confirms smart money entering
+  Momentum— confirms higher lows forming
 =======================================================
 """
 
@@ -32,8 +26,8 @@ import json
 import time
 import logging
 import requests
-import numpy as np
 import yfinance as yf
+import pandas as pd
 from datetime import datetime
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s  %(message)s")
@@ -78,20 +72,18 @@ WATCHLIST = [
     "HAVELLS.NS",
 ]
 
-# ── THRESHOLDS ─────────────────────────────────────────────────────────────
-WATCH_THRESHOLD   = -10.0
-PREPARE_MIN       =  -7.0
-PREPARE_MAX       =  -6.0
-BUY_MIN           =  -3.0
-BUY_MAX           =  -2.0
+# ── Stage thresholds (gap is negative = 50EMA below 200EMA) ──────────────────
+# All values are NEGATIVE because 50EMA is below 200EMA
+STAGE1_MIN = -14.0   # Watchlist         : gap between -14% and -12%
+STAGE1_MAX = -12.0
+STAGE2_MIN = -10.0   # Accumulate        : gap between -10% and -8%
+STAGE2_MAX =  -8.0
+STAGE3_MIN =  -6.0   # Aggressive Accum  : gap between -6% and -4%
+STAGE3_MAX =  -4.0
+STAGE4_MIN =  -3.0   # Wait zone         : gap between -3% and -2%
+STAGE4_MAX =  -2.0
 
-RSI_OVERSOLD      =  40.0   # RSI below this = good setup (recovering from oversold)
-RSI_OVERBOUGHT    =  70.0   # RSI above this = avoid fresh entry
-VOLUME_SURGE_X    =   1.5   # volume > 1.5x 20-day avg = surge
-MOMENTUM_DAYS     =  20     # price change over 20 days for momentum
 
-
-# ── STATE ──────────────────────────────────────────────────────────────────
 def load_state():
     try:
         with open(STATE_FILE) as f:
@@ -103,14 +95,12 @@ def save_state(state):
     with open(STATE_FILE, "w") as f:
         json.dump(state, f, indent=2)
 
-
-# ── TELEGRAM ───────────────────────────────────────────────────────────────
 def send_telegram(message):
     url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
     payload = {
-        "chat_id": TELEGRAM_CHAT_ID,
-        "text": message,
-        "parse_mode": "HTML",
+        "chat_id":                  TELEGRAM_CHAT_ID,
+        "text":                     message,
+        "parse_mode":               "HTML",
         "disable_web_page_preview": True,
     }
     try:
@@ -120,176 +110,121 @@ def send_telegram(message):
     except Exception as e:
         log.error(f"  Telegram: FAILED — {e}")
 
+def compute_rsi(close, period=14):
+    delta    = close.diff()
+    gain     = delta.clip(lower=0)
+    loss     = -delta.clip(upper=0)
+    avg_gain = gain.ewm(com=period - 1, min_periods=period).mean()
+    avg_loss = loss.ewm(com=period - 1, min_periods=period).mean()
+    rs       = avg_gain / avg_loss
+    return 100 - (100 / (1 + rs))
 
-# ── INDICATORS ─────────────────────────────────────────────────────────────
-def compute_rsi(close_series, period=14):
-    """Wilder's RSI — standard implementation matching TradingView"""
-    delta = close_series.diff()
-    gain  = delta.clip(lower=0)
-    loss  = -delta.clip(upper=0)
-
-    # First average (simple)
-    avg_gain = gain.iloc[:period+1].mean()
-    avg_loss = loss.iloc[:period+1].mean()
-
-    gains = [avg_gain]
-    losses = [avg_loss]
-
-    for i in range(period+1, len(close_series)):
-        gains.append((gains[-1] * (period - 1) + gain.iloc[i]) / period)
-        losses.append((losses[-1] * (period - 1) + loss.iloc[i]) / period)
-
-    if losses[-1] == 0:
-        return 100.0
-    rs  = gains[-1] / losses[-1]
-    rsi = 100 - (100 / (1 + rs))
-    return round(rsi, 2)
-
-
-def compute_volume_ratio(volume_series):
-    """Today's volume vs 20-day average"""
-    if len(volume_series) < 21:
-        return None
-    avg_vol   = float(volume_series.iloc[-21:-1].mean())
-    today_vol = float(volume_series.iloc[-1])
-    if avg_vol == 0:
-        return None
-    return round(today_vol / avg_vol, 2)
-
-
-def compute_momentum(close_series, days=20):
-    """% price change over last N days"""
-    if len(close_series) < days + 1:
-        return None
-    price_now  = float(close_series.iloc[-1])
-    price_then = float(close_series.iloc[-(days+1)])
-    if price_then == 0:
-        return None
-    return round((price_now - price_then) / price_then * 100, 2)
-
-
-def compute_score(gap, rsi, vol_ratio, momentum):
-    """
-    Composite buy score 0-100.
-    Higher = better setup.
-    """
-    score = 0
-
-    # ── DMA Gap stage (max 40 pts) ──────────────────────
-    if gap is not None:
-        if BUY_MIN <= gap <= BUY_MAX:
-            score += 40       # best stage
-        elif PREPARE_MIN <= gap <= PREPARE_MAX:
-            score += 25
-        elif WATCH_THRESHOLD <= gap < PREPARE_MIN:
-            score += 10
-
-    # ── RSI sweet spot (max 25 pts) ─────────────────────
-    # Best: RSI 30-50 (recovering from oversold)
-    # Good: RSI 50-60 (momentum building)
-    # Avoid: RSI > 70 (overbought)
-    if rsi is not None:
-        if 30 <= rsi <= 50:
-            score += 25
-        elif 50 < rsi <= 60:
-            score += 15
-        elif rsi < 30:
-            score += 10       # extremely oversold — may be falling knife
-        elif 60 < rsi <= 70:
-            score += 5
-        # RSI > 70: 0 pts
-
-    # ── Volume surge (max 20 pts) ───────────────────────
-    if vol_ratio is not None:
-        if vol_ratio >= 2.0:
-            score += 20
-        elif vol_ratio >= VOLUME_SURGE_X:
-            score += 12
-        elif vol_ratio >= 1.2:
-            score += 5
-
-    # ── Momentum (max 15 pts) ───────────────────────────
-    if momentum is not None:
-        if 0 < momentum <= 5:
-            score += 15       # gentle positive momentum — ideal
-        elif 5 < momentum <= 15:
-            score += 10
-        elif momentum > 15:
-            score += 5        # may have run too fast
-        elif -5 <= momentum < 0:
-            score += 3        # slight pullback — ok
-        # momentum < -5: 0 pts
-
-    return score
-
-
-def score_label(score):
-    if score >= 80:
-        return "🔥 EXCEPTIONAL"
-    elif score >= 65:
-        return "⭐ STRONG"
-    elif score >= 50:
-        return "✅ GOOD"
-    elif score >= 35:
-        return "🟡 MODERATE"
+def rsi_label(rsi):
+    """Human readable RSI status."""
+    if rsi < 30:
+        return f"🟢 {rsi:.1f} — Oversold (best zone)"
+    elif rsi < 45:
+        return f"🟢 {rsi:.1f} — Recovery zone (good)"
+    elif rsi < 55:
+        return f"🟡 {rsi:.1f} — Neutral"
+    elif rsi < 70:
+        return f"🟠 {rsi:.1f} — Heating up (caution)"
     else:
-        return "👁 WEAK"
+        return f"🔴 {rsi:.1f} — Overbought (avoid)"
 
+def volume_label(vol_ratio):
+    """Human readable volume status."""
+    if vol_ratio >= 2.0:
+        return f"🟢 {vol_ratio:.1f}x avg — Strong smart money"
+    elif vol_ratio >= 1.3:
+        return f"🟢 {vol_ratio:.1f}x avg — Volume building"
+    elif vol_ratio >= 0.8:
+        return f"🟡 {vol_ratio:.1f}x avg — Average volume"
+    else:
+        return f"🔴 {vol_ratio:.1f}x avg — Low volume (weak)"
 
-# ── DATA FETCH ─────────────────────────────────────────────────────────────
-def fetch_data(symbol):
+def momentum_label(higher_lows, rsi_rising):
+    """Human readable momentum status."""
+    if higher_lows and rsi_rising:
+        return "🟢 Strong — Higher lows + RSI rising"
+    elif higher_lows:
+        return "🟡 Moderate — Higher lows forming"
+    elif rsi_rising:
+        return "🟡 Moderate — RSI recovering"
+    else:
+        return "🔴 Weak — No recovery pattern yet"
+
+def fetch_stock_data(symbol):
+    """
+    Fetch 1 year daily data.
+    Compute EMA 50, EMA 200, RSI, Volume, Momentum.
+    EMA matches AngelOne & TradingView exactly.
+    """
     try:
-        df = yf.download(symbol, period="1y", interval="1d",
-                         auto_adjust=True, progress=False)
+        df = yf.download(
+            symbol,
+            period="1y",
+            interval="1d",
+            auto_adjust=False,
+            progress=False,
+        )
 
-        if df.empty or len(df) < 210:
-            log.warning(f"  {symbol}: not enough data ({len(df)} rows)")
+        if df.empty or len(df) < 200:
+            log.warning(f"  {symbol}: insufficient data ({len(df)} rows)")
             return None
 
-        close  = df["Close"]
-        volume = df["Volume"]
+        # Use Adjusted Close for accurate price calculation
+        close  = df["Adj Close"].squeeze()
+        volume = df["Volume"].squeeze()
 
-        # Squeeze multi-index if needed
-        if hasattr(close, "squeeze"):
-            close  = close.squeeze()
-        if hasattr(volume, "squeeze"):
-            volume = volume.squeeze()
+        # ── EMA 50 & EMA 200 (matches TradingView / AngelOne) ────────────────
+        ema50_today  = float(close.ewm(span=50,  adjust=False).mean().iloc[-1])
+        ema200_today = float(close.ewm(span=200, adjust=False).mean().iloc[-1])
+        ema50_prev   = float(close.ewm(span=50,  adjust=False).mean().iloc[-2])
+        ema200_prev  = float(close.ewm(span=200, adjust=False).mean().iloc[-2])
 
-        # ── SMA (matches AngelOne / Screener / TradingView default) ──────
-        sma50_series  = close.rolling(window=50,  min_periods=50).mean()
-        sma200_series = close.rolling(window=200, min_periods=200).mean()
-
-        sma50_today  = float(sma50_series.iloc[-1])
-        sma200_today = float(sma200_series.iloc[-1])
-        sma50_prev   = float(sma50_series.iloc[-2])
-        sma200_prev  = float(sma200_series.iloc[-2])
-
-        if np.isnan(sma50_today) or np.isnan(sma200_today):
-            log.warning(f"  {symbol}: SMA has NaN — skipping")
+        if ema200_today == 0 or ema200_prev == 0:
             return None
 
-        if sma200_today == 0 or sma200_prev == 0:
-            return None
+        # Gap % — negative means 50EMA is below 200EMA (our target zone)
+        gap_today = round((ema50_today - ema200_today) / ema200_today * 100, 2)
+        gap_prev  = round((ema50_prev  - ema200_prev)  / ema200_prev  * 100, 2)
 
-        gap_today = round((sma50_today - sma200_today) / sma200_today * 100, 2)
-        gap_prev  = round((sma50_prev  - sma200_prev)  / sma200_prev  * 100, 2)
+        # ── RSI ───────────────────────────────────────────────────────────────
+        rsi_series = compute_rsi(close)
+        rsi_today  = round(float(rsi_series.iloc[-1]), 1)
+        rsi_3ago   = round(float(rsi_series.iloc[-3]), 1)
+        rsi_rising = rsi_today > rsi_3ago
 
-        # ── Additional indicators ─────────────────────────────────────────
-        rsi        = compute_rsi(close)
-        vol_ratio  = compute_volume_ratio(volume)
-        momentum   = compute_momentum(close, days=MOMENTUM_DAYS)
+        # ── Volume ────────────────────────────────────────────────────────────
+        vol_today      = float(volume.iloc[-1])
+        vol_avg20      = float(volume.rolling(20).mean().iloc[-1])
+        vol_ratio      = round(vol_today / vol_avg20, 2) if vol_avg20 > 0 else 0
+        vol_avg_recent = float(volume.iloc[-10:].mean())
+        vol_avg_older  = float(volume.iloc[-20:-10].mean())
+        vol_increasing = vol_avg_recent > vol_avg_older
+
+        # ── Momentum / Higher Lows ────────────────────────────────────────────
+        lows = []
+        for i in range(3):
+            start = -(i + 1) * 5
+            end   = -i * 5 if i > 0 else None
+            chunk = close.iloc[start:end] if end else close.iloc[start:]
+            lows.append(float(chunk.min()))
+        higher_lows = lows[0] > lows[1] > lows[2]
 
         return {
-            "symbol":    symbol,
-            "ticker":    symbol.replace(".NS", ""),
-            "price":     round(float(close.iloc[-1]), 2),
-            "sma50":     round(sma50_today, 2),
-            "sma200":    round(sma200_today, 2),
-            "gap_today": gap_today,
-            "gap_prev":  gap_prev,
-            "rsi":       rsi,
-            "vol_ratio": vol_ratio,
-            "momentum":  momentum,
+            "symbol":        symbol,
+            "price":         round(float(close.iloc[-1]), 2),
+            "ema50":         round(ema50_today, 2),
+            "ema200":        round(ema200_today, 2),
+            "gap_today":     gap_today,
+            "gap_prev":      gap_prev,
+            "rsi":           rsi_today,
+            "rsi_rising":    rsi_rising,
+            "vol_ratio":     vol_ratio,
+            "vol_increasing":vol_increasing,
+            "higher_lows":   higher_lows,
         }
 
     except Exception as e:
@@ -297,130 +232,161 @@ def fetch_data(symbol):
         return None
 
 
-# ── CLASSIFY ───────────────────────────────────────────────────────────────
-def classify_stock(data):
-    ticker    = data["ticker"]
-    gap       = data["gap_today"]
-    gap_p     = data["gap_prev"]
-    price     = data["price"]
-    d50       = data["sma50"]
-    d200      = data["sma200"]
-    rsi       = data["rsi"]
-    vol_ratio = data["vol_ratio"]
-    momentum  = data["momentum"]
+def classify_and_build_message(data):
+    """
+    Classify stock into correct stage.
+    Build clean unambiguous Telegram message.
+    Returns (stage_key, message) or (None, "")
+    """
+    symbol  = data["symbol"]
+    ticker  = symbol.replace(".NS", "")
+    gap     = data["gap_today"]
+    gap_p   = data["gap_prev"]
+    price   = data["price"]
+    e50     = data["ema50"]
+    e200    = data["ema200"]
+    rsi     = data["rsi"]
+    vol_r   = data["vol_ratio"]
 
-    closing = gap > gap_p   # gap moving towards 0 = recovering
+    gap_closing = gap > gap_p  # gap moving towards 0 = recovering
 
-    # ── RSI / Volume / Momentum display helpers ───────────────────────────
-    rsi_str    = f"{rsi:.1f}" if rsi is not None else "N/A"
-    vol_str    = f"{vol_ratio:.1f}x" if vol_ratio is not None else "N/A"
-    mom_str    = (f"+{momentum:.1f}%" if momentum and momentum > 0
-                  else f"{momentum:.1f}%" if momentum is not None else "N/A")
+    # ── Supporting indicator labels ───────────────────────────────────────────
+    rsi_line = rsi_label(rsi)
+    vol_line = volume_label(vol_r)
+    mom_line = momentum_label(data["higher_lows"], data["rsi_rising"])
 
-    rsi_flag   = ("🔥" if rsi and rsi < 30 else
-                  "✅" if rsi and rsi <= 50 else
-                  "🟡" if rsi and rsi <= 60 else
-                  "⚠️" if rsi and rsi <= 70 else "🔴")
-    vol_flag   = "🔊" if vol_ratio and vol_ratio >= VOLUME_SURGE_X else "🔈"
-    mom_flag   = "📈" if momentum and momentum > 0 else "📉"
+    indicators = (
+        f"📈 RSI      : {rsi_line}\n"
+        f"📦 Volume   : {vol_line}\n"
+        f"⚡ Momentum : {mom_line}"
+    )
 
-    score = compute_score(gap, rsi, vol_ratio, momentum)
-    label = score_label(score)
-
-    def indicator_block():
-        return (
-            f"━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"📊 Indicators\n"
-            f"{rsi_flag} RSI(14)   : {rsi_str}\n"
-            f"{vol_flag} Volume    : {vol_str} vs avg\n"
-            f"{mom_flag} Momentum  : {mom_str} (20d)\n"
-            f"━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"🎯 Score : {score}/100  {label}"
-        )
-
-    # ── GOLDEN CROSS ──────────────────────────────────────────────────────
+    # ── GOLDEN CROSS ──────────────────────────────────────────────────────────
+    # 50 EMA was below 200 EMA yesterday, crossed above today
     if gap_p < 0 and gap >= 0:
-        return "golden_cross", (
+        msg = (
             f"🌟 <b>GOLDEN CROSS — {ticker}</b>\n"
             f"━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"💰 Price   : ₹{price:,.2f}\n"
-            f"📊 50 SMA  : ₹{d50:,.2f}\n"
-            f"📉 200 SMA : ₹{d200:,.2f}\n"
+            f"💵 Price   : ₹{price:,.2f}\n"
+            f"📊 50 EMA  : ₹{e50:,.2f}\n"
+            f"📉 200 EMA : ₹{e200:,.2f}\n"
+            f"📐 Gap     : {gap:+.2f}% (was {gap_p:+.2f}%)\n"
             f"━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"🏁 50SMA just crossed ABOVE 200SMA\n"
-            f"{indicator_block()}\n"
-            f"💰 If you bought earlier → consider BOOKING PROFITS\n"
-            f"🚫 Do NOT buy fresh at this stage"
-        ), score
+            f"{indicators}\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━\n"
+            f"🏁 <b>50 EMA just crossed ABOVE 200 EMA</b>\n"
+            f"💰 If you accumulated earlier → BOOK PROFITS\n"
+            f"🚫 Do NOT buy fresh at this stage\n"
+            f"📌 Stock likely to run up — exit in parts"
+        )
+        return "golden_cross", msg
 
-    # Only track stocks where 50SMA is below 200SMA AND gap is closing
+    # ── Only track stocks where 50 EMA is BELOW 200 EMA ──────────────────────
     if gap >= 0:
-        return None, "", 0
+        return None, ""   # Already crossed — not our target
 
-    if not closing:
-        return None, "", 0
-
-    # ── BUY ZONE ──────────────────────────────────────────────────────────
-    if BUY_MIN <= gap <= BUY_MAX:
-        return "stage3", (
-            f"🟢 <b>BUY ZONE — {ticker}</b>\n"
+    # ── STAGE 4: WAIT ZONE (2-3% away) ───────────────────────────────────────
+    # Gap almost closed — stock is primed. Too late to buy safely.
+    if STAGE4_MIN <= gap <= STAGE4_MAX:
+        msg = (
+            f"⏳ <b>WAIT ZONE — {ticker}</b>\n"
             f"━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"💰 Price   : ₹{price:,.2f}\n"
-            f"📊 50 SMA  : ₹{d50:,.2f}\n"
-            f"📉 200 SMA : ₹{d200:,.2f}\n"
+            f"💵 Price   : ₹{price:,.2f}\n"
+            f"📊 50 EMA  : ₹{e50:,.2f}\n"
+            f"📉 200 EMA : ₹{e200:,.2f}\n"
+            f"📐 Gap     : {gap:.2f}%  ↗ Almost closed\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━\n"
+            f"{indicators}\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━\n"
+            f"⚠️ <b>Only 2-3% from Golden Cross</b>\n"
+            f"🚫 Do NOT buy fresh — risk/reward unfavourable\n"
+            f"✅ If already holding → stay invested\n"
+            f"👁 Golden Cross expected very soon"
+        )
+        return "stage4", msg
+
+    # ── STAGE 3: AGGRESSIVE ACCUMULATION (4-6% away) ─────────────────────────
+    if STAGE3_MIN <= gap <= STAGE3_MAX and gap_closing:
+        msg = (
+            f"🔥 <b>AGGRESSIVE ACCUMULATION — {ticker}</b>\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━\n"
+            f"💵 Price   : ₹{price:,.2f}\n"
+            f"📊 50 EMA  : ₹{e50:,.2f}\n"
+            f"📉 200 EMA : ₹{e200:,.2f}\n"
             f"📐 Gap     : {gap:.2f}%  ↗ Closing fast\n"
-            f"{indicator_block()}\n"
-            f"✅ 50SMA only {abs(gap):.1f}% below 200SMA\n"
-            f"🔔 Golden Cross expected soon — HIGH PRIORITY BUY"
-        ), score
-
-    # ── PREPARE ───────────────────────────────────────────────────────────
-    if PREPARE_MIN <= gap <= PREPARE_MAX:
-        return "stage2", (
-            f"🟡 <b>PREPARE — {ticker}</b>\n"
             f"━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"💰 Price   : ₹{price:,.2f}\n"
-            f"📊 50 SMA  : ₹{d50:,.2f}\n"
-            f"📉 200 SMA : ₹{d200:,.2f}\n"
+            f"{indicators}\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━\n"
+            f"💎 <b>4-6% from Golden Cross</b>\n"
+            f"✅ Strong buy zone — add aggressively\n"
+            f"📌 Golden Cross likely in 2-4 weeks\n"
+            f"💡 Risk is low, reward is high at this stage"
+        )
+        return "stage3", msg
+
+    # ── STAGE 2: ACCUMULATE (8-10% away) ─────────────────────────────────────
+    if STAGE2_MIN <= gap <= STAGE2_MAX and gap_closing:
+        msg = (
+            f"🟡 <b>ACCUMULATE — {ticker}</b>\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━\n"
+            f"💵 Price   : ₹{price:,.2f}\n"
+            f"📊 50 EMA  : ₹{e50:,.2f}\n"
+            f"📉 200 EMA : ₹{e200:,.2f}\n"
             f"📐 Gap     : {gap:.2f}%  ↗ Closing\n"
-            f"{indicator_block()}\n"
-            f"⚡ Gap narrowing steadily\n"
-            f"🔔 Watch closely — BUY ZONE alert coming soon"
-        ), score
-
-    # ── WATCH ─────────────────────────────────────────────────────────────
-    if gap <= WATCH_THRESHOLD:
-        return "stage1", (
-            f"👁 <b>WATCH — {ticker}</b>\n"
             f"━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"💰 Price   : ₹{price:,.2f}\n"
-            f"📊 50 SMA  : ₹{d50:,.2f}\n"
-            f"📉 200 SMA : ₹{d200:,.2f}\n"
+            f"{indicators}\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━\n"
+            f"📈 <b>8-10% from Golden Cross</b>\n"
+            f"✅ Start building position in parts\n"
+            f"📌 Buy 30-40% of planned amount now\n"
+            f"💡 Average down if price dips further"
+        )
+        return "stage2", msg
+
+    # ── STAGE 1: WATCHLIST (12-14% away) ─────────────────────────────────────
+    if STAGE1_MIN <= gap <= STAGE1_MAX and gap_closing:
+        msg = (
+            f"👁 <b>WATCHLIST — {ticker}</b>\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━\n"
+            f"💵 Price   : ₹{price:,.2f}\n"
+            f"📊 50 EMA  : ₹{e50:,.2f}\n"
+            f"📉 200 EMA : ₹{e200:,.2f}\n"
             f"📐 Gap     : {gap:.2f}%  ↗ Starting to close\n"
-            f"{indicator_block()}\n"
-            f"📌 50SMA is recovering but gap still large\n"
-            f"🔔 Too early to buy — keep watching"
-        ), score
+            f"━━━━━━━━━━━━━━━━━━━━━━\n"
+            f"{indicators}\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━\n"
+            f"📋 <b>12-14% from Golden Cross</b>\n"
+            f"⏳ Too early to buy — keep on radar\n"
+            f"📌 Alert when gap closes to 8-10%\n"
+            f"💡 Research the stock fundamentals now"
+        )
+        return "stage1", msg
 
-    return None, "", 0
+    return None, ""
 
 
-# ── MAIN RUNNER ────────────────────────────────────────────────────────────
 def run_scanner():
     log.info("=" * 55)
-    log.info("  DMA SCANNER v2.0 STARTING  (SMA + RSI + Vol + Mom)")
+    log.info("  VISH_SCAN — FINAL VERSION STARTING")
     log.info("=" * 55)
 
     saved_state = load_state()
     new_state   = {}
-    # Store (message, score) tuples per stage
-    alerts = {"golden_cross": [], "stage3": [], "stage2": [], "stage1": []}
+
+    alerts = {
+        "golden_cross": [],
+        "stage4":       [],
+        "stage3":       [],
+        "stage2":       [],
+        "stage1":       [],
+    }
+
     scanned = 0
     skipped = 0
 
     for symbol in WATCHLIST:
         log.info(f"Scanning {symbol}...")
-        data = fetch_data(symbol)
+        data = fetch_stock_data(symbol)
 
         if data is None:
             skipped += 1
@@ -428,19 +394,13 @@ def run_scanner():
             continue
 
         scanned += 1
-        new_state[symbol] = {
-            "gap_pct":  data["gap_today"],
-            "rsi":      data["rsi"],
-            "momentum": data["momentum"],
-        }
+        new_state[symbol] = {"gap_pct": data["gap_today"]}
 
-        stage_key, message, score = classify_stock(data)
+        stage_key, message = classify_and_build_message(data)
 
         if stage_key:
-            alerts[stage_key].append((score, message))
-            log.info(f"  ALERT → {stage_key}  gap={data['gap_today']}%  "
-                     f"RSI={data['rsi']}  vol={data['vol_ratio']}x  "
-                     f"score={score}/100")
+            alerts[stage_key].append(message)
+            log.info(f"  ALERT → {stage_key}  gap={data['gap_today']}%")
         else:
             log.info(f"  No alert  gap={data['gap_today']}%")
 
@@ -448,44 +408,45 @@ def run_scanner():
 
     save_state(new_state)
 
-    # Sort each stage by score descending (best opportunities first)
-    for stage in alerts:
-        alerts[stage].sort(key=lambda x: x[0], reverse=True)
-
     total_alerts = sum(len(v) for v in alerts.values())
     now = datetime.now().strftime("%d %b %Y, %I:%M %p")
 
+    # ── No alerts today ───────────────────────────────────────────────────────
     if total_alerts == 0:
         send_telegram(
-            f"📋 <b>DMA Scanner v2.0 — {now}</b>\n"
+            f"📋 <b>VISH_SCAN Report — {now}</b>\n"
             f"━━━━━━━━━━━━━━━━━━━━━━\n"
             f"✅ Scanned : {scanned} stocks\n"
             f"😴 No stocks in any alert zone today.\n"
-            f"🔁 Next scan in ~2 days."
+            f"🔁 Next scan in ~2 days.\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━\n"
+            f"💡 Patience is the edge. Wait for the right setup."
         )
         return
 
+    # ── Summary header ────────────────────────────────────────────────────────
     send_telegram(
-        f"📋 <b>DMA Scanner v2.0 — {now}</b>\n"
+        f"📋 <b>VISH_SCAN Report — {now}</b>\n"
         f"━━━━━━━━━━━━━━━━━━━━━━\n"
-        f"📦 Scanned : {scanned} stocks\n"
-        f"🚨 Alerts  : {total_alerts} triggered\n\n"
-        f"🌟 Golden Cross : {len(alerts['golden_cross'])} → Book profits\n"
-        f"🟢 Buy Zone     : {len(alerts['stage3'])} → Act now\n"
-        f"🟡 Prepare      : {len(alerts['stage2'])} → Get ready\n"
-        f"👁  Watch        : {len(alerts['stage1'])} → Too early\n"
+        f"📦 Scanned            : {scanned} stocks\n"
+        f"🚨 Total Alerts       : {total_alerts}\n\n"
+        f"🌟 Golden Cross       : {len(alerts['golden_cross'])}  → Book profits\n"
+        f"⏳ Wait Zone (2-3%)   : {len(alerts['stage4'])}  → Hold/exit\n"
+        f"🔥 Aggr. Accum (4-6%) : {len(alerts['stage3'])}  → Strong buy\n"
+        f"🟡 Accumulate (8-10%) : {len(alerts['stage2'])}  → Start buying\n"
+        f"👁  Watchlist (12-14%) : {len(alerts['stage1'])}  → Monitor only\n"
         f"━━━━━━━━━━━━━━━━━━━━━━\n"
-        f"📊 Scores = DMA(40) + RSI(25) + Vol(20) + Mom(15)\n"
-        f"↓ Best opportunities first ↓"
+        f"↓ Individual stock alerts below ↓"
     )
     time.sleep(1)
 
-    for stage in ["golden_cross", "stage3", "stage2", "stage1"]:
-        for score, msg in alerts[stage]:
+    # ── Individual alerts — best first ────────────────────────────────────────
+    for stage in ["golden_cross", "stage3", "stage2", "stage4", "stage1"]:
+        for msg in alerts[stage]:
             send_telegram(msg)
             time.sleep(0.8)
 
-    log.info(f"DONE — {total_alerts} alerts sent.")
+    log.info(f"DONE — {total_alerts} alerts sent to Telegram.")
     log.info("=" * 55)
 
 
