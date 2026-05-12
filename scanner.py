@@ -385,7 +385,9 @@ def run_scanner():
     save_state(new_state)
 
     total_alerts = sum(len(v) for v in alerts.values())
-    now = datetime.now().strftime("%d %b %Y, %I:%M %p")
+    from datetime import timezone, timedelta
+IST = timezone(timedelta(hours=5, minutes=30))
+now = datetime.now(IST).strftime("%d %b %Y, %I:%M %p IST")
 
     if total_alerts == 0:
         send_telegram(
