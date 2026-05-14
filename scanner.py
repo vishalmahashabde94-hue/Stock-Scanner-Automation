@@ -2,22 +2,6 @@
 =======================================================
   VISH_SCAN — INDIAN STOCK SCANNER
   Final Version — EMA based, matches AngelOne/TradingView
-
-  STRATEGY:
-  Track 50 EMA closing towards 200 EMA from below.
-  Buy quietly before the crowd discovers the stock.
-
-  STAGES (50 EMA below 200 EMA, gap closing):
-  Stage 1: 12-20% away → WATCHLIST
-  Stage 2: 8-12% away  → ACCUMULATE
-  Stage 3: 4-8% away   → AGGRESSIVE ACCUMULATION
-  Stage 4: 2-4% away   → WAIT, do not buy
-  Stage 5: Cross done  → GOLDEN CROSS, book profits
-
-  SUPPORTING INDICATORS:
-  RSI     — confirms oversold recovery
-  Volume  — confirms smart money entering
-  Momentum— confirms higher lows forming
 =======================================================
 """
 
@@ -28,7 +12,7 @@ import logging
 import requests
 import yfinance as yf
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s  %(message)s")
 log = logging.getLogger(__name__)
@@ -37,6 +21,8 @@ TELEGRAM_BOT_TOKEN = os.environ["BOT_TOKEN"]
 TELEGRAM_CHAT_ID   = os.environ["CHAT_ID"]
 
 STATE_FILE = "scanner_state.json"
+
+IST = timezone(timedelta(hours=5, minutes=30))
 
 WATCHLIST = [
     "HBLENGINE.NS",
@@ -72,14 +58,13 @@ WATCHLIST = [
     "HAVELLS.NS",
 ]
 
-# ── Stage thresholds ──────────────────────────────────────────────────────────
 STAGE1_MIN = -20.0
 STAGE1_MAX = -12.0
 STAGE2_MIN = -12.0
 STAGE2_MAX =  -8.0
 STAGE3_MIN =  -8.0
 STAGE3_MAX =  -4.0
-STAGE4_MIN =  -6.0
+STAGE4_MIN =  -4.0
 STAGE4_MAX =  -2.0
 
 
@@ -90,16 +75,18 @@ def load_state():
     except (FileNotFoundError, json.JSONDecodeError):
         return {}
 
+
 def save_state(state):
     with open(STATE_FILE, "w") as f:
         json.dump(state, f, indent=2)
 
+
 def send_telegram(message):
     url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
     payload = {
-        "chat_id":                  TELEGRAM_CHAT_ID,
-        "text":                     message,
-        "parse_mode":               "HTML",
+        "chat_id": TELEGRAM_CHAT_ID,
+        "text": message,
+        "parse_mode": "HTML",
         "disable_web_page_preview": True,
     }
     try:
@@ -109,14 +96,16 @@ def send_telegram(message):
     except Exception as e:
         log.error(f"  Telegram: FAILED — {e}")
 
+
 def compute_rsi(close, period=14):
-    delta    = close.diff()
-    gain     = delta.clip(lower=0)
-    loss     = -delta.clip(upper=0)
+    delta = close.diff()
+    gain = delta.clip(lower=0)
+    loss = -delta.clip(upper=0)
     avg_gain = gain.ewm(com=period - 1, min_periods=period).mean()
     avg_loss = loss.ewm(com=period - 1, min_periods=period).mean()
-    rs       = avg_gain / avg_loss
+    rs = avg_gain / avg_loss
     return 100 - (100 / (1 + rs))
+
 
 def rsi_label(rsi):
     if rsi < 30:
@@ -130,6 +119,7 @@ def rsi_label(rsi):
     else:
         return f"🔴 {rsi:.1f} — Overbought (avoid)"
 
+
 def volume_label(vol_ratio):
     if vol_ratio >= 2.0:
         return f"🟢 {vol_ratio:.1f}x avg — Strong smart money"
@@ -140,6 +130,7 @@ def volume_label(vol_ratio):
     else:
         return f"🔴 {vol_ratio:.1f}x avg — Low volume (weak)"
 
+
 def momentum_label(higher_lows, rsi_rising):
     if higher_lows and rsi_rising:
         return "🟢 Strong — Higher lows + RSI rising"
@@ -149,6 +140,7 @@ def momentum_label(higher_lows, rsi_rising):
         return "🟡 Moderate — RSI recovering"
     else:
         return "🔴 Weak — No recovery pattern yet"
+
 
 def fetch_stock_data(symbol):
     try:
@@ -164,52 +156,52 @@ def fetch_stock_data(symbol):
             log.warning(f"  {symbol}: insufficient data ({len(df)} rows)")
             return None
 
-        close  = df["Adj Close"].squeeze()
+        close = df["Adj Close"].squeeze()
         volume = df["Volume"].squeeze()
 
-        ema50_today  = float(close.ewm(span=50,  adjust=False).mean().iloc[-1])
+        ema50_today = float(close.ewm(span=50, adjust=False).mean().iloc[-1])
         ema200_today = float(close.ewm(span=200, adjust=False).mean().iloc[-1])
-        ema50_prev   = float(close.ewm(span=50,  adjust=False).mean().iloc[-2])
-        ema200_prev  = float(close.ewm(span=200, adjust=False).mean().iloc[-2])
+        ema50_prev = float(close.ewm(span=50, adjust=False).mean().iloc[-2])
+        ema200_prev = float(close.ewm(span=200, adjust=False).mean().iloc[-2])
 
         if ema200_today == 0 or ema200_prev == 0:
             return None
 
         gap_today = round((ema50_today - ema200_today) / ema200_today * 100, 2)
-        gap_prev  = round((ema50_prev  - ema200_prev)  / ema200_prev  * 100, 2)
+        gap_prev = round((ema50_prev - ema200_prev) / ema200_prev * 100, 2)
 
         rsi_series = compute_rsi(close)
-        rsi_today  = round(float(rsi_series.iloc[-1]), 1)
-        rsi_3ago   = round(float(rsi_series.iloc[-3]), 1)
+        rsi_today = round(float(rsi_series.iloc[-1]), 1)
+        rsi_3ago = round(float(rsi_series.iloc[-3]), 1)
         rsi_rising = rsi_today > rsi_3ago
 
-        vol_today      = float(volume.iloc[-1])
-        vol_avg20      = float(volume.rolling(20).mean().iloc[-1])
-        vol_ratio      = round(vol_today / vol_avg20, 2) if vol_avg20 > 0 else 0
+        vol_today = float(volume.iloc[-1])
+        vol_avg20 = float(volume.rolling(20).mean().iloc[-1])
+        vol_ratio = round(vol_today / vol_avg20, 2) if vol_avg20 > 0 else 0
         vol_avg_recent = float(volume.iloc[-10:].mean())
-        vol_avg_older  = float(volume.iloc[-20:-10].mean())
+        vol_avg_older = float(volume.iloc[-20:-10].mean())
         vol_increasing = vol_avg_recent > vol_avg_older
 
         lows = []
         for i in range(3):
             start = -(i + 1) * 5
-            end   = -i * 5 if i > 0 else None
+            end = -i * 5 if i > 0 else None
             chunk = close.iloc[start:end] if end else close.iloc[start:]
             lows.append(float(chunk.min()))
         higher_lows = lows[0] > lows[1] > lows[2]
 
         return {
-            "symbol":         symbol,
-            "price":          round(float(close.iloc[-1]), 2),
-            "ema50":          round(ema50_today, 2),
-            "ema200":         round(ema200_today, 2),
-            "gap_today":      gap_today,
-            "gap_prev":       gap_prev,
-            "rsi":            rsi_today,
-            "rsi_rising":     rsi_rising,
-            "vol_ratio":      vol_ratio,
+            "symbol": symbol,
+            "price": round(float(close.iloc[-1]), 2),
+            "ema50": round(ema50_today, 2),
+            "ema200": round(ema200_today, 2),
+            "gap_today": gap_today,
+            "gap_prev": gap_prev,
+            "rsi": rsi_today,
+            "rsi_rising": rsi_rising,
+            "vol_ratio": vol_ratio,
             "vol_increasing": vol_increasing,
-            "higher_lows":    higher_lows,
+            "higher_lows": higher_lows,
         }
 
     except Exception as e:
@@ -218,14 +210,14 @@ def fetch_stock_data(symbol):
 
 
 def classify_and_build_message(data):
-    ticker  = data["symbol"].replace(".NS", "")
-    gap     = data["gap_today"]
-    gap_p   = data["gap_prev"]
-    price   = data["price"]
-    e50     = data["ema50"]
-    e200    = data["ema200"]
-    rsi     = data["rsi"]
-    vol_r   = data["vol_ratio"]
+    ticker = data["symbol"].replace(".NS", "")
+    gap = data["gap_today"]
+    gap_p = data["gap_prev"]
+    price = data["price"]
+    e50 = data["ema50"]
+    e200 = data["ema200"]
+    rsi = data["rsi"]
+    vol_r = data["vol_ratio"]
 
     gap_closing = gap > gap_p
 
@@ -239,7 +231,6 @@ def classify_and_build_message(data):
         f"⚡ Momentum : {mom_line}"
     )
 
-    # Golden Cross
     if gap_p < 0 and gap >= 0:
         msg = (
             f"🌟 <b>GOLDEN CROSS — {ticker}</b>\n"
@@ -258,11 +249,9 @@ def classify_and_build_message(data):
         )
         return "golden_cross", msg
 
-    # Already crossed — skip
     if gap >= 0:
         return None, ""
 
-    # Stage 4 — Wait Zone
     if STAGE4_MIN <= gap <= STAGE4_MAX and gap_closing:
         msg = (
             f"⏳ <b>WAIT ZONE — {ticker}</b>\n"
@@ -281,7 +270,6 @@ def classify_and_build_message(data):
         )
         return "stage4", msg
 
-    # Stage 3 — Aggressive Accumulation
     if STAGE3_MIN <= gap <= STAGE3_MAX and gap_closing:
         msg = (
             f"🔥 <b>AGGRESSIVE ACCUMULATION — {ticker}</b>\n"
@@ -300,7 +288,6 @@ def classify_and_build_message(data):
         )
         return "stage3", msg
 
-    # Stage 2 — Accumulate
     if STAGE2_MIN <= gap <= STAGE2_MAX and gap_closing:
         msg = (
             f"🟡 <b>ACCUMULATE — {ticker}</b>\n"
@@ -319,7 +306,6 @@ def classify_and_build_message(data):
         )
         return "stage2", msg
 
-    # Stage 1 — Watchlist
     if STAGE1_MIN <= gap <= STAGE1_MAX and gap_closing:
         msg = (
             f"👁 <b>WATCHLIST — {ticker}</b>\n"
@@ -347,14 +333,14 @@ def run_scanner():
     log.info("=" * 55)
 
     saved_state = load_state()
-    new_state   = {}
+    new_state = {}
 
     alerts = {
         "golden_cross": [],
-        "stage4":       [],
-        "stage3":       [],
-        "stage2":       [],
-        "stage1":       [],
+        "stage4": [],
+        "stage3": [],
+        "stage2": [],
+        "stage1": [],
     }
 
     scanned = 0
@@ -371,7 +357,6 @@ def run_scanner():
 
         scanned += 1
         new_state[symbol] = {"gap_pct": data["gap_today"]}
-
         stage_key, message = classify_and_build_message(data)
 
         if stage_key:
@@ -385,9 +370,7 @@ def run_scanner():
     save_state(new_state)
 
     total_alerts = sum(len(v) for v in alerts.values())
-    from datetime import timezone, timedelta
-IST = timezone(timedelta(hours=5, minutes=30))
-now = datetime.now(IST).strftime("%d %b %Y, %I:%M %p IST")
+    now = datetime.now(IST).strftime("%d %b %Y, %I:%M %p IST")
 
     if total_alerts == 0:
         send_telegram(
@@ -395,7 +378,7 @@ now = datetime.now(IST).strftime("%d %b %Y, %I:%M %p IST")
             f"━━━━━━━━━━━━━━━━━━━━━━\n"
             f"✅ Scanned : {scanned} stocks\n"
             f"😴 No stocks in any alert zone today.\n"
-            f"🔁 Next scan in ~2 days.\n"
+            f"🔁 Next scan tomorrow.\n"
             f"━━━━━━━━━━━━━━━━━━━━━━\n"
             f"💡 Patience is the edge. Wait for the right setup."
         )
