@@ -2,7 +2,7 @@
 =======================================================
   VISH_SCAN — COMBINED SCANNER v4
   EMA Gap + Resistance Breakout + RSI + Volume
-  All 49 stocks — Final Version
+  61 stocks — Final Version
 =======================================================
 """
 
@@ -26,58 +26,99 @@ STATE_FILE = "scanner_state.json"
 IST = timezone(timedelta(hours=5, minutes=30))
 
 WATCHLIST = [
-    # ── Original 31 stocks ────────────────────────────────
-    "HBLENGINE.NS",
-    "PARASDYNE.NS",
-    "ZENTEC.NS",
-    "DATAPATTNS.NS",
-    "MAZDOCK.NS",
-    "M&M.NS",
-    "ASHOKLEY.NS",
-    "TVSMOTOR.NS",
-    "BANCOINDIA.NS",
-    "PRECWIRE.NS",
-    "BHARTIARTL.NS",
-    "SCHNEIDER.NS",
-    "MOTILALOFS.NS",
-    "ANGELONE.NS",
-    "BAJFINANCE.NS",
-    "AXISBANK.NS",
-    "BSE.NS",
-    "NSDL.NS",
-    "ADANIGREEN.NS",
-    "ADANIPOWER.NS",
-    "ADANIPORTS.NS",
-    "GOKULAGRO.NS",
-    "VBL.NS",
-    "LTFOODS.NS",
-    "DIXON.NS",
-    "LLOYDMETAL.NS",
-    "NATCOPHARM.NS",
-    "YATHARTH.NS",
-    "KIIMS.NS",
-    "NH.NS",
-    "HAVELLS.NS",
-
-    # ── New stocks added ──────────────────────────────────
-    "INFY.NS",           # Infosys
-    "WIPRO.NS",          # Wipro
-    "KAJARIACER.NS",     # Kajaria Ceramics
-    "PRICOLLTD.NS",      # Pricol
-    "RADICO.NS",         # Radico Khaitan
-    "ASTRAMICRO.NS",     # Astra Microwave
-    "POLYCAB.NS",        # Polycab India
-    "KEIIND.NS",         # KEI Industries
-    "RELIANCE.NS",       # Reliance Industries
-    "CCL.NS",            # CCL Products
-    "IDEAFORGE.NS",      # Ideaforge Technology
+    # ── Defence & Aerospace ───────────────────────────────
+    "HBLENGINE.NS",      # HBL Engineering
+    "PARASDYNE.NS",      # Paras Defence
+    "ZENTEC.NS",         # Zen Technologies
+    "DATAPATTNS.NS",     # Data Patterns
+    "MAZDOCK.NS",        # Mazagon Dock
     "HAL.NS",            # Hindustan Aeronautics
     "BEL.NS",            # Bharat Electronics
-    "AEGISLOG.NS",       # Aegis Logistics
-    "COALINDIA.NS",      # Coal India
-    "MOTHERSONSUM.NS",   # Motherson Sumi
+    "ASTRAMICRO.NS",     # Astra Microwave
+
+    # ── Auto & Auto Ancillary ─────────────────────────────
+    "M&M.NS",            # Mahindra & Mahindra
+    "ASHOKLEY.NS",       # Ashok Leyland
+    "TVSMOTOR.NS",       # TVS Motor
+    "BANCOINDIA.NS",     # Banco Products
+    "PRECWIRE.NS",       # Precision Wires
+    "MOTHERSON.NS",      # Samvardhana Motherson
+    "ENDURANCE.NS",      # Endurance Technologies
+    "TIINDIA.NS",        # Tube Investments of India
+    "BHARATFORG.NS",     # Bharat Forge
+
+    # ── Electricals & Power ───────────────────────────────
+    "HAVELLS.NS",        # Havells India
+    "POLYCAB.NS",        # Polycab India
+    "KEIIND.NS",         # KEI Industries
+    "SCHNEIDER.NS",      # Schneider Electric
+    "CGPOWER.NS",        # CG Power
+    "TRANSRAILL.NS",     # Transrail Lighting
+    "TRIL.NS",           # Transformer & Rectifier
+
+    # ── Engineering & Industrial ──────────────────────────
+    "TRITURBINE.NS",     # Triveni Turbine
+    "TDPOWERSYS.NS",     # TD Power Systems
+    "IONEXCHANG.NS",     # Ion Exchange India
+    "TITAGARH.NS",       # Titagarh Rail Systems
+
+    # ── Infrastructure & EPC ─────────────────────────────
+    "KPIL.NS",           # Kalpataru Projects
+    "JWL.NS",            # Jupiter Wagons
+
+    # ── Technology ───────────────────────────────────────
+    "INFY.NS",           # Infosys
+    "WIPRO.NS",          # Wipro
+    "DIXON.NS",          # Dixon Technologies
     "REDINGTON.NS",      # Redington India
-    "KIMS.NS",           # Krishna Institute of Medical Sciences
+
+    # ── Telecom ──────────────────────────────────────────
+    "BHARTIARTL.NS",     # Bharti Airtel
+
+    # ── Financial Services ────────────────────────────────
+    "MOTILALOFS.NS",     # Motilal Oswal
+    "ANGELONE.NS",       # Angel One
+    "BAJFINANCE.NS",     # Bajaj Finance
+    "AXISBANK.NS",       # Axis Bank
+    "BSE.NS",            # BSE Ltd
+    "NSDL.NS",           # NSDL
+
+    # ── Adani Group ───────────────────────────────────────
+    "ADANIGREEN.NS",     # Adani Green
+    "ADANIPOWER.NS",     # Adani Power
+    "ADANIPORTS.NS",     # Adani Ports
+
+    # ── Food & Beverages ──────────────────────────────────
+    "GOKULAGRO.NS",      # Gokul Agro
+    "VBL.NS",            # Varun Beverages
+    "LTFOODS.NS",        # LT Foods
+    "RADICO.NS",         # Radico Khaitan
+
+    # ── Metals & Mining ───────────────────────────────────
+    "LLOYDMETAL.NS",     # Lloyd Metals
+    "COALINDIA.NS",      # Coal India
+    "RELIANCE.NS",       # Reliance Industries
+
+    # ── Pharma ───────────────────────────────────────────
+    "NATCOPHARM.NS",     # Natco Pharma
+
+    # ── Healthcare ───────────────────────────────────────
+    "YATHARTH.NS",       # Yatharth Hospital
+    "KIIMS.NS",          # KIIMS
+    "KIMS.NS",           # Krishna Institute
+    "NH.NS",             # Narayana Hrudayalaya
+
+    # ── Ceramics & Building Materials ────────────────────
+    "KAJARIACER.NS",     # Kajaria Ceramics
+
+    # ── Logistics ────────────────────────────────────────
+    "AEGISLOG.NS",       # Aegis Logistics
+
+    # ── Others ───────────────────────────────────────────
+    "PRICOLLTD.NS",      # Pricol
+    "CCL.NS",            # CCL Products
+    "IDEAFORGE.NS",      # Ideaforge
+    "MOTHERSONSUM.NS",   # Motherson Sumi
 ]
 
 # EMA Stage thresholds
@@ -396,7 +437,7 @@ def classify_and_build_message(data):
 
     if has_ema_accumulate and has_confirmed_breakout:
         verdict = "🔥🔥 <b>HIGHEST CONVICTION BUY</b>"
-        advice  = "EMA recovery + Breakout confirmed + Volume. Rare setup. Act now."
+        advice  = "EMA recovery + Breakout + Volume. Rare setup. Act now."
         key     = "highest"
     elif has_confirmed_breakout and has_support:
         verdict = "🚀 <b>STRONG BREAKOUT + SUPPORT</b>"
@@ -428,7 +469,7 @@ def classify_and_build_message(data):
         key     = "support"
     elif "ema_stage4" in alerts_fired:
         verdict = "⏳ <b>WAIT ZONE</b>"
-        advice  = "2-4% from Golden Cross. Hold if invested. Avoid fresh buy."
+        advice  = "2-4% from Golden Cross. Hold if invested. No fresh buy."
         key     = "stage4"
     else:
         verdict = "👁 <b>WATCHLIST</b>"
@@ -518,7 +559,7 @@ def run_scanner():
         return
 
     send_telegram(
-        f"📋 <b>VISH_SCAN Combined Report — {now}</b>\n"
+        f"📋 <b>VISH_SCAN Report — {now}</b>\n"
         f"━━━━━━━━━━━━━━━━━━━━━━\n"
         f"📦 Scanned               : {scanned} stocks\n"
         f"🚨 Total Signals         : {total_alerts}\n\n"
