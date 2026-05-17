@@ -1,7 +1,8 @@
 """
 =======================================================
-  VISH_SCAN — INDIAN STOCK SCANNER
-  Final Version — EMA based, matches AngelOne/TradingView
+  VISH_SCAN — COMBINED SCANNER v4
+  EMA Gap + Resistance Breakout + RSI + Volume
+  All 49 stocks — Final Version
 =======================================================
 """
 
@@ -10,6 +11,7 @@ import json
 import time
 import logging
 import requests
+import numpy as np
 import yfinance as yf
 import pandas as pd
 from datetime import datetime, timezone, timedelta
@@ -21,10 +23,10 @@ TELEGRAM_BOT_TOKEN = os.environ["BOT_TOKEN"]
 TELEGRAM_CHAT_ID   = os.environ["CHAT_ID"]
 
 STATE_FILE = "scanner_state.json"
-
 IST = timezone(timedelta(hours=5, minutes=30))
 
 WATCHLIST = [
+    # ── Original 31 stocks ────────────────────────────────
     "HBLENGINE.NS",
     "PARASDYNE.NS",
     "ZENTEC.NS",
@@ -56,8 +58,29 @@ WATCHLIST = [
     "KIIMS.NS",
     "NH.NS",
     "HAVELLS.NS",
+
+    # ── New stocks added ──────────────────────────────────
+    "INFY.NS",           # Infosys
+    "WIPRO.NS",          # Wipro
+    "KAJARIACER.NS",     # Kajaria Ceramics
+    "PRICOLLTD.NS",      # Pricol
+    "RADICO.NS",         # Radico Khaitan
+    "ASTRAMICRO.NS",     # Astra Microwave
+    "POLYCAB.NS",        # Polycab India
+    "KEIIND.NS",         # KEI Industries
+    "RELIANCE.NS",       # Reliance Industries
+    "CCL.NS",            # CCL Products
+    "IDEAFORGE.NS",      # Ideaforge Technology
+    "HAL.NS",            # Hindustan Aeronautics
+    "BEL.NS",            # Bharat Electronics
+    "AEGISLOG.NS",       # Aegis Logistics
+    "COALINDIA.NS",      # Coal India
+    "MOTHERSONSUM.NS",   # Motherson Sumi
+    "REDINGTON.NS",      # Redington India
+    "KIMS.NS",           # Krishna Institute of Medical Sciences
 ]
 
+# EMA Stage thresholds
 STAGE1_MIN = -20.0
 STAGE1_MAX = -12.0
 STAGE2_MIN = -12.0
@@ -66,6 +89,12 @@ STAGE3_MIN =  -8.0
 STAGE3_MAX =  -4.0
 STAGE4_MIN =  -4.0
 STAGE4_MAX =  -2.0
+
+# Breakout thresholds
+BREAKOUT_3M_DAYS = 63
+BREAKOUT_6M_DAYS = 126
+VOLUME_CONFIRM   = 1.5
+SUPPORT_ZONE     = 0.02
 
 
 def load_state():
@@ -98,12 +127,12 @@ def send_telegram(message):
 
 
 def compute_rsi(close, period=14):
-    delta = close.diff()
-    gain = delta.clip(lower=0)
-    loss = -delta.clip(upper=0)
+    delta    = close.diff()
+    gain     = delta.clip(lower=0)
+    loss     = -delta.clip(upper=0)
     avg_gain = gain.ewm(com=period - 1, min_periods=period).mean()
     avg_loss = loss.ewm(com=period - 1, min_periods=period).mean()
-    rs = avg_gain / avg_loss
+    rs       = avg_gain / avg_loss
     return 100 - (100 / (1 + rs))
 
 
@@ -115,20 +144,20 @@ def rsi_label(rsi):
     elif rsi < 55:
         return f"🟡 {rsi:.1f} — Neutral"
     elif rsi < 70:
-        return f"🟠 {rsi:.1f} — Heating up (caution)"
+        return f"🟠 {rsi:.1f} — Heating up"
     else:
         return f"🔴 {rsi:.1f} — Overbought (avoid)"
 
 
 def volume_label(vol_ratio):
     if vol_ratio >= 2.0:
-        return f"🟢 {vol_ratio:.1f}x avg — Strong smart money"
-    elif vol_ratio >= 1.3:
-        return f"🟢 {vol_ratio:.1f}x avg — Volume building"
+        return f"🟢 {vol_ratio:.1f}x — Strong smart money"
+    elif vol_ratio >= 1.5:
+        return f"🟢 {vol_ratio:.1f}x — Volume building"
     elif vol_ratio >= 0.8:
-        return f"🟡 {vol_ratio:.1f}x avg — Average volume"
+        return f"🟡 {vol_ratio:.1f}x — Average volume"
     else:
-        return f"🔴 {vol_ratio:.1f}x avg — Low volume (weak)"
+        return f"🔴 {vol_ratio:.1f}x — Low volume (weak)"
 
 
 def momentum_label(higher_lows, rsi_rising):
@@ -140,6 +169,14 @@ def momentum_label(higher_lows, rsi_rising):
         return "🟡 Moderate — RSI recovering"
     else:
         return "🔴 Weak — No recovery pattern yet"
+
+
+def detect_trendline(prices):
+    x = np.arange(len(prices))
+    y = np.array(prices)
+    slope, intercept = np.polyfit(x, y, 1)
+    current_trendline = slope * (len(prices) - 1) + intercept
+    return slope, current_trendline
 
 
 def fetch_stock_data(symbol):
@@ -156,52 +193,91 @@ def fetch_stock_data(symbol):
             log.warning(f"  {symbol}: insufficient data ({len(df)} rows)")
             return None
 
-        close = df["Adj Close"].squeeze()
+        close  = df["Adj Close"].squeeze()
+        high   = df["High"].squeeze()
+        low    = df["Low"].squeeze()
         volume = df["Volume"].squeeze()
 
-        ema50_today = float(close.ewm(span=50, adjust=False).mean().iloc[-1])
+        ema50_today  = float(close.ewm(span=50,  adjust=False).mean().iloc[-1])
         ema200_today = float(close.ewm(span=200, adjust=False).mean().iloc[-1])
-        ema50_prev = float(close.ewm(span=50, adjust=False).mean().iloc[-2])
-        ema200_prev = float(close.ewm(span=200, adjust=False).mean().iloc[-2])
+        ema50_prev   = float(close.ewm(span=50,  adjust=False).mean().iloc[-2])
+        ema200_prev  = float(close.ewm(span=200, adjust=False).mean().iloc[-2])
 
         if ema200_today == 0 or ema200_prev == 0:
             return None
 
         gap_today = round((ema50_today - ema200_today) / ema200_today * 100, 2)
-        gap_prev = round((ema50_prev - ema200_prev) / ema200_prev * 100, 2)
+        gap_prev  = round((ema50_prev  - ema200_prev)  / ema200_prev  * 100, 2)
 
         rsi_series = compute_rsi(close)
-        rsi_today = round(float(rsi_series.iloc[-1]), 1)
-        rsi_3ago = round(float(rsi_series.iloc[-3]), 1)
+        rsi_today  = round(float(rsi_series.iloc[-1]), 1)
+        rsi_3ago   = round(float(rsi_series.iloc[-3]), 1)
         rsi_rising = rsi_today > rsi_3ago
 
-        vol_today = float(volume.iloc[-1])
-        vol_avg20 = float(volume.rolling(20).mean().iloc[-1])
-        vol_ratio = round(vol_today / vol_avg20, 2) if vol_avg20 > 0 else 0
+        vol_today      = float(volume.iloc[-1])
+        vol_avg20      = float(volume.rolling(20).mean().iloc[-1])
+        vol_ratio      = round(vol_today / vol_avg20, 2) if vol_avg20 > 0 else 0
         vol_avg_recent = float(volume.iloc[-10:].mean())
-        vol_avg_older = float(volume.iloc[-20:-10].mean())
+        vol_avg_older  = float(volume.iloc[-20:-10].mean())
         vol_increasing = vol_avg_recent > vol_avg_older
 
         lows = []
         for i in range(3):
             start = -(i + 1) * 5
-            end = -i * 5 if i > 0 else None
+            end   = -i * 5 if i > 0 else None
             chunk = close.iloc[start:end] if end else close.iloc[start:]
             lows.append(float(chunk.min()))
         higher_lows = lows[0] > lows[1] > lows[2]
 
+        price_today = float(close.iloc[-1])
+        price_prev  = float(close.iloc[-2])
+
+        high_3m = float(high.iloc[-BREAKOUT_3M_DAYS:-1].max())
+        high_6m = float(high.iloc[-BREAKOUT_6M_DAYS:-1].max())
+
+        breakout_3m = price_today > high_3m and price_prev <= high_3m
+        breakout_6m = price_today > high_6m and price_prev <= high_6m
+
+        breakout_3m_confirmed = breakout_3m and vol_ratio >= VOLUME_CONFIRM
+        breakout_6m_confirmed = breakout_6m and vol_ratio >= VOLUME_CONFIRM
+
+        recent_lows = low.iloc[-BREAKOUT_3M_DAYS:].values
+        slope, trendline_support = detect_trendline(recent_lows)
+
+        near_support = (
+            slope > 0 and
+            abs(price_today - trendline_support) / trendline_support <= SUPPORT_ZONE
+        )
+
+        recent_highs = high.iloc[-BREAKOUT_3M_DAYS:].values
+        _, trendline_resistance = detect_trendline(recent_highs)
+        trendline_breakout = (
+            price_today > trendline_resistance and
+            price_prev <= trendline_resistance and
+            vol_ratio >= VOLUME_CONFIRM
+        )
+
         return {
-            "symbol": symbol,
-            "price": round(float(close.iloc[-1]), 2),
-            "ema50": round(ema50_today, 2),
-            "ema200": round(ema200_today, 2),
-            "gap_today": gap_today,
-            "gap_prev": gap_prev,
-            "rsi": rsi_today,
-            "rsi_rising": rsi_rising,
-            "vol_ratio": vol_ratio,
-            "vol_increasing": vol_increasing,
-            "higher_lows": higher_lows,
+            "symbol":                symbol,
+            "price":                 round(price_today, 2),
+            "ema50":                 round(ema50_today, 2),
+            "ema200":                round(ema200_today, 2),
+            "gap_today":             gap_today,
+            "gap_prev":              gap_prev,
+            "rsi":                   rsi_today,
+            "rsi_rising":            rsi_rising,
+            "vol_ratio":             vol_ratio,
+            "vol_increasing":        vol_increasing,
+            "higher_lows":           higher_lows,
+            "high_3m":               round(high_3m, 2),
+            "high_6m":               round(high_6m, 2),
+            "breakout_3m":           breakout_3m,
+            "breakout_6m":           breakout_6m,
+            "breakout_3m_confirmed": breakout_3m_confirmed,
+            "breakout_6m_confirmed": breakout_6m_confirmed,
+            "near_support":          near_support,
+            "trendline_support":     round(trendline_support, 2),
+            "trendline_breakout":    trendline_breakout,
         }
 
     except Exception as e:
@@ -211,13 +287,13 @@ def fetch_stock_data(symbol):
 
 def classify_and_build_message(data):
     ticker = data["symbol"].replace(".NS", "")
-    gap = data["gap_today"]
-    gap_p = data["gap_prev"]
-    price = data["price"]
-    e50 = data["ema50"]
-    e200 = data["ema200"]
-    rsi = data["rsi"]
-    vol_r = data["vol_ratio"]
+    gap    = data["gap_today"]
+    gap_p  = data["gap_prev"]
+    price  = data["price"]
+    e50    = data["ema50"]
+    e200   = data["ema200"]
+    rsi    = data["rsi"]
+    vol_r  = data["vol_ratio"]
 
     gap_closing = gap > gap_p
 
@@ -231,6 +307,8 @@ def classify_and_build_message(data):
         f"⚡ Momentum : {mom_line}"
     )
 
+    alerts_fired = []
+
     if gap_p < 0 and gap >= 0:
         msg = (
             f"🌟 <b>GOLDEN CROSS — {ticker}</b>\n"
@@ -238,109 +316,163 @@ def classify_and_build_message(data):
             f"💵 Price   : ₹{price:,.2f}\n"
             f"📊 50 EMA  : ₹{e50:,.2f}\n"
             f"📉 200 EMA : ₹{e200:,.2f}\n"
-            f"📐 Gap     : {gap:+.2f}% (was {gap_p:+.2f}%)\n"
+            f"📐 Gap     : {gap:+.2f}%\n"
             f"━━━━━━━━━━━━━━━━━━━━━━\n"
             f"{indicators}\n"
             f"━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"🏁 <b>50 EMA just crossed ABOVE 200 EMA</b>\n"
-            f"💰 If you accumulated earlier → BOOK PROFITS\n"
-            f"🚫 Do NOT buy fresh at this stage\n"
-            f"📌 Stock likely to run up — exit in parts"
+            f"🏁 <b>50 EMA crossed ABOVE 200 EMA</b>\n"
+            f"💰 Book profits if already holding\n"
+            f"🚫 Do NOT buy fresh at this stage"
         )
         return "golden_cross", msg
 
     if gap >= 0:
+        pass
+    else:
+        if STAGE4_MIN <= gap <= STAGE4_MAX and gap_closing:
+            alerts_fired.append("ema_stage4")
+        elif STAGE3_MIN <= gap <= STAGE3_MAX and gap_closing:
+            alerts_fired.append("ema_stage3")
+        elif STAGE2_MIN <= gap <= STAGE2_MAX and gap_closing:
+            alerts_fired.append("ema_stage2")
+        elif STAGE1_MIN <= gap <= STAGE1_MAX and gap_closing:
+            alerts_fired.append("ema_stage1")
+
+    if data["breakout_6m_confirmed"]:
+        alerts_fired.append("breakout_6m")
+    elif data["breakout_3m_confirmed"]:
+        alerts_fired.append("breakout_3m")
+    elif data["breakout_6m"]:
+        alerts_fired.append("breakout_6m_weak")
+    elif data["breakout_3m"]:
+        alerts_fired.append("breakout_3m_weak")
+
+    if data["trendline_breakout"]:
+        alerts_fired.append("trendline_breakout")
+    elif data["near_support"]:
+        alerts_fired.append("trendline_support")
+
+    if not alerts_fired:
         return None, ""
 
-    if STAGE4_MIN <= gap <= STAGE4_MAX and gap_closing:
-        msg = (
-            f"⏳ <b>WAIT ZONE — {ticker}</b>\n"
-            f"━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"💵 Price   : ₹{price:,.2f}\n"
-            f"📊 50 EMA  : ₹{e50:,.2f}\n"
-            f"📉 200 EMA : ₹{e200:,.2f}\n"
-            f"📐 Gap     : {gap:.2f}%  ↗ Almost closed\n"
-            f"━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"{indicators}\n"
-            f"━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"⚠️ <b>Only 2-4% from Golden Cross</b>\n"
-            f"🚫 Do NOT buy fresh — risk/reward unfavourable\n"
-            f"✅ If already holding → stay invested\n"
-            f"👁 Golden Cross expected very soon"
-        )
-        return "stage4", msg
+    has_ema_accumulate = any(x in alerts_fired for x in
+                             ["ema_stage2", "ema_stage3"])
+    has_confirmed_breakout = any(x in alerts_fired for x in
+                                 ["breakout_6m", "breakout_3m",
+                                  "trendline_breakout"])
+    has_support = "trendline_support" in alerts_fired
 
-    if STAGE3_MIN <= gap <= STAGE3_MAX and gap_closing:
-        msg = (
-            f"🔥 <b>AGGRESSIVE ACCUMULATION — {ticker}</b>\n"
-            f"━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"💵 Price   : ₹{price:,.2f}\n"
-            f"📊 50 EMA  : ₹{e50:,.2f}\n"
-            f"📉 200 EMA : ₹{e200:,.2f}\n"
-            f"📐 Gap     : {gap:.2f}%  ↗ Closing fast\n"
-            f"━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"{indicators}\n"
-            f"━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"💎 <b>4-8% from Golden Cross</b>\n"
-            f"✅ Strong buy zone — add aggressively\n"
-            f"📌 Golden Cross likely in 2-4 weeks\n"
-            f"💡 Risk is low, reward is high at this stage"
-        )
-        return "stage3", msg
+    signal_lines = []
 
-    if STAGE2_MIN <= gap <= STAGE2_MAX and gap_closing:
-        msg = (
-            f"🟡 <b>ACCUMULATE — {ticker}</b>\n"
-            f"━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"💵 Price   : ₹{price:,.2f}\n"
-            f"📊 50 EMA  : ₹{e50:,.2f}\n"
-            f"📉 200 EMA : ₹{e200:,.2f}\n"
-            f"📐 Gap     : {gap:.2f}%  ↗ Closing\n"
-            f"━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"{indicators}\n"
-            f"━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"📈 <b>8-12% from Golden Cross</b>\n"
-            f"✅ Start building position in parts\n"
-            f"📌 Buy 30-40% of planned amount now\n"
-            f"💡 Average down if price dips further"
-        )
-        return "stage2", msg
+    if "ema_stage4" in alerts_fired:
+        signal_lines.append("⏳ EMA: Wait Zone (2-4% from cross)")
+    elif "ema_stage3" in alerts_fired:
+        signal_lines.append("🔥 EMA: Aggressive Accum (4-8% from cross)")
+    elif "ema_stage2" in alerts_fired:
+        signal_lines.append("🟡 EMA: Accumulate (8-12% from cross)")
+    elif "ema_stage1" in alerts_fired:
+        signal_lines.append("👁 EMA: Watchlist (12-20% from cross)")
 
-    if STAGE1_MIN <= gap <= STAGE1_MAX and gap_closing:
-        msg = (
-            f"👁 <b>WATCHLIST — {ticker}</b>\n"
-            f"━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"💵 Price   : ₹{price:,.2f}\n"
-            f"📊 50 EMA  : ₹{e50:,.2f}\n"
-            f"📉 200 EMA : ₹{e200:,.2f}\n"
-            f"📐 Gap     : {gap:.2f}%  ↗ Starting to close\n"
-            f"━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"{indicators}\n"
-            f"━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"📋 <b>12-20% from Golden Cross</b>\n"
-            f"⏳ Too early to buy — keep on radar\n"
-            f"📌 Alert when gap closes to 8-12%\n"
-            f"💡 Research the stock fundamentals now"
-        )
-        return "stage1", msg
+    if "breakout_6m" in alerts_fired:
+        signal_lines.append(
+            f"🚀 6M Breakout: ₹{data['high_6m']:,.2f} broken ✅ Volume confirmed")
+    elif "breakout_3m" in alerts_fired:
+        signal_lines.append(
+            f"📈 3M Breakout: ₹{data['high_3m']:,.2f} broken ✅ Volume confirmed")
+    elif "breakout_6m_weak" in alerts_fired:
+        signal_lines.append(
+            f"⚠️ 6M Breakout: ₹{data['high_6m']:,.2f} broken ⚠️ Low volume")
+    elif "breakout_3m_weak" in alerts_fired:
+        signal_lines.append(
+            f"⚠️ 3M Breakout: ₹{data['high_3m']:,.2f} broken ⚠️ Low volume")
 
-    return None, ""
+    if "trendline_breakout" in alerts_fired:
+        signal_lines.append("🚀 Trendline: Resistance broken ✅ Volume confirmed")
+    elif "trendline_support" in alerts_fired:
+        signal_lines.append(
+            f"🛡 Trendline: Support at ₹{data['trendline_support']:,.2f}")
+
+    signal_text = "\n".join(signal_lines)
+
+    if has_ema_accumulate and has_confirmed_breakout:
+        verdict = "🔥🔥 <b>HIGHEST CONVICTION BUY</b>"
+        advice  = "EMA recovery + Breakout confirmed + Volume. Rare setup. Act now."
+        key     = "highest"
+    elif has_confirmed_breakout and has_support:
+        verdict = "🚀 <b>STRONG BREAKOUT + SUPPORT</b>"
+        advice  = "Breakout with trendline support. Strong risk/reward."
+        key     = "strong_breakout"
+    elif has_confirmed_breakout:
+        verdict = "📈 <b>CONFIRMED BREAKOUT</b>"
+        advice  = "Volume confirmed breakout. Good momentum entry."
+        key     = "breakout"
+    elif has_ema_accumulate and has_support:
+        verdict = "💎 <b>ACCUMULATE + SUPPORT</b>"
+        advice  = "EMA recovery zone + trendline support. Low risk entry."
+        key     = "accumulate_support"
+    elif "ema_stage3" in alerts_fired:
+        verdict = "🔥 <b>AGGRESSIVE ACCUMULATION</b>"
+        advice  = "4-8% from Golden Cross. Strong buy zone."
+        key     = "stage3"
+    elif "ema_stage2" in alerts_fired:
+        verdict = "🟡 <b>ACCUMULATE</b>"
+        advice  = "8-12% from Golden Cross. Start building position."
+        key     = "stage2"
+    elif "trendline_breakout" in alerts_fired:
+        verdict = "🚀 <b>TRENDLINE BREAKOUT</b>"
+        advice  = "Resistance trendline broken with volume. Good entry."
+        key     = "trendline_breakout"
+    elif "trendline_support" in alerts_fired:
+        verdict = "🛡 <b>TRENDLINE SUPPORT</b>"
+        advice  = "Stock at support. Good risk/reward for entry."
+        key     = "support"
+    elif "ema_stage4" in alerts_fired:
+        verdict = "⏳ <b>WAIT ZONE</b>"
+        advice  = "2-4% from Golden Cross. Hold if invested. Avoid fresh buy."
+        key     = "stage4"
+    else:
+        verdict = "👁 <b>WATCHLIST</b>"
+        advice  = "Early signals. Keep on radar."
+        key     = "stage1"
+
+    msg = (
+        f"{verdict} — <b>{ticker}</b>\n"
+        f"━━━━━━━━━━━━━━━━━━━━━━\n"
+        f"💵 Price   : ₹{price:,.2f}\n"
+        f"📊 50 EMA  : ₹{e50:,.2f}\n"
+        f"📉 200 EMA : ₹{e200:,.2f}\n"
+        f"📐 EMA Gap : {gap:.2f}%\n"
+        f"━━━━━━━━━━━━━━━━━━━━━━\n"
+        f"<b>Signals Detected:</b>\n"
+        f"{signal_text}\n"
+        f"━━━━━━━━━━━━━━━━━━━━━━\n"
+        f"{indicators}\n"
+        f"━━━━━━━━━━━━━━━━━━━━━━\n"
+        f"💡 {advice}"
+    )
+    return key, msg
 
 
 def run_scanner():
     log.info("=" * 55)
-    log.info("  VISH_SCAN — STARTING")
+    log.info("  VISH_SCAN COMBINED — STARTING")
     log.info("=" * 55)
 
     saved_state = load_state()
-    new_state = {}
+    new_state   = {}
 
     alerts = {
-        "golden_cross": [],
-        "stage4": [],
-        "stage3": [],
-        "stage2": [],
-        "stage1": [],
+        "golden_cross":       [],
+        "highest":            [],
+        "strong_breakout":    [],
+        "breakout":           [],
+        "accumulate_support": [],
+        "stage3":             [],
+        "stage2":             [],
+        "trendline_breakout": [],
+        "support":            [],
+        "stage4":             [],
+        "stage1":             [],
     }
 
     scanned = 0
@@ -357,11 +489,12 @@ def run_scanner():
 
         scanned += 1
         new_state[symbol] = {"gap_pct": data["gap_today"]}
-        stage_key, message = classify_and_build_message(data)
+        key, message = classify_and_build_message(data)
 
-        if stage_key:
-            alerts[stage_key].append(message)
-            log.info(f"  ALERT → {stage_key}  gap={data['gap_today']}%")
+        if key:
+            if key in alerts:
+                alerts[key].append(message)
+            log.info(f"  ALERT → {key}  gap={data['gap_today']}%")
         else:
             log.info(f"  No alert  gap={data['gap_today']}%")
 
@@ -377,34 +510,54 @@ def run_scanner():
             f"📋 <b>VISH_SCAN Report — {now}</b>\n"
             f"━━━━━━━━━━━━━━━━━━━━━━\n"
             f"✅ Scanned : {scanned} stocks\n"
-            f"😴 No stocks in any alert zone today.\n"
+            f"😴 No signals today.\n"
             f"🔁 Next scan tomorrow.\n"
             f"━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"💡 Patience is the edge. Wait for the right setup."
+            f"💡 Patience is the edge."
         )
         return
 
     send_telegram(
-        f"📋 <b>VISH_SCAN Report — {now}</b>\n"
+        f"📋 <b>VISH_SCAN Combined Report — {now}</b>\n"
         f"━━━━━━━━━━━━━━━━━━━━━━\n"
-        f"📦 Scanned             : {scanned} stocks\n"
-        f"🚨 Total Alerts        : {total_alerts}\n\n"
-        f"🌟 Golden Cross        : {len(alerts['golden_cross'])}  → Book profits\n"
-        f"⏳ Wait Zone  (2-4%)   : {len(alerts['stage4'])}  → Hold only\n"
-        f"🔥 Aggr. Accum (4-8%)  : {len(alerts['stage3'])}  → Strong buy\n"
-        f"🟡 Accumulate (8-12%)  : {len(alerts['stage2'])}  → Start buying\n"
-        f"👁  Watchlist (12-20%)  : {len(alerts['stage1'])}  → Monitor only\n"
+        f"📦 Scanned               : {scanned} stocks\n"
+        f"🚨 Total Signals         : {total_alerts}\n\n"
+        f"🌟 Golden Cross          : {len(alerts['golden_cross'])}\n"
+        f"🔥🔥 Highest Conviction  : {len(alerts['highest'])}\n"
+        f"🚀 Strong Breakout       : {len(alerts['strong_breakout'])}\n"
+        f"📈 Confirmed Breakout    : {len(alerts['breakout'])}\n"
+        f"💎 Accumulate + Support  : {len(alerts['accumulate_support'])}\n"
+        f"🔥 Aggr. Accumulation    : {len(alerts['stage3'])}\n"
+        f"🟡 Accumulate            : {len(alerts['stage2'])}\n"
+        f"🚀 Trendline Breakout    : {len(alerts['trendline_breakout'])}\n"
+        f"🛡 Trendline Support     : {len(alerts['support'])}\n"
+        f"⏳ Wait Zone             : {len(alerts['stage4'])}\n"
+        f"👁  Watchlist             : {len(alerts['stage1'])}\n"
         f"━━━━━━━━━━━━━━━━━━━━━━\n"
-        f"↓ Individual stock alerts below ↓"
+        f"↓ Best signals first ↓"
     )
     time.sleep(1)
 
-    for stage in ["golden_cross", "stage3", "stage2", "stage4", "stage1"]:
-        for msg in alerts[stage]:
+    priority = [
+        "golden_cross",
+        "highest",
+        "strong_breakout",
+        "breakout",
+        "accumulate_support",
+        "stage3",
+        "trendline_breakout",
+        "stage2",
+        "support",
+        "stage4",
+        "stage1",
+    ]
+
+    for key in priority:
+        for msg in alerts[key]:
             send_telegram(msg)
             time.sleep(0.8)
 
-    log.info(f"DONE — {total_alerts} alerts sent to Telegram.")
+    log.info(f"DONE — {total_alerts} signals sent.")
     log.info("=" * 55)
 
 
