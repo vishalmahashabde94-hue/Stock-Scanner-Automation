@@ -557,27 +557,14 @@ def run_scanner():
             f"💡 Patience is the edge."
         )
         return
-
-    send_telegram(
-        f"📋 <b>VISH_SCAN Report — {now}</b>\n"
-        f"━━━━━━━━━━━━━━━━━━━━━━\n"
-        f"📦 Scanned               : {scanned} stocks\n"
-        f"🚨 Total Signals         : {total_alerts}\n\n"
-        f"🌟 Golden Cross          : {len(alerts['golden_cross'])}\n"
-        f"🔥🔥 Highest Conviction  : {len(alerts['highest'])}\n"
-        f"🚀 Strong Breakout       : {len(alerts['strong_breakout'])}\n"
-        f"📈 Confirmed Breakout    : {len(alerts['breakout'])}\n"
-        f"💎 Accumulate + Support  : {len(alerts['accumulate_support'])}\n"
-        f"🔥 Aggr. Accumulation    : {len(alerts['stage3'])}\n"
-        f"🟡 Accumulate            : {len(alerts['stage2'])}\n"
-        f"🚀 Trendline Breakout    : {len(alerts['trendline_breakout'])}\n"
-        f"🛡 Trendline Support     : {len(alerts['support'])}\n"
-        f"⏳ Wait Zone             : {len(alerts['stage4'])}\n"
-        f"👁  Watchlist             : {len(alerts['stage1'])}\n"
-        f"━━━━━━━━━━━━━━━━━━━━━━\n"
-        f"↓ Best signals first ↓"
-    )
-    time.sleep(1)
+    
+       # Build one single combined message
+    lines = []
+    lines.append(f"📋 <b>VISH_SCAN — {now}</b>")
+    lines.append(f"━━━━━━━━━━━━━━━━━━━━━━")
+    lines.append(f"📦 Scanned : {scanned} stocks")
+    lines.append(f"🚨 Alerts  : {total_alerts}")
+    lines.append(f"━━━━━━━━━━━━━━━━━━━━━━")
 
     priority = [
         "golden_cross",
@@ -593,14 +580,48 @@ def run_scanner():
         "stage1",
     ]
 
+    labels = {
+        "golden_cross":       "🌟 GOLDEN CROSS",
+        "highest":            "🔥🔥 HIGHEST CONVICTION",
+        "strong_breakout":    "🚀 STRONG BREAKOUT",
+        "breakout":           "📈 BREAKOUT",
+        "accumulate_support": "💎 ACCUM + SUPPORT",
+        "stage3":             "🔥 AGGR. ACCUMULATION",
+        "trendline_breakout": "🚀 TRENDLINE BREAKOUT",
+        "stage2":             "🟡 ACCUMULATE",
+        "support":            "🛡 SUPPORT",
+        "stage4":             "⏳ WAIT ZONE",
+        "stage1":             "👁 WATCHLIST",
+    }
+
     for key in priority:
         for msg in alerts[key]:
-            send_telegram(msg)
-            time.sleep(0.8)
+            lines_msg = msg.split("\n")
+            ticker_line = lines_msg[0]
+            price_line  = [l for l in lines_msg if "Price" in l]
+            gap_line    = [l for l in lines_msg if "Gap" in l]
+            rsi_line    = [l for l in lines_msg if "RSI" in l]
+            vol_line    = [l for l in lines_msg if "Volume" in l]
 
-    log.info(f"DONE — {total_alerts} signals sent.")
+            ticker = ticker_line.split("—")[-1].strip().replace("</b>","").replace("<b>","")
+            price  = price_line[0].strip() if price_line else ""
+            gap    = gap_line[0].strip()   if gap_line   else ""
+            rsi    = rsi_line[0].strip()   if rsi_line   else ""
+            vol    = vol_line[0].strip()   if vol_line   else ""
+
+            lines.append(f"\n{labels.get(key, key)} — <b>{ticker}</b>")
+            lines.append(price)
+            lines.append(gap)
+            lines.append(rsi)
+            lines.append(vol)
+
+    lines.append(f"\n━━━━━━━━━━━━━━━━━━━━━━")
+    lines.append(f"⚠️ Not SEBI advice. Personal use only.")
+
+    send_telegram("\n".join(lines))
+    log.info(f"DONE — {total_alerts} alerts sent.")
     log.info("=" * 55)
 
 
 if __name__ == "__main__":
-    run_scanner()
+    run_scanner() 
