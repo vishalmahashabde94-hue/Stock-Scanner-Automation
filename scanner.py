@@ -1,8 +1,12 @@
 """
 =======================================================
-  VISH_SCAN — COMBINED SCANNER v4
-  EMA Gap + Resistance Breakout + RSI + Volume
-  61 stocks — Final Version
+  VISH_SCAN — COMBINED SCANNER v5
+  Data Source: Angel One SmartAPI
+  Accurate NSE prices matching your Angel One app
+  
+  8:00 AM IST  Monday to Friday
+  4:00 PM IST  Monday to Friday
+  No weekends
 =======================================================
 """
 
@@ -12,114 +16,93 @@ import time
 import logging
 import requests
 import numpy as np
-import yfinance as yf
 import pandas as pd
 from datetime import datetime, timezone, timedelta
+from SmartApi import SmartConnect
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s  %(message)s")
 log = logging.getLogger(__name__)
 
 TELEGRAM_BOT_TOKEN = os.environ["BOT_TOKEN"]
 TELEGRAM_CHAT_ID   = os.environ["CHAT_ID"]
+ANGEL_API_KEY      = os.environ["ANGEL_API_KEY"]
+ANGEL_CLIENT_ID    = os.environ["ANGEL_CLIENT_ID"]
+ANGEL_PASSWORD     = os.environ["ANGEL_PASSWORD"]
+ANGEL_MPIN         = os.environ["ANGEL_MPIN"]
 
 STATE_FILE = "scanner_state.json"
 IST = timezone(timedelta(hours=5, minutes=30))
 
-WATCHLIST = [
-    # ── Defence & Aerospace ───────────────────────────────
-    "HBLENGINE.NS",      # HBL Engineering
-    "PARASDYNE.NS",      # Paras Defence
-    "ZENTEC.NS",         # Zen Technologies
-    "DATAPATTNS.NS",     # Data Patterns
-    "MAZDOCK.NS",        # Mazagon Dock
-    "HAL.NS",            # Hindustan Aeronautics
-    "BEL.NS",            # Bharat Electronics
-    "ASTRAMICRO.NS",     # Astra Microwave
-
-    # ── Auto & Auto Ancillary ─────────────────────────────
-    "M&M.NS",            # Mahindra & Mahindra
-    "ASHOKLEY.NS",       # Ashok Leyland
-    "TVSMOTOR.NS",       # TVS Motor
-    "BANCOINDIA.NS",     # Banco Products
-    "PRECWIRE.NS",       # Precision Wires
-    "MOTHERSON.NS",      # Samvardhana Motherson
-    "ENDURANCE.NS",      # Endurance Technologies
-    "TIINDIA.NS",        # Tube Investments of India
-    "BHARATFORG.NS",     # Bharat Forge
-
-    # ── Electricals & Power ───────────────────────────────
-    "HAVELLS.NS",        # Havells India
-    "POLYCAB.NS",        # Polycab India
-    "KEIIND.NS",         # KEI Industries
-    "SCHNEIDER.NS",      # Schneider Electric
-    "CGPOWER.NS",        # CG Power
-    "TRANSRAILL.NS",     # Transrail Lighting
-    "TRIL.NS",           # Transformer & Rectifier
-
-    # ── Engineering & Industrial ──────────────────────────
-    "TRITURBINE.NS",     # Triveni Turbine
-    "TDPOWERSYS.NS",     # TD Power Systems
-    "IONEXCHANG.NS",     # Ion Exchange India
-    "TITAGARH.NS",       # Titagarh Rail Systems
-
-    # ── Infrastructure & EPC ─────────────────────────────
-    "KPIL.NS",           # Kalpataru Projects
-    "JWL.NS",            # Jupiter Wagons
-
-    # ── Technology ───────────────────────────────────────
-    "INFY.NS",           # Infosys
-    "WIPRO.NS",          # Wipro
-    "DIXON.NS",          # Dixon Technologies
-    "REDINGTON.NS",      # Redington India
-
-    # ── Telecom ──────────────────────────────────────────
-    "BHARTIARTL.NS",     # Bharti Airtel
-
-    # ── Financial Services ────────────────────────────────
-    "MOTILALOFS.NS",     # Motilal Oswal
-    "ANGELONE.NS",       # Angel One
-    "BAJFINANCE.NS",     # Bajaj Finance
-    "AXISBANK.NS",       # Axis Bank
-    "BSE.NS",            # BSE Ltd
-    "NSDL.NS",           # NSDL
-
-    # ── Adani Group ───────────────────────────────────────
-    "ADANIGREEN.NS",     # Adani Green
-    "ADANIPOWER.NS",     # Adani Power
-    "ADANIPORTS.NS",     # Adani Ports
-
-    # ── Food & Beverages ──────────────────────────────────
-    "GOKULAGRO.NS",      # Gokul Agro
-    "VBL.NS",            # Varun Beverages
-    "LTFOODS.NS",        # LT Foods
-    "RADICO.NS",         # Radico Khaitan
-
-    # ── Metals & Mining ───────────────────────────────────
-    "LLOYDMETAL.NS",     # Lloyd Metals
-    "COALINDIA.NS",      # Coal India
-    "RELIANCE.NS",       # Reliance Industries
-
-    # ── Pharma ───────────────────────────────────────────
-    "NATCOPHARM.NS",     # Natco Pharma
-
-    # ── Healthcare ───────────────────────────────────────
-    "YATHARTH.NS",       # Yatharth Hospital
-    "KIIMS.NS",          # KIIMS
-    "KIMS.NS",           # Krishna Institute
-    "NH.NS",             # Narayana Hrudayalaya
-
-    # ── Ceramics & Building Materials ────────────────────
-    "KAJARIACER.NS",     # Kajaria Ceramics
-
-    # ── Logistics ────────────────────────────────────────
-    "AEGISLOG.NS",       # Aegis Logistics
-
-    # ── Others ───────────────────────────────────────────
-    "PRICOLLTD.NS",      # Pricol
-    "CCL.NS",            # CCL Products
-    "IDEAFORGE.NS",      # Ideaforge
-    "MOTHERSONSUM.NS",   # Motherson Sumi
-]
+# ── Angel One Symbol Tokens ───────────────────────────
+# Each stock needs a token number for Angel One API
+# Format: "SYMBOL": "TOKEN"
+STOCK_TOKENS = {
+    "HBLENGINE":   "19812",
+    "PARASDYNE":   "15083",
+    "ZENTEC":      "21794",
+    "DATAPATTNS":  "19733",
+    "MAZDOCK":     "15144",
+    "M&M":         "519",
+    "ASHOKLEY":    "212",
+    "TVSMOTOR":    "2170",
+    "BANCOINDIA":  "16669",
+    "PRECWIRE":    "14495",
+    "BHARTIARTL":  "10604",
+    "SCHNEIDER":   "19105",
+    "MOTILALOFS":  "15141",
+    "ANGELONE":    "19000",
+    "BAJFINANCE":  "317",
+    "AXISBANK":    "1363",
+    "BSE":         "543272",
+    "NSDL":        "544124",
+    "ADANIGREEN":  "6733",
+    "ADANIPOWER":  "533096",
+    "ADANIPORTS":  "15083",
+    "GOKULAGRO":   "12798",
+    "VBL":         "4343",
+    "LTFOODS":     "11789",
+    "DIXON":       "3441",
+    "LLOYDMETAL":  "3263",
+    "NATCOPHARM":  "13714",
+    "YATHARTH":    "543725",
+    "KIIMS":       "543280",
+    "KIMS":        "543280",
+    "NH":          "19234",
+    "HAVELLS":     "3604",
+    "INFY":        "1594",
+    "WIPRO":       "3787",
+    "KAJARIACER":  "11327",
+    "PRICOLLTD":   "21242",
+    "RADICO":      "12936",
+    "ASTRAMICRO":  "13597",
+    "POLYCAB":     "4717",
+    "KEIIND":      "3812",
+    "RELIANCE":    "2885",
+    "CCL":         "12071",
+    "IDEAFORGE":   "543932",
+    "HAL":         "2303",
+    "BEL":         "383",
+    "AEGISLOG":    "12592",
+    "COALINDIA":   "20374",
+    "MOTHERSON":   "4204",
+    "REDINGTON":   "3961",
+    "TRANSRAILL":  "544175",
+    "TRITURBINE":  "3374",
+    "TRIL":        "508989",
+    "IONEXCHANG":  "1524",
+    "TDPOWERSYS":  "19921",
+    "TITAGARH":    "3473",
+    "KPIL":        "19302",
+    "JWL":         "543566",
+    "WIPRO":       "3787",
+    "DIXON":       "3441",
+    "REDINGTON":   "3961",
+    "BHARATFORG":  "503",
+    "MOTHERSONSUM":"4204",
+    "ENDURANCE":   "19691",
+    "TIINDIA":     "3896",
+    "CGPOWER":     "534819",
+}
 
 # EMA Stage thresholds
 STAGE1_MIN = -20.0
@@ -131,7 +114,6 @@ STAGE3_MAX =  -4.0
 STAGE4_MIN =  -4.0
 STAGE4_MAX =  -2.0
 
-# Breakout thresholds
 BREAKOUT_3M_DAYS = 63
 BREAKOUT_6M_DAYS = 126
 VOLUME_CONFIRM   = 1.5
@@ -165,6 +147,69 @@ def send_telegram(message):
         log.info("  Telegram: sent")
     except Exception as e:
         log.error(f"  Telegram: FAILED — {e}")
+
+
+def login_angel():
+    """Login to Angel One SmartAPI using MPIN."""
+    try:
+        obj = SmartConnect(api_key=ANGEL_API_KEY)
+        data = obj.generateSession(
+            ANGEL_CLIENT_ID,
+            ANGEL_PASSWORD,
+            ANGEL_MPIN
+        )
+        if data["status"]:
+            log.info("Angel One login successful")
+            return obj
+        else:
+            log.error(f"Angel One login failed: {data}")
+            return None
+    except Exception as e:
+        log.error(f"Angel One login error: {e}")
+        return None
+
+
+def fetch_historical_data(obj, symbol, token):
+    """
+    Fetch 1 year of daily OHLCV data from Angel One.
+    Returns DataFrame or None.
+    """
+    try:
+        now_ist = datetime.now(IST)
+        to_date = now_ist.strftime("%Y-%m-%d %H:%M")
+        from_date = (now_ist - timedelta(days=365)).strftime("%Y-%m-%d %H:%M")
+
+        params = {
+            "exchange":    "NSE",
+            "symboltoken": token,
+            "interval":    "ONE_DAY",
+            "fromdate":    from_date,
+            "todate":      to_date,
+        }
+
+        response = obj.getCandleData(params)
+
+        if not response or not response.get("data"):
+            log.warning(f"  {symbol}: no data returned")
+            return None
+
+        df = pd.DataFrame(
+            response["data"],
+            columns=["timestamp", "open", "high", "low", "close", "volume"]
+        )
+
+        df["timestamp"] = pd.to_datetime(df["timestamp"])
+        df = df.sort_values("timestamp").reset_index(drop=True)
+
+        if len(df) < 200:
+            log.warning(f"  {symbol}: insufficient data ({len(df)} rows)")
+            return None
+
+        return df
+
+    except Exception as e:
+        log.error(f"  {symbol}: fetch error — {e}")
+        return None
 
 
 def compute_rsi(close, period=14):
@@ -216,29 +261,22 @@ def detect_trendline(prices):
     x = np.arange(len(prices))
     y = np.array(prices)
     slope, intercept = np.polyfit(x, y, 1)
-    current_trendline = slope * (len(prices) - 1) + intercept
-    return slope, current_trendline
+    current = slope * (len(prices) - 1) + intercept
+    return slope, current
 
 
-def fetch_stock_data(symbol):
+def process_stock(symbol, df):
+    """
+    Calculate all indicators from Angel One data.
+    Returns dict of all values or None.
+    """
     try:
-        df = yf.download(
-            symbol,
-            period="1y",
-            interval="1d",
-            auto_adjust=False,
-            progress=False,
-        )
+        close  = df["close"].astype(float)
+        high   = df["high"].astype(float)
+        low    = df["low"].astype(float)
+        volume = df["volume"].astype(float)
 
-        if df.empty or len(df) < 200:
-            log.warning(f"  {symbol}: insufficient data ({len(df)} rows)")
-            return None
-
-        close  = df["Adj Close"].squeeze()
-        high   = df["High"].squeeze()
-        low    = df["Low"].squeeze()
-        volume = df["Volume"].squeeze()
-
+        # ── EMA ──────────────────────────────────────────
         ema50_today  = float(close.ewm(span=50,  adjust=False).mean().iloc[-1])
         ema200_today = float(close.ewm(span=200, adjust=False).mean().iloc[-1])
         ema50_prev   = float(close.ewm(span=50,  adjust=False).mean().iloc[-2])
@@ -250,18 +288,20 @@ def fetch_stock_data(symbol):
         gap_today = round((ema50_today - ema200_today) / ema200_today * 100, 2)
         gap_prev  = round((ema50_prev  - ema200_prev)  / ema200_prev  * 100, 2)
 
+        # ── RSI ──────────────────────────────────────────
         rsi_series = compute_rsi(close)
         rsi_today  = round(float(rsi_series.iloc[-1]), 1)
         rsi_3ago   = round(float(rsi_series.iloc[-3]), 1)
         rsi_rising = rsi_today > rsi_3ago
 
+        # ── Volume ────────────────────────────────────────
         vol_today      = float(volume.iloc[-1])
         vol_avg20      = float(volume.rolling(20).mean().iloc[-1])
         vol_ratio      = round(vol_today / vol_avg20, 2) if vol_avg20 > 0 else 0
         vol_avg_recent = float(volume.iloc[-10:].mean())
         vol_avg_older  = float(volume.iloc[-20:-10].mean())
-        vol_increasing = vol_avg_recent > vol_avg_older
 
+        # ── Higher Lows ───────────────────────────────────
         lows = []
         for i in range(3):
             start = -(i + 1) * 5
@@ -270,9 +310,11 @@ def fetch_stock_data(symbol):
             lows.append(float(chunk.min()))
         higher_lows = lows[0] > lows[1] > lows[2]
 
+        # ── Price ─────────────────────────────────────────
         price_today = float(close.iloc[-1])
         price_prev  = float(close.iloc[-2])
 
+        # ── Breakout ──────────────────────────────────────
         high_3m = float(high.iloc[-BREAKOUT_3M_DAYS:-1].max())
         high_6m = float(high.iloc[-BREAKOUT_6M_DAYS:-1].max())
 
@@ -282,11 +324,13 @@ def fetch_stock_data(symbol):
         breakout_3m_confirmed = breakout_3m and vol_ratio >= VOLUME_CONFIRM
         breakout_6m_confirmed = breakout_6m and vol_ratio >= VOLUME_CONFIRM
 
+        # ── Trendline ─────────────────────────────────────
         recent_lows = low.iloc[-BREAKOUT_3M_DAYS:].values
         slope, trendline_support = detect_trendline(recent_lows)
 
         near_support = (
             slope > 0 and
+            gap_today < 0 and
             abs(price_today - trendline_support) / trendline_support <= SUPPORT_ZONE
         )
 
@@ -308,12 +352,9 @@ def fetch_stock_data(symbol):
             "rsi":                   rsi_today,
             "rsi_rising":            rsi_rising,
             "vol_ratio":             vol_ratio,
-            "vol_increasing":        vol_increasing,
             "higher_lows":           higher_lows,
             "high_3m":               round(high_3m, 2),
             "high_6m":               round(high_6m, 2),
-            "breakout_3m":           breakout_3m,
-            "breakout_6m":           breakout_6m,
             "breakout_3m_confirmed": breakout_3m_confirmed,
             "breakout_6m_confirmed": breakout_6m_confirmed,
             "near_support":          near_support,
@@ -322,12 +363,12 @@ def fetch_stock_data(symbol):
         }
 
     except Exception as e:
-        log.error(f"  {symbol}: error — {e}")
+        log.error(f"  {symbol}: processing error — {e}")
         return None
 
 
 def classify_and_build_message(data):
-    ticker = data["symbol"].replace(".NS", "")
+    ticker = data["symbol"]
     gap    = data["gap_today"]
     gap_p  = data["gap_prev"]
     price  = data["price"]
@@ -350,6 +391,7 @@ def classify_and_build_message(data):
 
     alerts_fired = []
 
+    # Golden Cross
     if gap_p < 0 and gap >= 0:
         msg = (
             f"🌟 <b>GOLDEN CROSS — {ticker}</b>\n"
@@ -367,27 +409,27 @@ def classify_and_build_message(data):
         )
         return "golden_cross", msg
 
+    # Skip stocks where 50 EMA already above 200 EMA
     if gap >= 0:
-        pass
-    else:
-        if STAGE4_MIN <= gap <= STAGE4_MAX and gap_closing:
-            alerts_fired.append("ema_stage4")
-        elif STAGE3_MIN <= gap <= STAGE3_MAX and gap_closing:
-            alerts_fired.append("ema_stage3")
-        elif STAGE2_MIN <= gap <= STAGE2_MAX and gap_closing:
-            alerts_fired.append("ema_stage2")
-        elif STAGE1_MIN <= gap <= STAGE1_MAX and gap_closing:
-            alerts_fired.append("ema_stage1")
+        return None, ""
 
+    # EMA stages
+    if STAGE4_MIN <= gap <= STAGE4_MAX and gap_closing:
+        alerts_fired.append("ema_stage4")
+    elif STAGE3_MIN <= gap <= STAGE3_MAX and gap_closing:
+        alerts_fired.append("ema_stage3")
+    elif STAGE2_MIN <= gap <= STAGE2_MAX and gap_closing:
+        alerts_fired.append("ema_stage2")
+    elif STAGE1_MIN <= gap <= STAGE1_MAX and gap_closing:
+        alerts_fired.append("ema_stage1")
+
+    # Breakouts
     if data["breakout_6m_confirmed"]:
         alerts_fired.append("breakout_6m")
     elif data["breakout_3m_confirmed"]:
         alerts_fired.append("breakout_3m")
-    elif data["breakout_6m"]:
-        alerts_fired.append("breakout_6m_weak")
-    elif data["breakout_3m"]:
-        alerts_fired.append("breakout_3m_weak")
 
+    # Trendline
     if data["trendline_breakout"]:
         alerts_fired.append("trendline_breakout")
     elif data["near_support"]:
@@ -396,12 +438,9 @@ def classify_and_build_message(data):
     if not alerts_fired:
         return None, ""
 
-    has_ema_accumulate = any(x in alerts_fired for x in
-                             ["ema_stage2", "ema_stage3"])
-    has_confirmed_breakout = any(x in alerts_fired for x in
-                                 ["breakout_6m", "breakout_3m",
-                                  "trendline_breakout"])
-    has_support = "trendline_support" in alerts_fired
+    has_ema_accumulate     = any(x in alerts_fired for x in ["ema_stage2", "ema_stage3"])
+    has_confirmed_breakout = any(x in alerts_fired for x in ["breakout_6m", "breakout_3m", "trendline_breakout"])
+    has_support            = "trendline_support" in alerts_fired
 
     signal_lines = []
 
@@ -415,23 +454,14 @@ def classify_and_build_message(data):
         signal_lines.append("👁 EMA: Watchlist (12-20% from cross)")
 
     if "breakout_6m" in alerts_fired:
-        signal_lines.append(
-            f"🚀 6M Breakout: ₹{data['high_6m']:,.2f} broken ✅ Volume confirmed")
+        signal_lines.append(f"🚀 6M Breakout: ₹{data['high_6m']:,.2f} broken ✅ Volume confirmed")
     elif "breakout_3m" in alerts_fired:
-        signal_lines.append(
-            f"📈 3M Breakout: ₹{data['high_3m']:,.2f} broken ✅ Volume confirmed")
-    elif "breakout_6m_weak" in alerts_fired:
-        signal_lines.append(
-            f"⚠️ 6M Breakout: ₹{data['high_6m']:,.2f} broken ⚠️ Low volume")
-    elif "breakout_3m_weak" in alerts_fired:
-        signal_lines.append(
-            f"⚠️ 3M Breakout: ₹{data['high_3m']:,.2f} broken ⚠️ Low volume")
+        signal_lines.append(f"📈 3M Breakout: ₹{data['high_3m']:,.2f} broken ✅ Volume confirmed")
 
     if "trendline_breakout" in alerts_fired:
         signal_lines.append("🚀 Trendline: Resistance broken ✅ Volume confirmed")
     elif "trendline_support" in alerts_fired:
-        signal_lines.append(
-            f"🛡 Trendline: Support at ₹{data['trendline_support']:,.2f}")
+        signal_lines.append(f"🛡 Trendline: Support at ₹{data['trendline_support']:,.2f}")
 
     signal_text = "\n".join(signal_lines)
 
@@ -484,7 +514,7 @@ def classify_and_build_message(data):
         f"📉 200 EMA : ₹{e200:,.2f}\n"
         f"📐 EMA Gap : {gap:.2f}%\n"
         f"━━━━━━━━━━━━━━━━━━━━━━\n"
-        f"<b>Signals Detected:</b>\n"
+        f"<b>Signals:</b>\n"
         f"{signal_text}\n"
         f"━━━━━━━━━━━━━━━━━━━━━━\n"
         f"{indicators}\n"
@@ -496,8 +526,18 @@ def classify_and_build_message(data):
 
 def run_scanner():
     log.info("=" * 55)
-    log.info("  VISH_SCAN COMBINED — STARTING")
+    log.info("  VISH_SCAN v5 — ANGEL ONE API — STARTING")
     log.info("=" * 55)
+
+    # Login to Angel One
+    obj = login_angel()
+    if obj is None:
+        send_telegram(
+            "❌ <b>VISH_SCAN Error</b>\n"
+            "Angel One login failed.\n"
+            "Please check credentials."
+        )
+        return
 
     saved_state = load_state()
     new_state   = {}
@@ -519,13 +559,20 @@ def run_scanner():
     scanned = 0
     skipped = 0
 
-    for symbol in WATCHLIST:
+    for symbol, token in STOCK_TOKENS.items():
         log.info(f"Scanning {symbol}...")
-        data = fetch_stock_data(symbol)
+
+        df = fetch_historical_data(obj, symbol, token)
+
+        if df is None:
+            skipped += 1
+            time.sleep(0.5)
+            continue
+
+        data = process_stock(symbol, df)
 
         if data is None:
             skipped += 1
-            time.sleep(1)
             continue
 
         scanned += 1
@@ -539,7 +586,7 @@ def run_scanner():
         else:
             log.info(f"  No alert  gap={data['gap_today']}%")
 
-        time.sleep(0.8)
+        time.sleep(0.3)
 
     save_state(new_state)
 
@@ -548,7 +595,7 @@ def run_scanner():
 
     if total_alerts == 0:
         send_telegram(
-            f"📋 <b>VISH_SCAN Report — {now}</b>\n"
+            f"📋 <b>VISH_SCAN — {now}</b>\n"
             f"━━━━━━━━━━━━━━━━━━━━━━\n"
             f"✅ Scanned : {scanned} stocks\n"
             f"😴 No signals today.\n"
@@ -557,8 +604,8 @@ def run_scanner():
             f"💡 Patience is the edge."
         )
         return
-    
-       # Build one single combined message
+
+    # Build single combined message
     lines = []
     lines.append(f"📋 <b>VISH_SCAN — {now}</b>")
     lines.append(f"━━━━━━━━━━━━━━━━━━━━━━")
@@ -567,17 +614,10 @@ def run_scanner():
     lines.append(f"━━━━━━━━━━━━━━━━━━━━━━")
 
     priority = [
-        "golden_cross",
-        "highest",
-        "strong_breakout",
-        "breakout",
-        "accumulate_support",
-        "stage3",
-        "trendline_breakout",
-        "stage2",
-        "support",
-        "stage4",
-        "stage1",
+        "golden_cross", "highest", "strong_breakout",
+        "breakout", "accumulate_support", "stage3",
+        "trendline_breakout", "stage2", "support",
+        "stage4", "stage1",
     ]
 
     labels = {
@@ -596,7 +636,7 @@ def run_scanner():
 
     for key in priority:
         for msg in alerts[key]:
-            lines_msg = msg.split("\n")
+            lines_msg   = msg.split("\n")
             ticker_line = lines_msg[0]
             price_line  = [l for l in lines_msg if "Price" in l]
             gap_line    = [l for l in lines_msg if "Gap" in l]
@@ -624,4 +664,4 @@ def run_scanner():
 
 
 if __name__ == "__main__":
-    run_scanner() 
+    run_scanner()
