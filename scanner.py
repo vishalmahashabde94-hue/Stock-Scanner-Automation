@@ -148,15 +148,31 @@ def send_telegram(message):
     except Exception as e:
         log.error(f"  Telegram: FAILED — {e}")
 
-
 def login_angel():
-    """Login to Angel One SmartAPI."""
+    """Login to Angel One SmartAPI with TOTP."""
     try:
+        import pyotp
+        totp_secret = os.environ["ANGEL_TOTP_SECRET"]
+        totp = pyotp.TOTP(totp_secret)
+        totp_code = totp.now()
+        log.info(f"TOTP generated: {totp_code}")
+
         obj = SmartConnect(api_key=ANGEL_API_KEY)
         data = obj.generateSession(
             ANGEL_CLIENT_ID,
             ANGEL_PASSWORD,
+            totp_code
         )
+        if data["status"]:
+            log.info("Angel One login successful")
+            return obj
+        else:
+            log.error(f"Login failed: {data}")
+            return None
+    except Exception as e:
+        log.error(f"Login error: {e}")
+        return None
+
         if data["status"]:
             log.info("Angel One login successful")
             return obj
