@@ -1,12 +1,9 @@
 """
 =======================================================
-  VISH_SCAN — COMBINED SCANNER v5
-  Data Source: Angel One SmartAPI
-  Accurate NSE prices matching your Angel One app
-  
-  8:00 AM IST  Monday to Friday
-  4:00 PM IST  Monday to Friday
-  No weekends
+  VISH_SCAN — COMBINED SCANNER v4 FINAL
+  Data: yfinance (NSE)
+  EMA + RSI + Volume + Breakout + Trendline
+  Trendline bug fixed — no false support alerts
 =======================================================
 """
 
@@ -16,95 +13,100 @@ import time
 import logging
 import requests
 import numpy as np
+import yfinance as yf
 import pandas as pd
 from datetime import datetime, timezone, timedelta
-from SmartApi import SmartConnect
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s  %(message)s")
 log = logging.getLogger(__name__)
 
 TELEGRAM_BOT_TOKEN = os.environ["BOT_TOKEN"]
 TELEGRAM_CHAT_ID   = os.environ["CHAT_ID"]
-ANGEL_API_KEY      = os.environ["ANGEL_API_KEY"]
-ANGEL_CLIENT_ID    = os.environ["ANGEL_CLIENT_ID"]
-ANGEL_PASSWORD     = os.environ["ANGEL_PASSWORD"]
-ANGEL_MPIN         = os.environ["ANGEL_MPIN"]
 
 STATE_FILE = "scanner_state.json"
 IST = timezone(timedelta(hours=5, minutes=30))
 
-# ── Angel One Symbol Tokens ───────────────────────────
-# Each stock needs a token number for Angel One API
-# Format: "SYMBOL": "TOKEN"
-STOCK_TOKENS = {
-    "HBLENGINE":   "19812",
-    "PARASDYNE":   "15083",
-    "ZENTEC":      "21794",
-    "DATAPATTNS":  "19733",
-    "MAZDOCK":     "15144",
-    "M&M":         "519",
-    "ASHOKLEY":    "212",
-    "TVSMOTOR":    "2170",
-    "BANCOINDIA":  "16669",
-    "PRECWIRE":    "14495",
-    "BHARTIARTL":  "10604",
-    "SCHNEIDER":   "19105",
-    "MOTILALOFS":  "15141",
-    "ANGELONE":    "19000",
-    "BAJFINANCE":  "317",
-    "AXISBANK":    "1363",
-    "BSE":         "543272",
-    "NSDL":        "544124",
-    "ADANIGREEN":  "6733",
-    "ADANIPOWER":  "533096",
-    "ADANIPORTS":  "15083",
-    "GOKULAGRO":   "12798",
-    "VBL":         "4343",
-    "LTFOODS":     "11789",
-    "DIXON":       "3441",
-    "LLOYDMETAL":  "3263",
-    "NATCOPHARM":  "13714",
-    "YATHARTH":    "543725",
-    "KIIMS":       "543280",
-    "KIMS":        "543280",
-    "NH":          "19234",
-    "HAVELLS":     "3604",
-    "INFY":        "1594",
-    "WIPRO":       "3787",
-    "KAJARIACER":  "11327",
-    "PRICOLLTD":   "21242",
-    "RADICO":      "12936",
-    "ASTRAMICRO":  "13597",
-    "POLYCAB":     "4717",
-    "KEIIND":      "3812",
-    "RELIANCE":    "2885",
-    "CCL":         "12071",
-    "IDEAFORGE":   "543932",
-    "HAL":         "2303",
-    "BEL":         "383",
-    "AEGISLOG":    "12592",
-    "COALINDIA":   "20374",
-    "MOTHERSON":   "4204",
-    "REDINGTON":   "3961",
-    "TRANSRAILL":  "544175",
-    "TRITURBINE":  "3374",
-    "TRIL":        "508989",
-    "IONEXCHANG":  "1524",
-    "TDPOWERSYS":  "19921",
-    "TITAGARH":    "3473",
-    "KPIL":        "19302",
-    "JWL":         "543566",
-    "WIPRO":       "3787",
-    "DIXON":       "3441",
-    "REDINGTON":   "3961",
-    "BHARATFORG":  "503",
-    "MOTHERSONSUM":"4204",
-    "ENDURANCE":   "19691",
-    "TIINDIA":     "3896",
-    "CGPOWER":     "534819",
-}
+WATCHLIST = [
+    # Defence & Aerospace
+    "HBLENGINE.NS",
+    "PARASDYNE.NS",
+    "ZENTEC.NS",
+    "DATAPATTNS.NS",
+    "MAZDOCK.NS",
+    "HAL.NS",
+    "BEL.NS",
+    "ASTRAMICRO.NS",
+    # Auto & Ancillary
+    "M&M.NS",
+    "ASHOKLEY.NS",
+    "TVSMOTOR.NS",
+    "BANCOINDIA.NS",
+    "PRECWIRE.NS",
+    "MOTHERSON.NS",
+    "ENDURANCE.NS",
+    "TIINDIA.NS",
+    "BHARATFORG.NS",
+    # Electricals & Power
+    "HAVELLS.NS",
+    "POLYCAB.NS",
+    "KEIIND.NS",
+    "SCHNEIDER.NS",
+    "CGPOWER.NS",
+    "TRANSRAILL.NS",
+    "TRIL.NS",
+    # Engineering & Industrial
+    "TRITURBINE.NS",
+    "TDPOWERSYS.NS",
+    "IONEXCHANG.NS",
+    "TITAGARH.NS",
+    # Infrastructure & EPC
+    "KPIL.NS",
+    "JWL.NS",
+    # Technology
+    "INFY.NS",
+    "WIPRO.NS",
+    "DIXON.NS",
+    "REDINGTON.NS",
+    # Telecom
+    "BHARTIARTL.NS",
+    # Financial Services
+    "MOTILALOFS.NS",
+    "ANGELONE.NS",
+    "BAJFINANCE.NS",
+    "AXISBANK.NS",
+    "BSE.NS",
+    "NSDL.NS",
+    # Adani Group
+    "ADANIGREEN.NS",
+    "ADANIPOWER.NS",
+    "ADANIPORTS.NS",
+    # Food & Beverages
+    "GOKULAGRO.NS",
+    "VBL.NS",
+    "LTFOODS.NS",
+    "RADICO.NS",
+    # Metals & Mining
+    "LLOYDMETAL.NS",
+    "COALINDIA.NS",
+    "RELIANCE.NS",
+    # Pharma
+    "NATCOPHARM.NS",
+    # Healthcare
+    "YATHARTH.NS",
+    "KIIMS.NS",
+    "KIMS.NS",
+    "NH.NS",
+    # Ceramics
+    "KAJARIACER.NS",
+    # Logistics
+    "AEGISLOG.NS",
+    # Others
+    "PRICOLLTD.NS",
+    "CCL.NS",
+    "IDEAFORGE.NS",
+    "MOTHERSONSUM.NS",
+]
 
-# EMA Stage thresholds
 STAGE1_MIN = -20.0
 STAGE1_MAX = -12.0
 STAGE2_MIN = -12.0
@@ -147,84 +149,6 @@ def send_telegram(message):
         log.info("  Telegram: sent")
     except Exception as e:
         log.error(f"  Telegram: FAILED — {e}")
-
-def login_angel():
-    """Login to Angel One SmartAPI with TOTP."""
-    try:
-        import pyotp
-        totp_secret = os.environ["ANGEL_TOTP_SECRET"]
-        totp = pyotp.TOTP(totp_secret)
-        totp_code = totp.now()
-        log.info(f"TOTP generated: {totp_code}")
-
-        obj = SmartConnect(api_key=ANGEL_API_KEY)
-        data = obj.generateSession(
-            ANGEL_CLIENT_ID,
-            ANGEL_PASSWORD,
-            totp_code
-        )
-        if data["status"]:
-            log.info("Angel One login successful")
-            return obj
-        else:
-            log.error(f"Login failed: {data}")
-            return None
-    except Exception as e:
-        log.error(f"Login error: {e}")
-        return None
-
-        if data["status"]:
-            log.info("Angel One login successful")
-            return obj
-        else:
-            log.error(f"Angel One login failed: {data}")
-            return None
-    except Exception as e:
-        log.error(f"Angel One login error: {e}")
-        return None
-
-
-def fetch_historical_data(obj, symbol, token):
-    """
-    Fetch 1 year of daily OHLCV data from Angel One.
-    Returns DataFrame or None.
-    """
-    try:
-        now_ist = datetime.now(IST)
-        to_date = now_ist.strftime("%Y-%m-%d %H:%M")
-        from_date = (now_ist - timedelta(days=365)).strftime("%Y-%m-%d %H:%M")
-
-        params = {
-            "exchange":    "NSE",
-            "symboltoken": token,
-            "interval":    "ONE_DAY",
-            "fromdate":    from_date,
-            "todate":      to_date,
-        }
-
-        response = obj.getCandleData(params)
-
-        if not response or not response.get("data"):
-            log.warning(f"  {symbol}: no data returned")
-            return None
-
-        df = pd.DataFrame(
-            response["data"],
-            columns=["timestamp", "open", "high", "low", "close", "volume"]
-        )
-
-        df["timestamp"] = pd.to_datetime(df["timestamp"])
-        df = df.sort_values("timestamp").reset_index(drop=True)
-
-        if len(df) < 200:
-            log.warning(f"  {symbol}: insufficient data ({len(df)} rows)")
-            return None
-
-        return df
-
-    except Exception as e:
-        log.error(f"  {symbol}: fetch error — {e}")
-        return None
 
 
 def compute_rsi(close, period=14):
@@ -280,18 +204,25 @@ def detect_trendline(prices):
     return slope, current
 
 
-def process_stock(symbol, df):
-    """
-    Calculate all indicators from Angel One data.
-    Returns dict of all values or None.
-    """
+def fetch_stock_data(symbol):
     try:
-        close  = df["close"].astype(float)
-        high   = df["high"].astype(float)
-        low    = df["low"].astype(float)
-        volume = df["volume"].astype(float)
+        df = yf.download(
+            symbol,
+            period="1y",
+            interval="1d",
+            auto_adjust=True,
+            progress=False,
+        )
 
-        # ── EMA ──────────────────────────────────────────
+        if df.empty or len(df) < 200:
+            log.warning(f"  {symbol}: insufficient data ({len(df)} rows)")
+            return None
+
+        close  = df["Close"].squeeze()
+        high   = df["High"].squeeze()
+        low    = df["Low"].squeeze()
+        volume = df["Volume"].squeeze()
+
         ema50_today  = float(close.ewm(span=50,  adjust=False).mean().iloc[-1])
         ema200_today = float(close.ewm(span=200, adjust=False).mean().iloc[-1])
         ema50_prev   = float(close.ewm(span=50,  adjust=False).mean().iloc[-2])
@@ -303,20 +234,17 @@ def process_stock(symbol, df):
         gap_today = round((ema50_today - ema200_today) / ema200_today * 100, 2)
         gap_prev  = round((ema50_prev  - ema200_prev)  / ema200_prev  * 100, 2)
 
-        # ── RSI ──────────────────────────────────────────
         rsi_series = compute_rsi(close)
         rsi_today  = round(float(rsi_series.iloc[-1]), 1)
         rsi_3ago   = round(float(rsi_series.iloc[-3]), 1)
         rsi_rising = rsi_today > rsi_3ago
 
-        # ── Volume ────────────────────────────────────────
         vol_today      = float(volume.iloc[-1])
         vol_avg20      = float(volume.rolling(20).mean().iloc[-1])
         vol_ratio      = round(vol_today / vol_avg20, 2) if vol_avg20 > 0 else 0
         vol_avg_recent = float(volume.iloc[-10:].mean())
         vol_avg_older  = float(volume.iloc[-20:-10].mean())
 
-        # ── Higher Lows ───────────────────────────────────
         lows = []
         for i in range(3):
             start = -(i + 1) * 5
@@ -325,11 +253,9 @@ def process_stock(symbol, df):
             lows.append(float(chunk.min()))
         higher_lows = lows[0] > lows[1] > lows[2]
 
-        # ── Price ─────────────────────────────────────────
         price_today = float(close.iloc[-1])
         price_prev  = float(close.iloc[-2])
 
-        # ── Breakout ──────────────────────────────────────
         high_3m = float(high.iloc[-BREAKOUT_3M_DAYS:-1].max())
         high_6m = float(high.iloc[-BREAKOUT_6M_DAYS:-1].max())
 
@@ -339,10 +265,10 @@ def process_stock(symbol, df):
         breakout_3m_confirmed = breakout_3m and vol_ratio >= VOLUME_CONFIRM
         breakout_6m_confirmed = breakout_6m and vol_ratio >= VOLUME_CONFIRM
 
-        # ── Trendline ─────────────────────────────────────
         recent_lows = low.iloc[-BREAKOUT_3M_DAYS:].values
         slope, trendline_support = detect_trendline(recent_lows)
 
+        # BUG FIX: only show support for stocks with negative gap
         near_support = (
             slope > 0 and
             gap_today < 0 and
@@ -378,12 +304,12 @@ def process_stock(symbol, df):
         }
 
     except Exception as e:
-        log.error(f"  {symbol}: processing error — {e}")
+        log.error(f"  {symbol}: error — {e}")
         return None
 
 
 def classify_and_build_message(data):
-    ticker = data["symbol"]
+    ticker = data["symbol"].replace(".NS", "")
     gap    = data["gap_today"]
     gap_p  = data["gap_prev"]
     price  = data["price"]
@@ -406,7 +332,6 @@ def classify_and_build_message(data):
 
     alerts_fired = []
 
-    # Golden Cross
     if gap_p < 0 and gap >= 0:
         msg = (
             f"🌟 <b>GOLDEN CROSS — {ticker}</b>\n"
@@ -424,11 +349,9 @@ def classify_and_build_message(data):
         )
         return "golden_cross", msg
 
-    # Skip stocks where 50 EMA already above 200 EMA
     if gap >= 0:
         return None, ""
 
-    # EMA stages
     if STAGE4_MIN <= gap <= STAGE4_MAX and gap_closing:
         alerts_fired.append("ema_stage4")
     elif STAGE3_MIN <= gap <= STAGE3_MAX and gap_closing:
@@ -438,13 +361,11 @@ def classify_and_build_message(data):
     elif STAGE1_MIN <= gap <= STAGE1_MAX and gap_closing:
         alerts_fired.append("ema_stage1")
 
-    # Breakouts
     if data["breakout_6m_confirmed"]:
         alerts_fired.append("breakout_6m")
     elif data["breakout_3m_confirmed"]:
         alerts_fired.append("breakout_3m")
 
-    # Trendline
     if data["trendline_breakout"]:
         alerts_fired.append("trendline_breakout")
     elif data["near_support"]:
@@ -541,18 +462,8 @@ def classify_and_build_message(data):
 
 def run_scanner():
     log.info("=" * 55)
-    log.info("  VISH_SCAN v5 — ANGEL ONE API — STARTING")
+    log.info("  VISH_SCAN — STARTING")
     log.info("=" * 55)
-
-    # Login to Angel One
-    obj = login_angel()
-    if obj is None:
-        send_telegram(
-            "❌ <b>VISH_SCAN Error</b>\n"
-            "Angel One login failed.\n"
-            "Please check credentials."
-        )
-        return
 
     saved_state = load_state()
     new_state   = {}
@@ -574,20 +485,13 @@ def run_scanner():
     scanned = 0
     skipped = 0
 
-    for symbol, token in STOCK_TOKENS.items():
+    for symbol in WATCHLIST:
         log.info(f"Scanning {symbol}...")
-
-        df = fetch_historical_data(obj, symbol, token)
-
-        if df is None:
-            skipped += 1
-            time.sleep(0.5)
-            continue
-
-        data = process_stock(symbol, df)
+        data = fetch_stock_data(symbol)
 
         if data is None:
             skipped += 1
+            time.sleep(1)
             continue
 
         scanned += 1
@@ -601,7 +505,7 @@ def run_scanner():
         else:
             log.info(f"  No alert  gap={data['gap_today']}%")
 
-        time.sleep(0.3)
+        time.sleep(0.8)
 
     save_state(new_state)
 
@@ -620,7 +524,6 @@ def run_scanner():
         )
         return
 
-    # Build single combined message
     lines = []
     lines.append(f"📋 <b>VISH_SCAN — {now}</b>")
     lines.append(f"━━━━━━━━━━━━━━━━━━━━━━")
