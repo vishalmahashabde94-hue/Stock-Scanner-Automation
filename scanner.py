@@ -150,13 +150,12 @@ def send_telegram(message):
 
 
 def login_angel():
-    """Login to Angel One SmartAPI using MPIN."""
+    """Login to Angel One SmartAPI."""
     try:
         obj = SmartConnect(api_key=ANGEL_API_KEY)
         data = obj.generateSession(
             ANGEL_CLIENT_ID,
             ANGEL_PASSWORD,
-            ANGEL_MPIN
         )
         if data["status"]:
             log.info("Angel One login successful")
