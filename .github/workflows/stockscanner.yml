@@ -3,7 +3,6 @@ name: Run Stock Scanner
 on:
   schedule:
     - cron: "30 2 * * 1-5"
-    - cron: "30 10 * * 1-5"
   workflow_dispatch:
 
 permissions:
@@ -32,11 +31,6 @@ jobs:
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
-          ANGEL_API_KEY: ${{ secrets.ANGEL_API_KEY }}
-          ANGEL_CLIENT_ID: ${{ secrets.ANGEL_CLIENT_ID }}
-          ANGEL_PASSWORD: ${{ secrets.ANGEL_PASSWORD }}
-          ANGEL_MPIN: ${{ secrets.ANGEL_MPIN }}
-          ANGEL_TOTP_SECRET: ${{ secrets.ANGEL_TOTP_SECRET }}
         run: python scanner.py
 
       - name: Save state
