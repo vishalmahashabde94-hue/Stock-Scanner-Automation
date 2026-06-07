@@ -42,6 +42,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add scanner_state.json
-          git diff --cached --quiet || git commit -m "chore: update state [skip ci]"
-          git push
+          git add -f scanner_state.json || true
+          git diff --cached --quiet || git commit -m "chore: update state [skip ci]" || true
+          git push || true
