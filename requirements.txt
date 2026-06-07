@@ -1,8 +1,4 @@
-
-smartapi-python
-pyotp
-logzero
+yfinance>=0.2.54
 pandas>=2.0.0
 numpy>=1.24.0
 requests>=2.31.0
-websocket-client
