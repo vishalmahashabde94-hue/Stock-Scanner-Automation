@@ -27,84 +27,115 @@ STATE_FILE = "scanner_state.json"
 IST = timezone(timedelta(hours=5, minutes=30))
 
 WATCHLIST = [
-    # Defence & Aerospace
-    "HBLENGINE.NS",
-    "PARASDYNE.NS",
-    "ZENTEC.NS",
-    "DATAPATTNS.NS",
-    "MAZDOCK.NS",
-    "HAL.NS",
-    "BEL.NS",
-    "ASTRAMICRO.NS",
-    # Auto & Ancillary
-    "M&M.NS",
-    "ASHOKLEY.NS",
-    "TVSMOTOR.NS",
-    "BANCOINDIA.NS",
-    "PRECWIRE.NS",
-    "MOTHERSON.NS",
-    "ENDURANCE.NS",
-    "TIINDIA.NS",
-    "BHARATFORG.NS",
-    # Electricals & Power
-    "HAVELLS.NS",
-    "POLYCAB.NS",
-    "KEIIND.NS",
-    "SCHNEIDER.NS",
-    "CGPOWER.NS",
-    "TRANSRAILL.NS",
-    "TRIL.NS",
-    # Engineering & Industrial
-    "TRITURBINE.NS",
-    "TDPOWERSYS.NS",
-    "IONEXCHANG.NS",
-    "TITAGARH.NS",
-    # Infrastructure & EPC
-    "KPIL.NS",
-    "JWL.NS",
-    # Technology
-    "INFY.NS",
-    "WIPRO.NS",
-    "DIXON.NS",
-    "REDINGTON.NS",
-    # Telecom
-    "BHARTIARTL.NS",
-    # Financial Services
-    "MOTILALOFS.NS",
-    "ANGELONE.NS",
-    "BAJFINANCE.NS",
-    "AXISBANK.NS",
-    "BSE.NS",
-    "NSDL.NS",
-    # Adani Group
-    "ADANIGREEN.NS",
-    "ADANIPOWER.NS",
-    "ADANIPORTS.NS",
-    # Food & Beverages
-    "GOKULAGRO.NS",
-    "VBL.NS",
-    "LTFOODS.NS",
-    "RADICO.NS",
-    # Metals & Mining
-    "LLOYDMETAL.NS",
-    "COALINDIA.NS",
-    "RELIANCE.NS",
-    # Pharma
-    "NATCOPHARM.NS",
-    # Healthcare
-    "YATHARTH.NS",
-    "KIIMS.NS",
-    "KIMS.NS",
-    "NH.NS",
-    # Ceramics
-    "KAJARIACER.NS",
-    # Logistics
-    "AEGISLOG.NS",
-    # Others
-    "PRICOLLTD.NS",
-    "CCL.NS",
-    "IDEAFORGE.NS",
-    "MOTHERSONSUM.NS",
+    # ── Defence & Aerospace ───────────────────────────────
+    "HBLENGINE.NS",      # HBL Engineering
+    "PARASDYNE.NS",      # Paras Defence
+    "ZENTEC.NS",         # Zen Technologies
+    "DATAPATTNS.NS",     # Data Patterns
+    "MAZDOCK.NS",        # Mazagon Dock
+    "HAL.NS",            # Hindustan Aeronautics
+    "BEL.NS",            # Bharat Electronics
+    "ASTRAMICRO.NS",     # Astra Microwave
+    "BHARATFORG.NS",     # Bharat Forge
+    "MTARTECH.NS",       # MTAR Technologies
+    "IDEAFORGE.NS",      # Ideaforge Technology
+
+    # ── Auto & Auto Ancillary ─────────────────────────────
+    "M&M.NS",            # Mahindra & Mahindra
+    "ASHOKLEY.NS",       # Ashok Leyland
+    "TVSMOTOR.NS",       # TVS Motor
+    "BANCOINDIA.NS",     # Banco Products
+    "PRECWIRE.NS",       # Precision Wires
+    "MOTHERSON.NS",      # Samvardhana Motherson
+    "ENDURANCE.NS",      # Endurance Technologies
+    "TIINDIA.NS",        # Tube Investments
+    "MOTHERSONSUM.NS",   # Motherson Sumi
+
+    # ── Electricals & Power ───────────────────────────────
+    "HAVELLS.NS",        # Havells India
+    "POLYCAB.NS",        # Polycab India
+    "KEIIND.NS",         # KEI Industries
+    "SCHNEIDER.NS",      # Schneider Electric
+    "CGPOWER.NS",        # CG Power
+    "TRANSRAILL.NS",     # Transrail Lighting
+    "TRIL.NS",           # Transformer & Rectifier
+    "VOLTAMP.NS",        # Voltamp Transformers
+    "GVTD.NS",           # GE Vernova T&D India
+
+    # ── Engineering & Industrial ──────────────────────────
+    "TRITURBINE.NS",     # Triveni Turbine
+    "TDPOWERSYS.NS",     # TD Power Systems
+    "IONEXCHANG.NS",     # Ion Exchange India
+    "TITAGARH.NS",       # Titagarh Rail Systems
+    "KEC.NS",            # KEC International
+    "LT.NS",             # Larsen & Toubro
+
+    # ── Renewable Energy ──────────────────────────────────
+    "ADANIGREEN.NS",     # Adani Green Energy
+    "ADANIPOWER.NS",     # Adani Power
+    "JSWENERGY.NS",      # JSW Energy
+    "INOXWIND.NS",       # Inox Wind
+    "WAAREERTL.NS",      # Waaree Renewables
+
+    # ── Infrastructure & EPC ─────────────────────────────
+    "KPIL.NS",           # Kalpataru Projects
+    "JWL.NS",            # Jupiter Wagons
+
+    # ── Technology & Electronics ──────────────────────────
+    "INFY.NS",           # Infosys
+    "WIPRO.NS",          # Wipro
+    "DIXON.NS",          # Dixon Technologies
+    "REDINGTON.NS",      # Redington India
+    "KAYNES.NS",         # Kaynes Technology
+    "NETWEB.NS",         # Netweb Technologies
+    "BBOX.NS",           # Black Box
+
+    # ── Telecom ──────────────────────────────────────────
+    "BHARTIARTL.NS",     # Bharti Airtel
+
+    # ── Financial Services ────────────────────────────────
+    "MOTILALOFS.NS",     # Motilal Oswal
+    "ANGELONE.NS",       # Angel One
+    "BAJFINANCE.NS",     # Bajaj Finance
+    "AXISBANK.NS",       # Axis Bank
+    "BSE.NS",            # BSE Ltd
+    "NSDL.NS",           # NSDL
+
+    # ── Adani Group ───────────────────────────────────────
+    "ADANIPORTS.NS",     # Adani Ports
+
+    # ── Real Estate ───────────────────────────────────────
+    "ANANTRAJ.NS",       # Anant Raj
+
+    # ── Food & Beverages ──────────────────────────────────
+    "GOKULAGRO.NS",      # Gokul Agro
+    "VBL.NS",            # Varun Beverages
+    "LTFOODS.NS",        # LT Foods
+    "RADICO.NS",         # Radico Khaitan
+
+    # ── Metals & Mining ───────────────────────────────────
+    "LLOYDMETAL.NS",     # Lloyd Metals
+    "COALINDIA.NS",      # Coal India
+    "RELIANCE.NS",       # Reliance Industries
+
+    # ── Pharma ───────────────────────────────────────────
+    "NATCOPHARM.NS",     # Natco Pharma
+
+    # ── Healthcare ───────────────────────────────────────
+    "YATHARTH.NS",       # Yatharth Hospital
+    "KIIMS.NS",          # KIIMS
+    "KIMS.NS",           # Krishna Institute
+    "NH.NS",             # Narayana Hrudayalaya
+
+    # ── Ceramics ─────────────────────────────────────────
+    "KAJARIACER.NS",     # Kajaria Ceramics
+
+    # ── Logistics ────────────────────────────────────────
+    "AEGISLOG.NS",       # Aegis Logistics
+
+    # ── Others ───────────────────────────────────────────
+    "PRICOLLTD.NS",      # Pricol
+    "CCL.NS",            # CCL Products
 ]
 
 STAGE1_MIN = -20.0
