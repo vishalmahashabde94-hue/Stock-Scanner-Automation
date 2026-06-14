@@ -1,9 +1,9 @@
 """
 =======================================================
-  VISH_SCAN — COMBINED SCANNER v4 FINAL
-  Data: yfinance (NSE)
+  VISH_SCAN — SCANNER v5 FINAL
+  Clean optimised Telegram output
+  Fixed action text per stage
   EMA + RSI + Volume + Breakout + Trendline
-  Trendline bug fixed — no false support alerts
 =======================================================
 """
 
@@ -27,115 +27,98 @@ STATE_FILE = "scanner_state.json"
 IST = timezone(timedelta(hours=5, minutes=30))
 
 WATCHLIST = [
-    # ── Defence & Aerospace ───────────────────────────────
-    "HBLENGINE.NS",      # HBL Engineering
-    "PARASDYNE.NS",      # Paras Defence
-    "ZENTEC.NS",         # Zen Technologies
-    "DATAPATTNS.NS",     # Data Patterns
-    "MAZDOCK.NS",        # Mazagon Dock
-    "HAL.NS",            # Hindustan Aeronautics
-    "BEL.NS",            # Bharat Electronics
-    "ASTRAMICRO.NS",     # Astra Microwave
-    "BHARATFORG.NS",     # Bharat Forge
-    "MTARTECH.NS",       # MTAR Technologies
-    "IDEAFORGE.NS",      # Ideaforge Technology
-
-    # ── Auto & Auto Ancillary ─────────────────────────────
-    "M&M.NS",            # Mahindra & Mahindra
-    "ASHOKLEY.NS",       # Ashok Leyland
-    "TVSMOTOR.NS",       # TVS Motor
-    "BANCOINDIA.NS",     # Banco Products
-    "PRECWIRE.NS",       # Precision Wires
-    "MOTHERSON.NS",      # Samvardhana Motherson
-    "ENDURANCE.NS",      # Endurance Technologies
-    "TIINDIA.NS",        # Tube Investments
-    "MOTHERSONSUM.NS",   # Motherson Sumi
-
-    # ── Electricals & Power ───────────────────────────────
-    "HAVELLS.NS",        # Havells India
-    "POLYCAB.NS",        # Polycab India
-    "KEIIND.NS",         # KEI Industries
-    "SCHNEIDER.NS",      # Schneider Electric
-    "CGPOWER.NS",        # CG Power
-    "TRANSRAILL.NS",     # Transrail Lighting
-    "TRIL.NS",           # Transformer & Rectifier
-    "VOLTAMP.NS",        # Voltamp Transformers
-    "GVTD.NS",           # GE Vernova T&D India
-
-    # ── Engineering & Industrial ──────────────────────────
-    "TRITURBINE.NS",     # Triveni Turbine
-    "TDPOWERSYS.NS",     # TD Power Systems
-    "IONEXCHANG.NS",     # Ion Exchange India
-    "TITAGARH.NS",       # Titagarh Rail Systems
-    "KEC.NS",            # KEC International
-    "LT.NS",             # Larsen & Toubro
-
-    # ── Renewable Energy ──────────────────────────────────
-    "ADANIGREEN.NS",     # Adani Green Energy
-    "ADANIPOWER.NS",     # Adani Power
-    "JSWENERGY.NS",      # JSW Energy
-    "INOXWIND.NS",       # Inox Wind
-    "WAAREERTL.NS",      # Waaree Renewables
-
-    # ── Infrastructure & EPC ─────────────────────────────
-    "KPIL.NS",           # Kalpataru Projects
-    "JWL.NS",            # Jupiter Wagons
-
-    # ── Technology & Electronics ──────────────────────────
-    "INFY.NS",           # Infosys
-    "WIPRO.NS",          # Wipro
-    "DIXON.NS",          # Dixon Technologies
-    "REDINGTON.NS",      # Redington India
-    "KAYNES.NS",         # Kaynes Technology
-    "NETWEB.NS",         # Netweb Technologies
-    "BBOX.NS",           # Black Box
-
-    # ── Telecom ──────────────────────────────────────────
-    "BHARTIARTL.NS",     # Bharti Airtel
-
-    # ── Financial Services ────────────────────────────────
-    "MOTILALOFS.NS",     # Motilal Oswal
-    "ANGELONE.NS",       # Angel One
-    "BAJFINANCE.NS",     # Bajaj Finance
-    "AXISBANK.NS",       # Axis Bank
-    "BSE.NS",            # BSE Ltd
-    "NSDL.NS",           # NSDL
-
-    # ── Adani Group ───────────────────────────────────────
-    "ADANIPORTS.NS",     # Adani Ports
-
-    # ── Real Estate ───────────────────────────────────────
-    "ANANTRAJ.NS",       # Anant Raj
-
-    # ── Food & Beverages ──────────────────────────────────
-    "GOKULAGRO.NS",      # Gokul Agro
-    "VBL.NS",            # Varun Beverages
-    "LTFOODS.NS",        # LT Foods
-    "RADICO.NS",         # Radico Khaitan
-
-    # ── Metals & Mining ───────────────────────────────────
-    "LLOYDMETAL.NS",     # Lloyd Metals
-    "COALINDIA.NS",      # Coal India
-    "RELIANCE.NS",       # Reliance Industries
-
-    # ── Pharma ───────────────────────────────────────────
-    "NATCOPHARM.NS",     # Natco Pharma
-
-    # ── Healthcare ───────────────────────────────────────
-    "YATHARTH.NS",       # Yatharth Hospital
-    "KIIMS.NS",          # KIIMS
-    "KIMS.NS",           # Krishna Institute
-    "NH.NS",             # Narayana Hrudayalaya
-
-    # ── Ceramics ─────────────────────────────────────────
-    "KAJARIACER.NS",     # Kajaria Ceramics
-
-    # ── Logistics ────────────────────────────────────────
-    "AEGISLOG.NS",       # Aegis Logistics
-
-    # ── Others ───────────────────────────────────────────
-    "PRICOLLTD.NS",      # Pricol
-    "CCL.NS",            # CCL Products
+    # Defence & Aerospace
+    "HBLENGINE.NS",
+    "PARASDYNE.NS",
+    "ZENTEC.NS",
+    "DATAPATTNS.NS",
+    "MAZDOCK.NS",
+    "HAL.NS",
+    "BEL.NS",
+    "ASTRAMICRO.NS",
+    "BHARATFORG.NS",
+    "MTARTECH.NS",
+    "IDEAFORGE.NS",
+    # Auto & Ancillary
+    "M&M.NS",
+    "ASHOKLEY.NS",
+    "TVSMOTOR.NS",
+    "BANCOINDIA.NS",
+    "PRECWIRE.NS",
+    "MOTHERSON.NS",
+    "ENDURANCE.NS",
+    "TIINDIA.NS",
+    "MOTHERSONSUM.NS",
+    # Electricals & Power
+    "HAVELLS.NS",
+    "POLYCAB.NS",
+    "KEIIND.NS",
+    "SCHNEIDER.NS",
+    "CGPOWER.NS",
+    "TRANSRAILL.NS",
+    "TRIL.NS",
+    "VOLTAMP.NS",
+    "GVTD.NS",
+    # Engineering & Industrial
+    "TRITURBINE.NS",
+    "TDPOWERSYS.NS",
+    "IONEXCHANG.NS",
+    "TITAGARH.NS",
+    "KEC.NS",
+    "LT.NS",
+    # Renewable Energy
+    "ADANIGREEN.NS",
+    "ADANIPOWER.NS",
+    "JSWENERGY.NS",
+    "INOXWIND.NS",
+    "WAAREERTL.NS",
+    # Infrastructure & EPC
+    "KPIL.NS",
+    "JWL.NS",
+    # Technology & Electronics
+    "INFY.NS",
+    "WIPRO.NS",
+    "DIXON.NS",
+    "REDINGTON.NS",
+    "KAYNES.NS",
+    "NETWEB.NS",
+    "BBOX.NS",
+    # Telecom
+    "BHARTIARTL.NS",
+    # Financial Services
+    "MOTILALOFS.NS",
+    "ANGELONE.NS",
+    "BAJFINANCE.NS",
+    "AXISBANK.NS",
+    "BSE.NS",
+    "NSDL.NS",
+    # Adani Group
+    "ADANIPORTS.NS",
+    # Real Estate
+    "ANANTRAJ.NS",
+    # Food & Beverages
+    "GOKULAGRO.NS",
+    "VBL.NS",
+    "LTFOODS.NS",
+    "RADICO.NS",
+    # Metals & Mining
+    "LLOYDMETAL.NS",
+    "COALINDIA.NS",
+    "RELIANCE.NS",
+    # Pharma
+    "NATCOPHARM.NS",
+    # Healthcare
+    "YATHARTH.NS",
+    "KIIMS.NS",
+    "KIMS.NS",
+    "NH.NS",
+    # Ceramics
+    "KAJARIACER.NS",
+    # Logistics
+    "AEGISLOG.NS",
+    # Others
+    "PRICOLLTD.NS",
+    "CCL.NS",
 ]
 
 STAGE1_MIN = -20.0
@@ -192,39 +175,28 @@ def compute_rsi(close, period=14):
     return 100 - (100 / (1 + rs))
 
 
-def rsi_label(rsi):
+def rsi_simple(rsi):
+    """Simple 1-2 word RSI label."""
     if rsi < 30:
-        return f"🟢 {rsi:.1f} — Oversold (best zone)"
+        return f"{rsi:.0f} — Oversold"
     elif rsi < 45:
-        return f"🟢 {rsi:.1f} — Recovery zone (good)"
+        return f"{rsi:.0f} — Recovering"
     elif rsi < 55:
-        return f"🟡 {rsi:.1f} — Neutral"
+        return f"{rsi:.0f} — Neutral"
     elif rsi < 70:
-        return f"🟠 {rsi:.1f} — Heating up"
+        return f"{rsi:.0f} — Heated"
     else:
-        return f"🔴 {rsi:.1f} — Overbought (avoid)"
+        return f"{rsi:.0f} — Overbought"
 
 
-def volume_label(vol_ratio):
-    if vol_ratio >= 2.0:
-        return f"🟢 {vol_ratio:.1f}x — Strong smart money"
-    elif vol_ratio >= 1.5:
-        return f"🟢 {vol_ratio:.1f}x — Volume building"
+def vol_simple(vol_ratio):
+    """Simple volume label."""
+    if vol_ratio >= 1.5:
+        return f"High ({vol_ratio:.1f}x)"
     elif vol_ratio >= 0.8:
-        return f"🟡 {vol_ratio:.1f}x — Average volume"
+        return f"OK ({vol_ratio:.1f}x)"
     else:
-        return f"🔴 {vol_ratio:.1f}x — Low volume (weak)"
-
-
-def momentum_label(higher_lows, rsi_rising):
-    if higher_lows and rsi_rising:
-        return "🟢 Strong — Higher lows + RSI rising"
-    elif higher_lows:
-        return "🟡 Moderate — Higher lows forming"
-    elif rsi_rising:
-        return "🟡 Moderate — RSI recovering"
-    else:
-        return "🔴 Weak — No recovery pattern yet"
+        return f"Low ({vol_ratio:.1f}x)"
 
 
 def detect_trendline(prices):
@@ -270,11 +242,9 @@ def fetch_stock_data(symbol):
         rsi_3ago   = round(float(rsi_series.iloc[-3]), 1)
         rsi_rising = rsi_today > rsi_3ago
 
-        vol_today      = float(volume.iloc[-1])
-        vol_avg20      = float(volume.rolling(20).mean().iloc[-1])
-        vol_ratio      = round(vol_today / vol_avg20, 2) if vol_avg20 > 0 else 0
-        vol_avg_recent = float(volume.iloc[-10:].mean())
-        vol_avg_older  = float(volume.iloc[-20:-10].mean())
+        vol_today  = float(volume.iloc[-1])
+        vol_avg20  = float(volume.rolling(20).mean().iloc[-1])
+        vol_ratio  = round(vol_today / vol_avg20, 2) if vol_avg20 > 0 else 0
 
         lows = []
         for i in range(3):
@@ -299,7 +269,6 @@ def fetch_stock_data(symbol):
         recent_lows = low.iloc[-BREAKOUT_3M_DAYS:].values
         slope, trendline_support = detect_trendline(recent_lows)
 
-        # BUG FIX: only show support for stocks with negative gap
         near_support = (
             slope > 0 and
             gap_today < 0 and
@@ -339,178 +308,128 @@ def fetch_stock_data(symbol):
         return None
 
 
-def classify_and_build_message(data):
-    ticker = data["symbol"].replace(".NS", "")
-    gap    = data["gap_today"]
-    gap_p  = data["gap_prev"]
-    price  = data["price"]
-    e50    = data["ema50"]
-    e200   = data["ema200"]
-    rsi    = data["rsi"]
-    vol_r  = data["vol_ratio"]
+def classify(data):
+    """
+    Classify stock and return (bucket, formatted_line)
+    Buckets: exit, buy_now, aggr, accum, accum_support,
+             support, wait, watch
+    """
+    ticker  = data["symbol"].replace(".NS", "")
+    gap     = data["gap_today"]
+    gap_p   = data["gap_prev"]
+    price   = data["price"]
+    rsi     = data["rsi"]
+    vol_r   = data["vol_ratio"]
 
     gap_closing = gap > gap_p
 
-    rsi_line = rsi_label(rsi)
-    vol_line = volume_label(vol_r)
-    mom_line = momentum_label(data["higher_lows"], data["rsi_rising"])
+    rsi_lbl = rsi_simple(rsi)
+    vol_lbl = vol_simple(vol_r)
 
-    indicators = (
-        f"📈 RSI      : {rsi_line}\n"
-        f"📦 Volume   : {vol_line}\n"
-        f"⚡ Momentum : {mom_line}"
-    )
+    price_str = f"₹{price:,.0f}"
 
-    alerts_fired = []
-
-    if gap_p < 0 and gap >= 0:
-        msg = (
-            f"🌟 <b>GOLDEN CROSS — {ticker}</b>\n"
-            f"━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"💵 Price   : ₹{price:,.2f}\n"
-            f"📊 50 EMA  : ₹{e50:,.2f}\n"
-            f"📉 200 EMA : ₹{e200:,.2f}\n"
-            f"📐 Gap     : {gap:+.2f}%\n"
-            f"━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"{indicators}\n"
-            f"━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"🏁 <b>50 EMA crossed ABOVE 200 EMA</b>\n"
-            f"💰 Book profits if already holding\n"
-            f"🚫 Do NOT buy fresh at this stage"
+    def stock_line(action_emoji, action_text):
+        return (
+            f"\n<b>{ticker}</b>\n"
+            f"💵 CMP      : {price_str}\n"
+            f"📐 EMA Gap  : {gap:.1f}%\n"
+            f"📊 RSI      : {rsi_lbl}\n"
+            f"📦 Volume   : {vol_lbl}\n"
+            f"👉 {action_emoji} {action_text}"
         )
-        return "golden_cross", msg
 
+    # ── Golden Cross ──────────────────────────────────────────────────────────
+    if gap_p < 0 and gap >= 0:
+        return "exit", stock_line(
+            "💰", "Exit position. Golden Cross complete. Book profits."
+        )
+
+    # Skip stocks already above 200 EMA
     if gap >= 0:
         return None, ""
 
-    if STAGE4_MIN <= gap <= STAGE4_MAX and gap_closing:
-        alerts_fired.append("ema_stage4")
-    elif STAGE3_MIN <= gap <= STAGE3_MAX and gap_closing:
-        alerts_fired.append("ema_stage3")
-    elif STAGE2_MIN <= gap <= STAGE2_MAX and gap_closing:
-        alerts_fired.append("ema_stage2")
-    elif STAGE1_MIN <= gap <= STAGE1_MAX and gap_closing:
-        alerts_fired.append("ema_stage1")
+    alerts_fired = []
 
-    if data["breakout_6m_confirmed"]:
-        alerts_fired.append("breakout_6m")
-    elif data["breakout_3m_confirmed"]:
-        alerts_fired.append("breakout_3m")
+    if STAGE4_MIN <= gap <= STAGE4_MAX and gap_closing:
+        alerts_fired.append("wait")
+    elif STAGE3_MIN <= gap <= STAGE3_MAX and gap_closing:
+        alerts_fired.append("aggr")
+    elif STAGE2_MIN <= gap <= STAGE2_MAX and gap_closing:
+        alerts_fired.append("accum")
+    elif STAGE1_MIN <= gap <= STAGE1_MAX and gap_closing:
+        alerts_fired.append("watch")
+
+    if data["breakout_6m_confirmed"] or data["breakout_3m_confirmed"]:
+        alerts_fired.append("breakout")
 
     if data["trendline_breakout"]:
-        alerts_fired.append("trendline_breakout")
+        alerts_fired.append("trendline_break")
     elif data["near_support"]:
-        alerts_fired.append("trendline_support")
+        alerts_fired.append("support")
 
     if not alerts_fired:
         return None, ""
 
-    has_ema_accumulate     = any(x in alerts_fired for x in ["ema_stage2", "ema_stage3"])
-    has_confirmed_breakout = any(x in alerts_fired for x in ["breakout_6m", "breakout_3m", "trendline_breakout"])
-    has_support            = "trendline_support" in alerts_fired
+    has_accum    = any(x in alerts_fired for x in ["aggr", "accum"])
+    has_breakout = any(x in alerts_fired for x in ["breakout", "trendline_break"])
+    has_support  = "support" in alerts_fired
 
-    signal_lines = []
+    # Best combination first
+    if has_breakout:
+        return "buy_now", stock_line(
+            "🔥", "Buy today. Breakout confirmed with volume."
+        )
 
-    if "ema_stage4" in alerts_fired:
-        signal_lines.append("⏳ EMA: Wait Zone (2-4% from cross)")
-    elif "ema_stage3" in alerts_fired:
-        signal_lines.append("🔥 EMA: Aggressive Accum (4-8% from cross)")
-    elif "ema_stage2" in alerts_fired:
-        signal_lines.append("🟡 EMA: Accumulate (8-12% from cross)")
-    elif "ema_stage1" in alerts_fired:
-        signal_lines.append("👁 EMA: Watchlist (12-20% from cross)")
+    if has_accum and has_support:
+        return "accum_support", stock_line(
+            "📈", "Low risk entry. Buy at current levels."
+        )
 
-    if "breakout_6m" in alerts_fired:
-        signal_lines.append(f"🚀 6M Breakout: ₹{data['high_6m']:,.2f} broken ✅ Volume confirmed")
-    elif "breakout_3m" in alerts_fired:
-        signal_lines.append(f"📈 3M Breakout: ₹{data['high_3m']:,.2f} broken ✅ Volume confirmed")
+    if "aggr" in alerts_fired:
+        return "aggr", stock_line(
+            "📈", "Add aggressively. Cross expected in 2-4 weeks."
+        )
 
-    if "trendline_breakout" in alerts_fired:
-        signal_lines.append("🚀 Trendline: Resistance broken ✅ Volume confirmed")
-    elif "trendline_support" in alerts_fired:
-        signal_lines.append(f"🛡 Trendline: Support at ₹{data['trendline_support']:,.2f}")
+    if "accum" in alerts_fired:
+        return "accum", stock_line(
+            "📈", "Start building. Buy 30-40% of planned amount."
+        )
 
-    signal_text = "\n".join(signal_lines)
+    if has_support:
+        return "support", stock_line(
+            "🛡", "Stock at support. Small entry with tight stop loss."
+        )
 
-    if has_ema_accumulate and has_confirmed_breakout:
-        verdict = "🔥🔥 <b>HIGHEST CONVICTION BUY</b>"
-        advice  = "EMA recovery + Breakout + Volume. Rare setup. Act now."
-        key     = "highest"
-    elif has_confirmed_breakout and has_support:
-        verdict = "🚀 <b>STRONG BREAKOUT + SUPPORT</b>"
-        advice  = "Breakout with trendline support. Strong risk/reward."
-        key     = "strong_breakout"
-    elif has_confirmed_breakout:
-        verdict = "📈 <b>CONFIRMED BREAKOUT</b>"
-        advice  = "Volume confirmed breakout. Good momentum entry."
-        key     = "breakout"
-    elif has_ema_accumulate and has_support:
-        verdict = "💎 <b>ACCUMULATE + SUPPORT</b>"
-        advice  = "EMA recovery zone + trendline support. Low risk entry."
-        key     = "accumulate_support"
-    elif "ema_stage3" in alerts_fired:
-        verdict = "🔥 <b>AGGRESSIVE ACCUMULATION</b>"
-        advice  = "4-8% from Golden Cross. Strong buy zone."
-        key     = "stage3"
-    elif "ema_stage2" in alerts_fired:
-        verdict = "🟡 <b>ACCUMULATE</b>"
-        advice  = "8-12% from Golden Cross. Start building position."
-        key     = "stage2"
-    elif "trendline_breakout" in alerts_fired:
-        verdict = "🚀 <b>TRENDLINE BREAKOUT</b>"
-        advice  = "Resistance trendline broken with volume. Good entry."
-        key     = "trendline_breakout"
-    elif "trendline_support" in alerts_fired:
-        verdict = "🛡 <b>TRENDLINE SUPPORT</b>"
-        advice  = "Stock at support. Good risk/reward for entry."
-        key     = "support"
-    elif "ema_stage4" in alerts_fired:
-        verdict = "⏳ <b>WAIT ZONE</b>"
-        advice  = "2-4% from Golden Cross. Hold if invested. No fresh buy."
-        key     = "stage4"
-    else:
-        verdict = "👁 <b>WATCHLIST</b>"
-        advice  = "Early signals. Keep on radar."
-        key     = "stage1"
+    if "wait" in alerts_fired:
+        return "wait", stock_line(
+            "⏳", "Hold if invested. No fresh buying at this stage."
+        )
 
-    msg = (
-        f"{verdict} — <b>{ticker}</b>\n"
-        f"━━━━━━━━━━━━━━━━━━━━━━\n"
-        f"💵 Price   : ₹{price:,.2f}\n"
-        f"📊 50 EMA  : ₹{e50:,.2f}\n"
-        f"📉 200 EMA : ₹{e200:,.2f}\n"
-        f"📐 EMA Gap : {gap:.2f}%\n"
-        f"━━━━━━━━━━━━━━━━━━━━━━\n"
-        f"<b>Signals:</b>\n"
-        f"{signal_text}\n"
-        f"━━━━━━━━━━━━━━━━━━━━━━\n"
-        f"{indicators}\n"
-        f"━━━━━━━━━━━━━━━━━━━━━━\n"
-        f"💡 {advice}"
-    )
-    return key, msg
+    if "watch" in alerts_fired:
+        return "watch", stock_line(
+            "👁", "Too early to buy. Research fundamentals now."
+        )
+
+    return None, ""
 
 
 def run_scanner():
     log.info("=" * 55)
-    log.info("  VISH_SCAN — STARTING")
+    log.info("  VISH_SCAN v5 FINAL — STARTING")
     log.info("=" * 55)
 
     saved_state = load_state()
     new_state   = {}
 
-    alerts = {
-        "golden_cross":       [],
-        "highest":            [],
-        "strong_breakout":    [],
-        "breakout":           [],
-        "accumulate_support": [],
-        "stage3":             [],
-        "stage2":             [],
-        "trendline_breakout": [],
-        "support":            [],
-        "stage4":             [],
-        "stage1":             [],
+    buckets = {
+        "exit":         [],
+        "buy_now":      [],
+        "aggr":         [],
+        "accum":        [],
+        "accum_support":[],
+        "support":      [],
+        "wait":         [],
+        "watch":        [],
     }
 
     scanned = 0
@@ -527,88 +446,65 @@ def run_scanner():
 
         scanned += 1
         new_state[symbol] = {"gap_pct": data["gap_today"]}
-        key, message = classify_and_build_message(data)
+        bucket, line = classify(data)
 
-        if key:
-            if key in alerts:
-                alerts[key].append(message)
-            log.info(f"  ALERT → {key}  gap={data['gap_today']}%")
+        if bucket and bucket in buckets:
+            buckets[bucket].append(line)
+            log.info(f"  → {bucket}  gap={data['gap_today']}%")
         else:
-            log.info(f"  No alert  gap={data['gap_today']}%")
+            log.info(f"  → No alert  gap={data['gap_today']}%")
 
         time.sleep(0.8)
 
     save_state(new_state)
 
-    total_alerts = sum(len(v) for v in alerts.values())
-    now = datetime.now(IST).strftime("%d %b %Y, %I:%M %p IST")
+    total = sum(len(v) for v in buckets.values())
+    now_ist = datetime.now(IST)
+    hour    = now_ist.hour
+    session = "🌅 Pre Market" if hour < 12 else "🌆 Post Market"
+    now_str = now_ist.strftime("%d %b %Y, %I:%M %p IST")
 
-    if total_alerts == 0:
+    if total == 0:
         send_telegram(
-            f"📋 <b>VISH_SCAN — {now}</b>\n"
+            f"📋 <b>VISH_SCAN {session}</b>\n"
+            f"{now_str}\n"
             f"━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"✅ Scanned : {scanned} stocks\n"
-            f"😴 No signals today.\n"
-            f"🔁 Next scan tomorrow.\n"
+            f"✅ {scanned} stocks scanned\n"
+            f"😴 No actionable signals today.\n"
             f"━━━━━━━━━━━━━━━━━━━━━━\n"
             f"💡 Patience is the edge."
         )
         return
 
-    lines = []
-    lines.append(f"📋 <b>VISH_SCAN — {now}</b>")
-    lines.append(f"━━━━━━━━━━━━━━━━━━━━━━")
-    lines.append(f"📦 Scanned : {scanned} stocks")
-    lines.append(f"🚨 Alerts  : {total_alerts}")
-    lines.append(f"━━━━━━━━━━━━━━━━━━━━━━")
+    # Build single clean message
+    msg = []
+    msg.append(f"📋 <b>VISH_SCAN {session}</b>")
+    msg.append(f"{now_str}")
+    msg.append(f"{scanned} stocks scanned · {total} alerts")
 
-    priority = [
-        "golden_cross", "highest", "strong_breakout",
-        "breakout", "accumulate_support", "stage3",
-        "trendline_breakout", "stage2", "support",
-        "stage4", "stage1",
+    sections = [
+        ("exit",          "💰 EXIT — Book Profits"),
+        ("buy_now",       "🔥 BUY NOW"),
+        ("aggr",          "📈 AGGRESSIVE ACCUMULATION"),
+        ("accum_support", "📈 ACCUMULATE + SUPPORT"),
+        ("accum",         "📈 ACCUMULATE"),
+        ("support",       "🛡 SUPPORT ZONE"),
+        ("wait",          "⏳ WAIT — Hold Only"),
+        ("watch",         "👁 WATCHLIST — Too Early"),
     ]
 
-    labels = {
-        "golden_cross":       "🌟 GOLDEN CROSS",
-        "highest":            "🔥🔥 HIGHEST CONVICTION",
-        "strong_breakout":    "🚀 STRONG BREAKOUT",
-        "breakout":           "📈 BREAKOUT",
-        "accumulate_support": "💎 ACCUM + SUPPORT",
-        "stage3":             "🔥 AGGR. ACCUMULATION",
-        "trendline_breakout": "🚀 TRENDLINE BREAKOUT",
-        "stage2":             "🟡 ACCUMULATE",
-        "support":            "🛡 SUPPORT",
-        "stage4":             "⏳ WAIT ZONE",
-        "stage1":             "👁 WATCHLIST",
-    }
+    for key, heading in sections:
+        if buckets[key]:
+            msg.append(f"\n━━━━━━━━━━━━━━━━━━━━━━")
+            msg.append(f"<b>{heading}</b>")
+            for line in buckets[key]:
+                msg.append(line)
 
-    for key in priority:
-        for msg in alerts[key]:
-            lines_msg   = msg.split("\n")
-            ticker_line = lines_msg[0]
-            price_line  = [l for l in lines_msg if "Price" in l]
-            gap_line    = [l for l in lines_msg if "Gap" in l]
-            rsi_line    = [l for l in lines_msg if "RSI" in l]
-            vol_line    = [l for l in lines_msg if "Volume" in l]
+    msg.append(f"\n━━━━━━━━━━━━━━━━━━━━━━")
+    msg.append(f"⚠️ Not SEBI advice. Personal use only.")
 
-            ticker = ticker_line.split("—")[-1].strip().replace("</b>","").replace("<b>","")
-            price  = price_line[0].strip() if price_line else ""
-            gap    = gap_line[0].strip()   if gap_line   else ""
-            rsi    = rsi_line[0].strip()   if rsi_line   else ""
-            vol    = vol_line[0].strip()   if vol_line   else ""
-
-            lines.append(f"\n{labels.get(key, key)} — <b>{ticker}</b>")
-            lines.append(price)
-            lines.append(gap)
-            lines.append(rsi)
-            lines.append(vol)
-
-    lines.append(f"\n━━━━━━━━━━━━━━━━━━━━━━")
-    lines.append(f"⚠️ Not SEBI advice. Personal use only.")
-
-    send_telegram("\n".join(lines))
-    log.info(f"DONE — {total_alerts} alerts sent.")
+    send_telegram("\n".join(msg))
+    log.info(f"DONE — {total} alerts sent.")
     log.info("=" * 55)
 
 
