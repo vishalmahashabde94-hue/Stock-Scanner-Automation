@@ -339,9 +339,10 @@ def classify(data):
         )
 
     # ── Golden Cross ──────────────────────────────────────────────────────────
+    # ── Golden Cross ──────────────────────────────────────────────────────────
     if gap_p < 0 and gap >= 0:
         return "exit", stock_line(
-            "💰", "Exit position. Golden Cross complete. Book profits."
+            "🌟", "Golden Cross confirmed. Stay invested. Trail stop loss below 50 EMA. Exit only if RSI crosses 75 or stock falls below 50 EMA."
         )
 
     # Skip stocks already above 200 EMA
@@ -483,7 +484,7 @@ def run_scanner():
     msg.append(f"{scanned} stocks scanned · {total} alerts")
 
     sections = [
-        ("exit",          "💰 EXIT — Book Profits"),
+        ("exit",          "🌟 GOLDEN CROSS — Stay Invested & Trail Stop"),
         ("buy_now",       "🔥 BUY NOW"),
         ("aggr",          "📈 AGGRESSIVE ACCUMULATION"),
         ("accum_support", "📈 ACCUMULATE + SUPPORT"),
