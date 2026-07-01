@@ -49,6 +49,8 @@ WATCHLIST = [
     "ENDURANCE.NS",
     "TIINDIA.NS",
     "MOTHERSONSUM.NS",
+    "BALUFORGE.NS",        # NEW - Balu Forge
+    "SMLISUZU.NS",         # NEW - SML Isuzu
     # Electricals & Power
     "HAVELLS.NS",
     "POLYCAB.NS",
@@ -58,7 +60,7 @@ WATCHLIST = [
     "TRANSRAILL.NS",
     "TRIL.NS",
     "VOLTAMP.NS",
-    "GVTD.NS",
+    "GVT&D.NS",            # CORRECTED - was GVTD.NS, now GVT&D.NS
     # Engineering & Industrial
     "TRITURBINE.NS",
     "TDPOWERSYS.NS",
@@ -85,6 +87,7 @@ WATCHLIST = [
     "BBOX.NS",
     # Telecom
     "BHARTIARTL.NS",
+    "INDUSTOWER.NS",       # NEW - Indus Towers
     # Financial Services
     "MOTILALOFS.NS",
     "ANGELONE.NS",
@@ -92,26 +95,41 @@ WATCHLIST = [
     "AXISBANK.NS",
     "BSE.NS",
     "NSDL.NS",
+    "CDSL.NS",             # NEW - CDSL
+    "KFINTECH.NS",         # NEW - KFin Technologies
     # Adani Group
     "ADANIPORTS.NS",
     # Real Estate
     "ANANTRAJ.NS",
+    # Hospitality & Travel  # NEW CATEGORY
+    "CHALET.NS",           # NEW - Chalet Hotels
+    "RATEGAIN.NS",         # NEW - Rategain
+    # Consumer/Retail       # NEW CATEGORY
+    "METROBRAND.NS",       # NEW - Metro Brands
+    "BLS.NS",              # NEW - BLS International
+    "BOROLTD.NS",          # NEW - Borosil
+    # Media & Entertainment # NEW CATEGORY
+    "TIPSMUSIC.NS",        # NEW - Tips Music
     # Food & Beverages
     "GOKULAGRO.NS",
     "VBL.NS",
     "LTFOODS.NS",
     "RADICO.NS",
+    "GODFRYPHLP.NS",       # NEW - Godfrey Phillips
+    "ABDL.NS",             # NEW - Allied Blenders
     # Metals & Mining
     "LLOYDMETAL.NS",
     "COALINDIA.NS",
     "RELIANCE.NS",
     # Pharma
     "NATCOPHARM.NS",
+    "RUBICON.NS",          # NEW - Rubicon Research
     # Healthcare
     "YATHARTH.NS",
     "KIIMS.NS",
     "KIMS.NS",
     "NH.NS",
+    "RAINBOW.NS",          # NEW - Rainbow Children's Medicare
     # Ceramics
     "KAJARIACER.NS",
     # Logistics
@@ -120,7 +138,6 @@ WATCHLIST = [
     "PRICOLLTD.NS",
     "CCL.NS",
 ]
-
 STAGE1_MIN = -20.0
 STAGE1_MAX = -12.0
 STAGE2_MIN = -12.0
