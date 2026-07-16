@@ -1,242 +1,242 @@
 {
   "HBLENGINE.NS": {
-    "gap_pct": 1.74
+    "gap_pct": 1.58
   },
   "ZENTEC.NS": {
-    "gap_pct": 9.56
+    "gap_pct": 9.59
   },
   "DATAPATTNS.NS": {
-    "gap_pct": 20.39
+    "gap_pct": 20.09
   },
   "MAZDOCK.NS": {
-    "gap_pct": -3.32
+    "gap_pct": -3.33
   },
   "HAL.NS": {
-    "gap_pct": -0.13
+    "gap_pct": -0.08
   },
   "BEL.NS": {
-    "gap_pct": -0.2
+    "gap_pct": -0.22
   },
   "ASTRAMICRO.NS": {
-    "gap_pct": 27.38
+    "gap_pct": 27.52
   },
   "BHARATFORG.NS": {
     "gap_pct": 17.06
   },
   "MTARTECH.NS": {
-    "gap_pct": 45.78
+    "gap_pct": 44.94
   },
   "IDEAFORGE.NS": {
-    "gap_pct": 29.27
+    "gap_pct": 29.24
   },
   "M&M.NS": {
-    "gap_pct": -4.02
+    "gap_pct": -4.0
   },
   "ASHOKLEY.NS": {
-    "gap_pct": -0.12
+    "gap_pct": -0.17
   },
   "TVSMOTOR.NS": {
-    "gap_pct": 1.29
+    "gap_pct": 1.26
   },
   "BANCOINDIA.NS": {
-    "gap_pct": 1.59
+    "gap_pct": 1.64
   },
   "PRECWIRE.NS": {
-    "gap_pct": 22.56
+    "gap_pct": 22.19
   },
   "MOTHERSON.NS": {
     "gap_pct": 12.15
   },
   "ENDURANCE.NS": {
-    "gap_pct": 1.16
+    "gap_pct": 1.3
   },
   "TIINDIA.NS": {
-    "gap_pct": 4.53
+    "gap_pct": 4.39
   },
   "BALUFORGE.NS": {
-    "gap_pct": -9.72
+    "gap_pct": -9.74
   },
   "HAVELLS.NS": {
-    "gap_pct": -8.35
+    "gap_pct": -8.38
   },
   "POLYCAB.NS": {
-    "gap_pct": 12.21
+    "gap_pct": 12.18
   },
   "SCHNEIDER.NS": {
-    "gap_pct": 23.39
+    "gap_pct": 23.22
   },
   "CGPOWER.NS": {
-    "gap_pct": 14.32
+    "gap_pct": 14.25
   },
   "TRANSRAILL.NS": {
-    "gap_pct": -10.33
+    "gap_pct": -10.28
   },
   "VOLTAMP.NS": {
-    "gap_pct": 7.03
+    "gap_pct": 6.87
   },
   "GVT&D.NS": {
-    "gap_pct": 20.17
+    "gap_pct": 20.15
   },
   "TRITURBINE.NS": {
-    "gap_pct": 9.77
+    "gap_pct": 9.62
   },
   "TDPOWERSYS.NS": {
-    "gap_pct": 23.96
+    "gap_pct": 23.9
   },
   "IONEXCHANG.NS": {
-    "gap_pct": -0.65
+    "gap_pct": -0.66
   },
   "TITAGARH.NS": {
-    "gap_pct": 2.68
+    "gap_pct": 2.82
   },
   "KEC.NS": {
-    "gap_pct": -15.97
+    "gap_pct": -15.98
   },
   "LT.NS": {
-    "gap_pct": 2.51
+    "gap_pct": 2.52
   },
   "ADANIGREEN.NS": {
-    "gap_pct": 20.69
+    "gap_pct": 20.66
   },
   "ADANIPOWER.NS": {
-    "gap_pct": 20.79
+    "gap_pct": 20.49
   },
   "JSWENERGY.NS": {
-    "gap_pct": 4.98
+    "gap_pct": 4.86
   },
   "INOXWIND.NS": {
-    "gap_pct": -17.34
+    "gap_pct": -17.48
   },
   "WAAREERTL.NS": {
-    "gap_pct": -1.05
+    "gap_pct": -0.98
   },
   "KPIL.NS": {
-    "gap_pct": 6.52
+    "gap_pct": 6.48
   },
   "JWL.NS": {
-    "gap_pct": -7.72
+    "gap_pct": -7.81
   },
   "INFY.NS": {
-    "gap_pct": -13.51
+    "gap_pct": -13.53
   },
   "WIPRO.NS": {
     "gap_pct": -12.2
   },
   "DIXON.NS": {
-    "gap_pct": -3.23
+    "gap_pct": -2.8
   },
   "REDINGTON.NS": {
-    "gap_pct": 1.34
+    "gap_pct": 1.29
   },
   "KAYNES.NS": {
-    "gap_pct": -19.06
+    "gap_pct": -19.04
   },
   "NETWEB.NS": {
-    "gap_pct": 18.95
+    "gap_pct": 18.73
   },
   "BBOX.NS": {
-    "gap_pct": 29.33
+    "gap_pct": 28.83
   },
   "BHARTIARTL.NS": {
-    "gap_pct": -1.87
+    "gap_pct": -1.78
   },
   "INDUSTOWER.NS": {
-    "gap_pct": -0.87
+    "gap_pct": -0.91
   },
   "MOTILALOFS.NS": {
-    "gap_pct": 4.86
+    "gap_pct": 5.01
   },
   "ANGELONE.NS": {
-    "gap_pct": 14.15
+    "gap_pct": 14.06
   },
   "BAJFINANCE.NS": {
-    "gap_pct": 1.88
+    "gap_pct": 1.89
   },
   "AXISBANK.NS": {
     "gap_pct": 3.4
   },
   "BSE.NS": {
-    "gap_pct": 16.69
+    "gap_pct": 16.66
   },
   "CDSL.NS": {
-    "gap_pct": -4.25
+    "gap_pct": -4.28
   },
   "KFINTECH.NS": {
-    "gap_pct": -9.39
+    "gap_pct": -9.29
   },
   "ADANIPORTS.NS": {
-    "gap_pct": 10.88
+    "gap_pct": 10.85
   },
   "ANANTRAJ.NS": {
-    "gap_pct": -0.79
+    "gap_pct": -0.82
   },
   "CHALET.NS": {
-    "gap_pct": -3.0
+    "gap_pct": -2.76
   },
   "RATEGAIN.NS": {
-    "gap_pct": 22.35
+    "gap_pct": 22.73
   },
   "METROBRAND.NS": {
-    "gap_pct": -2.96
+    "gap_pct": -2.94
   },
   "BLS.NS": {
-    "gap_pct": -10.66
+    "gap_pct": -10.78
   },
   "BOROLTD.NS": {
-    "gap_pct": -10.34
+    "gap_pct": -10.36
   },
   "TIPSMUSIC.NS": {
-    "gap_pct": 8.85
+    "gap_pct": 8.82
   },
   "GOKULAGRO.NS": {
-    "gap_pct": 9.45
+    "gap_pct": 9.26
   },
   "VBL.NS": {
     "gap_pct": 3.34
   },
   "LTFOODS.NS": {
-    "gap_pct": -4.49
+    "gap_pct": -4.47
   },
   "RADICO.NS": {
-    "gap_pct": 14.18
+    "gap_pct": 14.15
   },
   "GODFRYPHLP.NS": {
-    "gap_pct": -9.01
+    "gap_pct": -9.03
   },
   "ABDL.NS": {
-    "gap_pct": 10.03
+    "gap_pct": 10.04
   },
   "COALINDIA.NS": {
-    "gap_pct": 4.31
+    "gap_pct": 4.29
   },
   "RELIANCE.NS": {
-    "gap_pct": -4.58
+    "gap_pct": -4.59
   },
   "NATCOPHARM.NS": {
-    "gap_pct": 0.49
+    "gap_pct": 0.46
   },
   "YATHARTH.NS": {
-    "gap_pct": 9.63
+    "gap_pct": 9.62
   },
   "KIMS.NS": {
-    "gap_pct": 7.52
+    "gap_pct": 7.55
   },
   "NH.NS": {
-    "gap_pct": 3.31
+    "gap_pct": 3.48
   },
   "RAINBOW.NS": {
-    "gap_pct": 3.66
+    "gap_pct": 3.64
   },
   "KAJARIACER.NS": {
-    "gap_pct": 4.72
+    "gap_pct": 4.78
   },
   "AEGISLOG.NS": {
-    "gap_pct": 25.75
+    "gap_pct": 25.82
   },
   "PRICOLLTD.NS": {
-    "gap_pct": 4.05
+    "gap_pct": 4.17
   },
   "CCL.NS": {
-    "gap_pct": 9.6
+    "gap_pct": 9.64
   }
 }
