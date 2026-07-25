@@ -38,6 +38,7 @@
 import os
 import json
 import logging
+import html
 import requests
 import numpy as np
 import yfinance as yf
@@ -55,13 +56,13 @@ BENCHMARK = "^NSEI"
 
 WATCHLIST = [
     "HBLENGINE.NS",
-    "PARASDYNE.NS",   # TODO: verify symbol on NSE — failed in backtest, possibly PARAS.NS
+    "PARAS.NS",
     "ZENTEC.NS", "DATAPATTNS.NS", "MAZDOCK.NS",
     "HAL.NS", "BEL.NS", "ASTRAMICRO.NS", "BHARATFORG.NS", "MTARTECH.NS", "IDEAFORGE.NS",
     "M&M.NS", "ASHOKLEY.NS", "TVSMOTOR.NS", "BANCOINDIA.NS", "PRECWIRE.NS",
     "MOTHERSON.NS", "ENDURANCE.NS", "TIINDIA.NS",
     # MOTHERSONSUM.NS removed — duplicate, old symbol for MOTHERSON.NS (renamed June 2022)
-    "BALUFORGE.NS", "SMLISUZU.NS",   # TODO: verify SMLISUZU symbol on NSE — failed in backtest
+    "BALUFORGE.NS", "SMLMAH.NS",
     "HAVELLS.NS", "POLYCAB.NS", "KEI.NS", "SCHNEIDER.NS", "CGPOWER.NS",   # KEIIND -> KEI (correct NSE symbol)
     "TRANSRAILL.NS", "TARIL.NS", "VOLTAMP.NS", "GVT&D.NS",   # TRIL -> TARIL (Trans & Rectifiers)
     "TRITURBINE.NS", "TDPOWERSYS.NS", "IONEXCHANG.NS", "TITAGARH.NS", "KEC.NS", "LT.NS",
@@ -77,7 +78,7 @@ WATCHLIST = [
     "METROBRAND.NS", "BLS.NS", "BOROLTD.NS",
     "TIPSMUSIC.NS",
     "GOKULAGRO.NS", "VBL.NS", "LTFOODS.NS", "RADICO.NS", "GODFRYPHLP.NS", "ABDL.NS",
-    "LLOYDMETAL.NS", "COALINDIA.NS", "RELIANCE.NS",   # TODO: verify LLOYDMETAL symbol on NSE — failed in backtest
+    "LLOYDSME.NS", "COALINDIA.NS", "RELIANCE.NS",
     "NATCOPHARM.NS", "RUBICON.NS",
     "YATHARTH.NS", "KIMS.NS", "NH.NS", "RAINBOW.NS",   # KIIMS.NS removed — duplicate/typo of KIMS.NS
     "KAJARIACER.NS",
@@ -130,7 +131,14 @@ def send_telegram(message):
         r.raise_for_status()
         log.info("  Telegram: sent")
     except Exception as e:
-        log.error(f"  Telegram: FAILED — {e}")
+        # Log Telegram's actual error body (e.g. which char/offset broke HTML
+        # parsing) so future failures are diagnosable straight from the log.
+        body = ""
+        try:
+            body = r.text
+        except Exception:
+            pass
+        log.error(f"  Telegram: FAILED — {e} | response: {body}")
 
 
 def send_telegram_chunked(lines, max_chars=3800):
@@ -351,7 +359,7 @@ def process_symbol(symbol, df, nifty_return_20d):
 # Classification
 # ─────────────────────────────────────────────────────────────────────────
 def classify(data):
-    ticker = data["symbol"].replace(".NS", "")
+    ticker = html.escape(data["symbol"].replace(".NS", ""))
     gap    = data["gap_today"]
     price  = data["price"]
     rsi    = data["rsi"]
