@@ -367,7 +367,7 @@ def classify(data):
 
     rsi_lbl = rsi_simple(rsi)
     vol_lbl = vol_simple(vol_r)
-    rs_tag  = "✅ RS > Nifty" if data["rs_positive"] else "⚠️ RS < Nifty (beta-driven)"
+    rs_tag  = "✅ RS > Nifty" if data["rs_positive"] else "⚠️ RS below Nifty (beta-driven)"
     price_str = f"₹{price:,.0f}"
 
     def stock_line(emoji, action_text, extra_note=""):
@@ -422,7 +422,7 @@ def classify(data):
     if overbought:
         rsi_note = "RSI overbought — size in gradually, don't chase the full position at once."
     elif rsi < RSI_OVERSOLD:
-        rsi_note = "RSI < 30 — verify no breakdown before entry."
+        rsi_note = "RSI below 30 — verify no breakdown before entry."
 
     if has_breakout:
         return "buy_now", stock_line("🔥", "Buy today. Breakout confirmed with volume.", rsi_note)
@@ -464,7 +464,7 @@ def classify(data):
 # ─────────────────────────────────────────────────────────────────────────
 def run_scanner():
     log.info("=" * 55)
-    log.info("  VISH_SCAN v6 — STARTING")
+    log.info("  VISH_SCAN v7 — STARTING")
     log.info("=" * 55)
 
     buckets = {
