@@ -32,6 +32,14 @@
     - Relative strength vs Nifty tagged on every signal
     - Volume confirmation smoothed over last 3 days
     - Batched yfinance download
+
+  v7.1 — added signal_tracker.py integration:
+    - Tracks entry signals (Golden Cross, Buy Now,
+      Aggressive Accumulation, Accumulate, Support Zone)
+      and fires milestone alerts on Telegram.
+    - Runs every scan, even on quiet days with zero new
+      signals, because it checks stocks signalled weeks
+      ago, not just today's.
 =======================================================
 """
 
@@ -44,6 +52,8 @@ import numpy as np
 import yfinance as yf
 import pandas as pd
 from datetime import datetime, timezone, timedelta
+
+from signal_tracker import track_and_report
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s  %(message)s")
 log = logging.getLogger(__name__)
@@ -472,17 +482,37 @@ def run_scanner():
         "support": [], "coiling": [], "wait": [], "watch": [],
     }
 
+    # Maps your v7 internal bucket keys to the signal names
+    # signal_tracker.py's TRACK_SIGNALS expects.
+    BUCKET_TO_SIGNAL = {
+        "exit":    "Golden Cross",
+        "buy_now": "Buy Now",
+        "aggr":    "Aggressive Accumulation",
+        "accum":   "Accumulate",
+        "support": "Support Zone",
+    }
+
     all_data = fetch_all_data(WATCHLIST)
     scanned = len(all_data)
     skipped = len(WATCHLIST) - scanned
 
+    alerts = {}   # only stocks that fired a tracked signal this run
+    prices = {}   # every scanned stock, tracker needs this for milestone checks
+
     for symbol, data in all_data.items():
+        prices[symbol] = data["price"]
         bucket, line = classify(data)
         if bucket and bucket in buckets:
             buckets[bucket].append(line)
             log.info(f"  {symbol} → {bucket}  gap={data['gap_today']}%")
+            if bucket in BUCKET_TO_SIGNAL:
+                alerts[symbol] = {"signal": BUCKET_TO_SIGNAL[bucket], "price": data["price"]}
         else:
             log.info(f"  {symbol} → no alert  gap={data['gap_today']}%")
+
+    # Runs every time — even on quiet days — because it's checking
+    # milestones on signals from weeks ago, not just today's new ones.
+    tracking_text = track_and_report(alerts, prices)
 
     total = sum(len(v) for v in buckets.values())
     now_ist = datetime.now(IST)
@@ -490,7 +520,7 @@ def run_scanner():
     now_str = now_ist.strftime("%d %b %Y, %I:%M %p IST")
 
     if total == 0:
-        send_telegram(
+        base_msg = (
             f"📋 <b>VISH_SCAN {session}</b>\n{now_str}\n"
             f"━━━━━━━━━━━━━━━━━━━━━━\n"
             f"✅ {scanned} stocks scanned ({skipped} skipped)\n"
@@ -498,6 +528,7 @@ def run_scanner():
             f"━━━━━━━━━━━━━━━━━━━━━━\n"
             f"💡 Patience is the edge."
         )
+        send_telegram(base_msg + tracking_text)
         return
 
     msg = [
@@ -525,6 +556,9 @@ def run_scanner():
 
     msg.append(f"\n━━━━━━━━━━━━━━━━━━━━━━")
     msg.append(f"⚠️ Not SEBI advice. Personal use only.")
+
+    if tracking_text:
+        msg.append(tracking_text)
 
     send_telegram_chunked(msg)
     log.info(f"DONE — {total} alerts sent.")
