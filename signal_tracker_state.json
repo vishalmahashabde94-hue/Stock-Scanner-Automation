@@ -7,7 +7,7 @@
       "entry_price": 469.05,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 0.0,
+      "peak_pct": 0.71,
       "trough_pct": 0.0
     },
     {
@@ -18,7 +18,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": 0.0
+      "trough_pct": -0.33
     },
     {
       "symbol": "TARIL.NS",
@@ -27,7 +27,7 @@
       "entry_price": 297.8,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 0.0,
+      "peak_pct": 0.35,
       "trough_pct": 0.0
     },
     {
@@ -38,7 +38,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": 0.0
+      "trough_pct": -0.5
     },
     {
       "symbol": "INFY.NS",
@@ -47,7 +47,7 @@
       "entry_price": 1175.1,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 0.0,
+      "peak_pct": 0.18,
       "trough_pct": 0.0
     },
     {
@@ -57,7 +57,7 @@
       "entry_price": 187.53,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 0.0,
+      "peak_pct": 0.03,
       "trough_pct": 0.0
     },
     {
@@ -68,7 +68,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": 0.0
+      "trough_pct": -0.63
     },
     {
       "symbol": "CDSL.NS",
@@ -78,7 +78,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": 0.0
+      "trough_pct": -0.23
     },
     {
       "symbol": "KFINTECH.NS",
@@ -88,7 +88,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": 0.0
+      "trough_pct": -0.52
     },
     {
       "symbol": "BLS.NS",
@@ -97,7 +97,7 @@
       "entry_price": 254.33,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 0.0,
+      "peak_pct": 3.11,
       "trough_pct": 0.0
     },
     {
@@ -108,13 +108,23 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": 0.0
+      "trough_pct": -0.48
     },
     {
       "symbol": "GODFRYPHLP.NS",
       "signal": "Accumulate",
       "signal_date": "2026-08-09",
       "entry_price": 2286.0,
+      "milestones_hit": [],
+      "drawdown_alerted": false,
+      "peak_pct": 0.48,
+      "trough_pct": 0.0
+    },
+    {
+      "symbol": "TRANSRAILL.NS",
+      "signal": "Support Zone",
+      "signal_date": "2026-08-10",
+      "entry_price": 472.7,
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
