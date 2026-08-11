@@ -8,7 +8,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.71,
-      "trough_pct": -1.67
+      "trough_pct": -2.14
     },
     {
       "symbol": "HAVELLS.NS",
@@ -18,7 +18,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -0.33
+      "trough_pct": -1.06
     },
     {
       "symbol": "TARIL.NS",
@@ -28,7 +28,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.44,
-      "trough_pct": 0.0
+      "trough_pct": -0.24
     },
     {
       "symbol": "KEC.NS",
@@ -38,7 +38,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -0.63
+      "trough_pct": -5.87
     },
     {
       "symbol": "INFY.NS",
@@ -47,7 +47,7 @@
       "entry_price": 1175.1,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 0.67,
+      "peak_pct": 1.33,
       "trough_pct": 0.0
     },
     {
@@ -58,7 +58,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.03,
-      "trough_pct": -1.08
+      "trough_pct": -1.56
     },
     {
       "symbol": "BHARTIARTL.NS",
@@ -68,7 +68,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -0.86
+      "trough_pct": -2.28
     },
     {
       "symbol": "CDSL.NS",
@@ -77,7 +77,7 @@
       "entry_price": 1328.0,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 0.34,
+      "peak_pct": 1.43,
       "trough_pct": -0.23
     },
     {
@@ -107,7 +107,7 @@
       "entry_price": 244.21,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 0.0,
+      "peak_pct": 0.18,
       "trough_pct": -1.3
     },
     {
@@ -118,7 +118,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.48,
-      "trough_pct": 0.0
+      "trough_pct": -2.67
     },
     {
       "symbol": "TRANSRAILL.NS",
@@ -128,6 +128,16 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 1.33,
+      "trough_pct": 0.0
+    },
+    {
+      "symbol": "CHALET.NS",
+      "signal": "Support Zone",
+      "signal_date": "2026-08-11",
+      "entry_price": 821.2,
+      "milestones_hit": [],
+      "drawdown_alerted": false,
+      "peak_pct": 0.0,
       "trough_pct": 0.0
     }
   ],
