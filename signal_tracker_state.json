@@ -28,7 +28,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.44,
-      "trough_pct": -0.24
+      "trough_pct": -0.39
     },
     {
       "symbol": "KEC.NS",
@@ -38,7 +38,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -5.87
+      "trough_pct": -6.23
     },
     {
       "symbol": "INFY.NS",
@@ -58,7 +58,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.03,
-      "trough_pct": -1.56
+      "trough_pct": -1.94
     },
     {
       "symbol": "BHARTIARTL.NS",
@@ -68,7 +68,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -2.28
+      "trough_pct": -2.95
     },
     {
       "symbol": "CDSL.NS",
@@ -88,7 +88,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -0.8
+      "trough_pct": -1.16
     },
     {
       "symbol": "BLS.NS",
@@ -97,7 +97,7 @@
       "entry_price": 254.33,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 3.11,
+      "peak_pct": 3.36,
       "trough_pct": 0.0
     },
     {
@@ -118,7 +118,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.48,
-      "trough_pct": -2.67
+      "trough_pct": -3.22
     },
     {
       "symbol": "TRANSRAILL.NS",
@@ -138,7 +138,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": 0.0
+      "trough_pct": -0.96
     }
   ],
   "closed": []
