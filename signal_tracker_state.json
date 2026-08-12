@@ -18,7 +18,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -1.06
+      "trough_pct": -1.79
     },
     {
       "symbol": "TARIL.NS",
@@ -28,7 +28,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.44,
-      "trough_pct": -0.39
+      "trough_pct": -1.8
     },
     {
       "symbol": "KEC.NS",
@@ -38,7 +38,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -6.23
+      "trough_pct": -7.74
     },
     {
       "symbol": "INFY.NS",
@@ -88,7 +88,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -1.16
+      "trough_pct": -1.5
     },
     {
       "symbol": "BLS.NS",
@@ -118,7 +118,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.48,
-      "trough_pct": -3.22
+      "trough_pct": -3.81
     },
     {
       "symbol": "TRANSRAILL.NS",
@@ -128,7 +128,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 1.33,
-      "trough_pct": 0.0
+      "trough_pct": -1.2
     },
     {
       "symbol": "CHALET.NS",
@@ -137,8 +137,18 @@
       "entry_price": 821.2,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 0.0,
+      "peak_pct": 0.12,
       "trough_pct": -0.96
+    },
+    {
+      "symbol": "INDUSTOWER.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-08-12",
+      "entry_price": 383.4,
+      "milestones_hit": [],
+      "drawdown_alerted": false,
+      "peak_pct": 0.0,
+      "trough_pct": 0.0
     }
   ],
   "closed": []
