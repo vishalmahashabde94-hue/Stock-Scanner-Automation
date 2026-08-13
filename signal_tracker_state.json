@@ -8,7 +8,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.71,
-      "trough_pct": -2.14
+      "trough_pct": -4.86
     },
     {
       "symbol": "HAVELLS.NS",
@@ -28,7 +28,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.44,
-      "trough_pct": -1.8
+      "trough_pct": -1.95
     },
     {
       "symbol": "KEC.NS",
@@ -77,7 +77,7 @@
       "entry_price": 1328.0,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 1.43,
+      "peak_pct": 1.66,
       "trough_pct": -0.23
     },
     {
@@ -99,7 +99,7 @@
         5
       ],
       "drawdown_alerted": false,
-      "peak_pct": 5.57,
+      "peak_pct": 6.42,
       "trough_pct": 0.0
     },
     {
@@ -120,7 +120,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.48,
-      "trough_pct": -4.3
+      "trough_pct": -5.51
     },
     {
       "symbol": "TRANSRAILL.NS",
@@ -160,7 +160,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": 0.0
+      "trough_pct": -0.28
     }
   ],
   "closed": []
