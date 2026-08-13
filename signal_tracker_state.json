@@ -18,7 +18,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -1.79
+      "trough_pct": -1.95
     },
     {
       "symbol": "TARIL.NS",
@@ -48,7 +48,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 1.33,
-      "trough_pct": 0.0
+      "trough_pct": -0.59
     },
     {
       "symbol": "WIPRO.NS",
@@ -58,7 +58,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.03,
-      "trough_pct": -1.94
+      "trough_pct": -2.41
     },
     {
       "symbol": "BHARTIARTL.NS",
@@ -95,9 +95,11 @@
       "signal": "Accumulate",
       "signal_date": "2026-08-09",
       "entry_price": 254.33,
-      "milestones_hit": [],
+      "milestones_hit": [
+        5
+      ],
       "drawdown_alerted": false,
-      "peak_pct": 3.36,
+      "peak_pct": 5.57,
       "trough_pct": 0.0
     },
     {
@@ -118,7 +120,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.48,
-      "trough_pct": -3.81
+      "trough_pct": -4.3
     },
     {
       "symbol": "TRANSRAILL.NS",
@@ -137,7 +139,7 @@
       "entry_price": 821.2,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 0.12,
+      "peak_pct": 0.33,
       "trough_pct": -0.96
     },
     {
@@ -145,6 +147,16 @@
       "signal": "Buy Now",
       "signal_date": "2026-08-12",
       "entry_price": 383.4,
+      "milestones_hit": [],
+      "drawdown_alerted": false,
+      "peak_pct": 0.0,
+      "trough_pct": -0.35
+    },
+    {
+      "symbol": "NATCOPHARM.NS",
+      "signal": "Support Zone",
+      "signal_date": "2026-08-13",
+      "entry_price": 954.35,
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
