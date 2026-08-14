@@ -5,9 +5,11 @@
       "signal": "Accumulate",
       "signal_date": "2026-08-09",
       "entry_price": 469.05,
-      "milestones_hit": [],
+      "milestones_hit": [
+        5
+      ],
       "drawdown_alerted": false,
-      "peak_pct": 0.71,
+      "peak_pct": 5.79,
       "trough_pct": -4.86
     },
     {
@@ -99,7 +101,7 @@
         5
       ],
       "drawdown_alerted": false,
-      "peak_pct": 6.42,
+      "peak_pct": 7.22,
       "trough_pct": 0.0
     },
     {
@@ -120,7 +122,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.48,
-      "trough_pct": -5.51
+      "trough_pct": -5.8
     },
     {
       "symbol": "TRANSRAILL.NS",
@@ -150,7 +152,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -0.35
+      "trough_pct": -0.56
     },
     {
       "symbol": "NATCOPHARM.NS",
@@ -159,7 +161,7 @@
       "entry_price": 954.35,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 0.0,
+      "peak_pct": 0.32,
       "trough_pct": -0.28
     }
   ],
