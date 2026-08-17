@@ -9,7 +9,7 @@
         5
       ],
       "drawdown_alerted": false,
-      "peak_pct": 5.79,
+      "peak_pct": 9.44,
       "trough_pct": -4.86
     },
     {
@@ -19,7 +19,7 @@
       "entry_price": 1288.0,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 0.78,
+      "peak_pct": 0.85,
       "trough_pct": -1.95
     },
     {
@@ -40,7 +40,7 @@
       "milestones_hit": [],
       "drawdown_alerted": true,
       "peak_pct": 0.0,
-      "trough_pct": -8.13
+      "trough_pct": -8.88
     },
     {
       "symbol": "INFY.NS",
@@ -50,7 +50,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 1.33,
-      "trough_pct": -0.59
+      "trough_pct": -3.0
     },
     {
       "symbol": "WIPRO.NS",
@@ -60,7 +60,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.03,
-      "trough_pct": -2.41
+      "trough_pct": -3.0
     },
     {
       "symbol": "BHARTIARTL.NS",
@@ -79,7 +79,7 @@
       "entry_price": 1328.0,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 1.66,
+      "peak_pct": 2.17,
       "trough_pct": -0.23
     },
     {
@@ -89,7 +89,7 @@
       "entry_price": 936.0,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 0.43,
+      "peak_pct": 3.95,
       "trough_pct": -1.5
     },
     {
@@ -111,7 +111,7 @@
       "entry_price": 244.21,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 0.18,
+      "peak_pct": 0.25,
       "trough_pct": -2.32
     },
     {
@@ -122,7 +122,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.48,
-      "trough_pct": -5.99
+      "trough_pct": -6.78
     },
     {
       "symbol": "TRANSRAILL.NS",
@@ -132,7 +132,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 1.33,
-      "trough_pct": -1.2
+      "trough_pct": -1.66
     },
     {
       "symbol": "CHALET.NS",
@@ -141,7 +141,7 @@
       "entry_price": 821.2,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 0.47,
+      "peak_pct": 2.86,
       "trough_pct": -0.96
     },
     {
@@ -152,7 +152,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.25,
-      "trough_pct": -0.56
+      "trough_pct": -0.89
     },
     {
       "symbol": "NATCOPHARM.NS",
@@ -162,7 +162,17 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.32,
-      "trough_pct": -5.36
+      "trough_pct": -6.76
+    },
+    {
+      "symbol": "INOXWIND.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-08-17",
+      "entry_price": 78.13,
+      "milestones_hit": [],
+      "drawdown_alerted": false,
+      "peak_pct": 0.0,
+      "trough_pct": 0.0
     }
   ],
   "closed": []
