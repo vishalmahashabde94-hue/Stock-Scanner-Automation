@@ -6,10 +6,12 @@
       "signal_date": "2026-08-09",
       "entry_price": 469.05,
       "milestones_hit": [
-        5
+        5,
+        10,
+        15
       ],
       "drawdown_alerted": false,
-      "peak_pct": 9.44,
+      "peak_pct": 15.67,
       "trough_pct": -4.86
     },
     {
@@ -19,7 +21,7 @@
       "entry_price": 1288.0,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 0.85,
+      "peak_pct": 0.91,
       "trough_pct": -1.95
     },
     {
@@ -40,7 +42,7 @@
       "milestones_hit": [],
       "drawdown_alerted": true,
       "peak_pct": 0.0,
-      "trough_pct": -8.88
+      "trough_pct": -10.49
     },
     {
       "symbol": "INFY.NS",
@@ -50,7 +52,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 1.33,
-      "trough_pct": -3.0
+      "trough_pct": -5.11
     },
     {
       "symbol": "WIPRO.NS",
@@ -60,7 +62,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.03,
-      "trough_pct": -3.0
+      "trough_pct": -5.05
     },
     {
       "symbol": "BHARTIARTL.NS",
@@ -111,7 +113,7 @@
       "entry_price": 244.21,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 0.25,
+      "peak_pct": 2.51,
       "trough_pct": -2.32
     },
     {
@@ -120,9 +122,9 @@
       "signal_date": "2026-08-09",
       "entry_price": 2286.0,
       "milestones_hit": [],
-      "drawdown_alerted": false,
+      "drawdown_alerted": true,
       "peak_pct": 0.48,
-      "trough_pct": -6.78
+      "trough_pct": -8.04
     },
     {
       "symbol": "TRANSRAILL.NS",
@@ -132,7 +134,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 1.33,
-      "trough_pct": -1.66
+      "trough_pct": -2.9
     },
     {
       "symbol": "CHALET.NS",
@@ -152,7 +154,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.25,
-      "trough_pct": -0.89
+      "trough_pct": -2.87
     },
     {
       "symbol": "NATCOPHARM.NS",
@@ -172,7 +174,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": 0.0
+      "trough_pct": -4.07
     }
   ],
   "closed": []
