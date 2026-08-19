@@ -32,7 +32,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.44,
-      "trough_pct": -1.95
+      "trough_pct": -2.2
     },
     {
       "symbol": "KEC.NS",
@@ -42,7 +42,7 @@
       "milestones_hit": [],
       "drawdown_alerted": true,
       "peak_pct": 0.0,
-      "trough_pct": -10.49
+      "trough_pct": -11.56
     },
     {
       "symbol": "INFY.NS",
@@ -134,7 +134,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 1.33,
-      "trough_pct": -2.9
+      "trough_pct": -3.19
     },
     {
       "symbol": "CHALET.NS",
@@ -143,7 +143,7 @@
       "entry_price": 821.2,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 2.86,
+      "peak_pct": 3.27,
       "trough_pct": -0.96
     },
     {
@@ -164,7 +164,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.32,
-      "trough_pct": -6.76
+      "trough_pct": -7.07
     },
     {
       "symbol": "INOXWIND.NS",
@@ -174,7 +174,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -4.07
+      "trough_pct": -5.62
     }
   ],
   "closed": []
