@@ -187,6 +187,16 @@
       "drawdown_alerted": false,
       "peak_pct": 0.0,
       "trough_pct": 0.0
+    },
+    {
+      "symbol": "HBLENGINE.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-08-21",
+      "entry_price": 712.9,
+      "milestones_hit": [],
+      "drawdown_alerted": false,
+      "peak_pct": 0.0,
+      "trough_pct": 0.0
     }
   ],
   "closed": []
