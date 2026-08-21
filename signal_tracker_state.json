@@ -11,7 +11,7 @@
         15
       ],
       "drawdown_alerted": false,
-      "peak_pct": 16.57,
+      "peak_pct": 18.41,
       "trough_pct": -4.86
     },
     {
@@ -81,7 +81,7 @@
       "entry_price": 1328.0,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 2.17,
+      "peak_pct": 4.59,
       "trough_pct": -0.23
     },
     {
@@ -91,7 +91,7 @@
       "entry_price": 936.0,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 3.95,
+      "peak_pct": 4.7,
       "trough_pct": -1.5
     },
     {
@@ -145,7 +145,7 @@
       "entry_price": 821.2,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 3.86,
+      "peak_pct": 4.96,
       "trough_pct": -0.96
     },
     {
@@ -176,7 +176,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -5.62
+      "trough_pct": -5.8
     },
     {
       "symbol": "M&M.NS",
@@ -186,13 +186,23 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": 0.0
+      "trough_pct": -0.37
     },
     {
       "symbol": "HBLENGINE.NS",
       "signal": "Buy Now",
       "signal_date": "2026-08-21",
       "entry_price": 712.9,
+      "milestones_hit": [],
+      "drawdown_alerted": false,
+      "peak_pct": 0.0,
+      "trough_pct": -1.45
+    },
+    {
+      "symbol": "LTFOODS.NS",
+      "signal": "Golden Cross",
+      "signal_date": "2026-08-21",
+      "entry_price": 427.6,
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
