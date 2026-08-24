@@ -8,10 +8,12 @@
       "milestones_hit": [
         5,
         10,
-        15
+        15,
+        20,
+        25
       ],
       "drawdown_alerted": false,
-      "peak_pct": 18.41,
+      "peak_pct": 34.78,
       "trough_pct": -4.86
     },
     {
@@ -31,7 +33,7 @@
       "entry_price": 297.8,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 0.44,
+      "peak_pct": 1.44,
       "trough_pct": -4.25
     },
     {
@@ -104,7 +106,7 @@
       ],
       "drawdown_alerted": false,
       "peak_pct": 9.35,
-      "trough_pct": 0.0
+      "trough_pct": -5.04
     },
     {
       "symbol": "BOROLTD.NS",
@@ -126,7 +128,7 @@
       "milestones_hit": [],
       "drawdown_alerted": true,
       "peak_pct": 0.48,
-      "trough_pct": -8.04
+      "trough_pct": -8.11
     },
     {
       "symbol": "TRANSRAILL.NS",
@@ -143,9 +145,11 @@
       "signal": "Support Zone",
       "signal_date": "2026-08-11",
       "entry_price": 821.2,
-      "milestones_hit": [],
+      "milestones_hit": [
+        5
+      ],
       "drawdown_alerted": false,
-      "peak_pct": 4.96,
+      "peak_pct": 5.89,
       "trough_pct": -0.96
     },
     {
@@ -196,13 +200,25 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -1.45
+      "trough_pct": -3.09
     },
     {
       "symbol": "LTFOODS.NS",
       "signal": "Golden Cross",
       "signal_date": "2026-08-21",
       "entry_price": 427.6,
+      "milestones_hit": [
+        5
+      ],
+      "drawdown_alerted": false,
+      "peak_pct": 7.34,
+      "trough_pct": 0.0
+    },
+    {
+      "symbol": "RELIANCE.NS",
+      "signal": "Support Zone",
+      "signal_date": "2026-08-24",
+      "entry_price": 1309.8,
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
