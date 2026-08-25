@@ -33,7 +33,7 @@
       "entry_price": 297.8,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 1.44,
+      "peak_pct": 3.37,
       "trough_pct": -4.25
     },
     {
@@ -81,9 +81,11 @@
       "signal": "Support Zone",
       "signal_date": "2026-08-09",
       "entry_price": 1328.0,
-      "milestones_hit": [],
+      "milestones_hit": [
+        5
+      ],
       "drawdown_alerted": false,
-      "peak_pct": 4.59,
+      "peak_pct": 5.03,
       "trough_pct": -0.23
     },
     {
@@ -117,7 +119,7 @@
         5
       ],
       "drawdown_alerted": false,
-      "peak_pct": 5.57,
+      "peak_pct": 7.06,
       "trough_pct": -2.32
     },
     {
@@ -149,7 +151,7 @@
         5
       ],
       "drawdown_alerted": false,
-      "peak_pct": 5.89,
+      "peak_pct": 8.87,
       "trough_pct": -0.96
     },
     {
@@ -159,7 +161,7 @@
       "entry_price": 383.4,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 0.25,
+      "peak_pct": 1.0,
       "trough_pct": -3.81
     },
     {
@@ -170,7 +172,7 @@
       "milestones_hit": [],
       "drawdown_alerted": true,
       "peak_pct": 0.32,
-      "trough_pct": -8.05
+      "trough_pct": -9.23
     },
     {
       "symbol": "INOXWIND.NS",
@@ -189,7 +191,7 @@
       "entry_price": 3424.8,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 0.0,
+      "peak_pct": 0.53,
       "trough_pct": -0.37
     },
     {
@@ -219,6 +221,16 @@
       "signal": "Support Zone",
       "signal_date": "2026-08-24",
       "entry_price": 1309.8,
+      "milestones_hit": [],
+      "drawdown_alerted": false,
+      "peak_pct": 0.55,
+      "trough_pct": 0.0
+    },
+    {
+      "symbol": "KAYNES.NS",
+      "signal": "Accumulate",
+      "signal_date": "2026-08-25",
+      "entry_price": 3936.0,
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
