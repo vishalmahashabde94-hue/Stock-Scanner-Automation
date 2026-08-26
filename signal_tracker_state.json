@@ -13,7 +13,7 @@
         25
       ],
       "drawdown_alerted": false,
-      "peak_pct": 34.78,
+      "peak_pct": 36.21,
       "trough_pct": -4.86
     },
     {
@@ -24,7 +24,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.91,
-      "trough_pct": -1.95
+      "trough_pct": -2.27
     },
     {
       "symbol": "TARIL.NS",
@@ -64,7 +64,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.03,
-      "trough_pct": -5.05
+      "trough_pct": -5.43
     },
     {
       "symbol": "BHARTIARTL.NS",
@@ -85,7 +85,7 @@
         5
       ],
       "drawdown_alerted": false,
-      "peak_pct": 5.03,
+      "peak_pct": 7.98,
       "trough_pct": -0.23
     },
     {
@@ -108,7 +108,7 @@
       ],
       "drawdown_alerted": false,
       "peak_pct": 9.35,
-      "trough_pct": -5.04
+      "trough_pct": -6.52
     },
     {
       "symbol": "BOROLTD.NS",
@@ -148,10 +148,11 @@
       "signal_date": "2026-08-11",
       "entry_price": 821.2,
       "milestones_hit": [
-        5
+        5,
+        10
       ],
       "drawdown_alerted": false,
-      "peak_pct": 8.87,
+      "peak_pct": 11.11,
       "trough_pct": -0.96
     },
     {
@@ -172,7 +173,7 @@
       "milestones_hit": [],
       "drawdown_alerted": true,
       "peak_pct": 0.32,
-      "trough_pct": -9.23
+      "trough_pct": -9.53
     },
     {
       "symbol": "INOXWIND.NS",
@@ -182,7 +183,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -5.8
+      "trough_pct": -6.31
     },
     {
       "symbol": "M&M.NS",
@@ -192,7 +193,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.53,
-      "trough_pct": -0.37
+      "trough_pct": -0.78
     },
     {
       "symbol": "HBLENGINE.NS",
@@ -202,7 +203,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -3.09
+      "trough_pct": -4.07
     },
     {
       "symbol": "LTFOODS.NS",
@@ -224,13 +225,23 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.55,
-      "trough_pct": 0.0
+      "trough_pct": -0.9
     },
     {
       "symbol": "KAYNES.NS",
       "signal": "Accumulate",
       "signal_date": "2026-08-25",
       "entry_price": 3936.0,
+      "milestones_hit": [],
+      "drawdown_alerted": false,
+      "peak_pct": 2.44,
+      "trough_pct": 0.0
+    },
+    {
+      "symbol": "MAZDOCK.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-08-26",
+      "entry_price": 2625.0,
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
