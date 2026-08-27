@@ -24,7 +24,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.91,
-      "trough_pct": -2.27
+      "trough_pct": -3.65
     },
     {
       "symbol": "TARIL.NS",
@@ -44,7 +44,7 @@
       "milestones_hit": [],
       "drawdown_alerted": true,
       "peak_pct": 0.0,
-      "trough_pct": -11.56
+      "trough_pct": -12.0
     },
     {
       "symbol": "INFY.NS",
@@ -54,7 +54,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 1.33,
-      "trough_pct": -5.11
+      "trough_pct": -5.47
     },
     {
       "symbol": "WIPRO.NS",
@@ -64,7 +64,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.03,
-      "trough_pct": -5.43
+      "trough_pct": -5.94
     },
     {
       "symbol": "BHARTIARTL.NS",
@@ -74,7 +74,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 1.64,
-      "trough_pct": -2.95
+      "trough_pct": -4.16
     },
     {
       "symbol": "CDSL.NS",
@@ -173,7 +173,7 @@
       "milestones_hit": [],
       "drawdown_alerted": true,
       "peak_pct": 0.32,
-      "trough_pct": -9.53
+      "trough_pct": -10.14
     },
     {
       "symbol": "INOXWIND.NS",
@@ -183,7 +183,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -6.31
+      "trough_pct": -7.85
     },
     {
       "symbol": "M&M.NS",
@@ -193,7 +193,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.53,
-      "trough_pct": -0.78
+      "trough_pct": -2.77
     },
     {
       "symbol": "HBLENGINE.NS",
@@ -203,7 +203,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -4.07
+      "trough_pct": -6.61
     },
     {
       "symbol": "LTFOODS.NS",
@@ -225,7 +225,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.55,
-      "trough_pct": -0.9
+      "trough_pct": -2.11
     },
     {
       "symbol": "KAYNES.NS",
@@ -245,7 +245,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": 0.0
+      "trough_pct": -1.41
     }
   ],
   "closed": []
