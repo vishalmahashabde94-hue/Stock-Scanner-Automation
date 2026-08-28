@@ -24,7 +24,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.91,
-      "trough_pct": -3.65
+      "trough_pct": -5.05
     },
     {
       "symbol": "TARIL.NS",
@@ -140,7 +140,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 1.33,
-      "trough_pct": -3.19
+      "trough_pct": -4.22
     },
     {
       "symbol": "CHALET.NS",
@@ -173,7 +173,7 @@
       "milestones_hit": [],
       "drawdown_alerted": true,
       "peak_pct": 0.32,
-      "trough_pct": -10.14
+      "trough_pct": -10.54
     },
     {
       "symbol": "INOXWIND.NS",
@@ -181,9 +181,9 @@
       "signal_date": "2026-08-17",
       "entry_price": 78.13,
       "milestones_hit": [],
-      "drawdown_alerted": false,
+      "drawdown_alerted": true,
       "peak_pct": 0.0,
-      "trough_pct": -7.85
+      "trough_pct": -8.11
     },
     {
       "symbol": "M&M.NS",
@@ -245,7 +245,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -1.41
+      "trough_pct": -2.67
     }
   ],
   "closed": []
