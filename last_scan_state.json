@@ -1,0 +1,30 @@
+{
+  "body_lines": [
+    "\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501",
+    "<b>\ud83d\udcc8 AGGRESSIVE ACCUMULATION</b>",
+    "\n<b>BOROLTD</b>\n\ud83d\udcb5 CMP      : \u20b9244\n\ud83d\udcd0 EMA Gap  : -6.0%\n\ud83d\udcca RSI      : 49 \u2014 Neutral\n\ud83d\udce6 Volume   : Low (0.6x)\n\ud83d\udcc8 RS(20d)  : \u2705 RS > Nifty\n\ud83d\udc49 \ud83d\udcc8 Add aggressively. Cross expected in 2-4 weeks.",
+    "\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501",
+    "<b>\ud83d\udfe1 ACCUMULATE</b>",
+    "\n<b>INFY</b>\n\ud83d\udcb5 CMP      : \u20b91,144\n\ud83d\udcd0 EMA Gap  : -8.9%\n\ud83d\udcca RSI      : 53 \u2014 Neutral\n\ud83d\udce6 Volume   : OK (1.2x)\n\ud83d\udcc8 RS(20d)  : \u2705 RS > Nifty\n\ud83d\udc49 \ud83d\udfe1 Start building. Buy 30-40% of planned amount.",
+    "\n<b>KAYNES</b>\n\ud83d\udcb5 CMP      : \u20b93,943\n\ud83d\udcd0 EMA Gap  : -10.4%\n\ud83d\udcca RSI      : 62 \u2014 Heated\n\ud83d\udce6 Volume   : Low (0.5x)\n\ud83d\udcc8 RS(20d)  : \u2705 RS > Nifty\n\ud83d\udc49 \ud83d\udfe1 Start building. Buy 30-40% of planned amount.",
+    "\n<b>GODFRYPHLP</b>\n\ud83d\udcb5 CMP      : \u20b92,124\n\ud83d\udcd0 EMA Gap  : -8.4%\n\ud83d\udcca RSI      : 48 \u2014 Neutral\n\ud83d\udce6 Volume   : Low (0.3x)\n\ud83d\udcc8 RS(20d)  : \u2705 RS > Nifty\n\ud83d\udc49 \ud83d\udfe1 Start building. Buy 30-40% of planned amount.",
+    "\n<b>SWIGGY</b>\n\ud83d\udcb5 CMP      : \u20b9280\n\ud83d\udcd0 EMA Gap  : -9.6%\n\ud83d\udcca RSI      : 52 \u2014 Neutral\n\ud83d\udce6 Volume   : Low (0.3x)\n\ud83d\udcc8 RS(20d)  : \u26a0\ufe0f RS below Nifty (beta-driven)\n\ud83d\udc49 \ud83d\udfe1 Start building. Buy 30-40% of planned amount. Also sitting near a support zone.",
+    "\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501",
+    "<b>\ud83d\udee1 SUPPORT ZONE</b>",
+    "\n<b>KFINTECH</b>\n\ud83d\udcb5 CMP      : \u20b9950\n\ud83d\udcd0 EMA Gap  : -1.7%\n\ud83d\udcca RSI      : 53 \u2014 Neutral\n\ud83d\udce6 Volume   : Low (0.6x)\n\ud83d\udcc8 RS(20d)  : \u2705 RS > Nifty\n\ud83d\udc49 \ud83d\udee1 Stock at support. Small entry with tight stop loss.",
+    "\n<b>RELIANCE</b>\n\ud83d\udcb5 CMP      : \u20b91,287\n\ud83d\udcd0 EMA Gap  : -3.4%\n\ud83d\udcca RSI      : 43 \u2014 Recovering\n\ud83d\udce6 Volume   : Low (0.7x)\n\ud83d\udcc8 RS(20d)  : \u26a0\ufe0f RS below Nifty (beta-driven)\n\ud83d\udc49 \ud83d\udee1 Stock at support. Small entry with tight stop loss.",
+    "\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501",
+    "<b>\u23f3 WAIT \u2014 Hold Only</b>",
+    "\n<b>BALUFORGE</b>\n\ud83d\udcb5 CMP      : \u20b9633\n\ud83d\udcd0 EMA Gap  : -2.0%\n\ud83d\udcca RSI      : 76 \u2014 Overbought\n\ud83d\udce6 Volume   : Low (0.5x)\n\ud83d\udcc8 RS(20d)  : \u2705 RS > Nifty\n\ud83d\udc49 \u23f3 Hold if invested. No fresh buying at this stage.",
+    "\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501",
+    "<b>\ud83c\udf00 COILING \u2014 UNCONFIRMED, backtest still shows ~coin-flip odds</b>",
+    "\n<b>MAZDOCK</b>\n\ud83d\udcb5 CMP      : \u20b92,555\n\ud83d\udcd0 EMA Gap  : -0.3%\n\ud83d\udcca RSI      : 56 \u2014 Heated\n\ud83d\udce6 Volume   : Low (0.4x)\n\ud83d\udcc8 RS(20d)  : \u2705 RS > Nifty\n\ud83d\udc49 \ud83c\udf00 UNCONFIRMED pre-breakout setup \u2014 squeeze + volume building near highs. Not yet backtest-validated, watch only.",
+    "\n<b>CHALET</b>\n\ud83d\udcb5 CMP      : \u20b9901\n\ud83d\udcd0 EMA Gap  : -0.5%\n\ud83d\udcca RSI      : 66 \u2014 Heated\n\ud83d\udce6 Volume   : OK (1.1x)\n\ud83d\udcc8 RS(20d)  : \u2705 RS > Nifty\n\ud83d\udc49 \ud83c\udf00 UNCONFIRMED pre-breakout setup \u2014 squeeze + volume building near highs. Not yet backtest-validated, watch only.",
+    "\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501",
+    "\u26a0\ufe0f Not SEBI advice. Personal use only."
+  ],
+  "scanned": 94,
+  "skipped": 3,
+  "total": 10,
+  "date": "30 Aug 2026, 10:34 PM IST"
+}

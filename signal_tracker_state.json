@@ -246,6 +246,15 @@
       "drawdown_alerted": false,
       "peak_pct": 0.0,
       "trough_pct": -2.67
+    },
+    {
+      "symbol": "SWIGGY.NS",
+      "signal": "Accumulate",
+      "signal_date": "2026-08-30",
+      "entry_price": 280.5,
+      "peak_pct": 0.0,
+      "trough_pct": 0.0,
+      "checkpoint_reported": false
     }
   ],
   "closed": []
