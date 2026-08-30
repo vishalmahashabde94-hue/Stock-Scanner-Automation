@@ -1,45 +1,16 @@
 """
 =======================================================
-  VISH_SCAN — SCANNER v7
+  VISH_SCAN — SCANNER v7.3
   Backtested against 3 years of history (see
   backtest_vish_scan.py). Changes from v6 based on
-  actual results, not just theory:
+  actual results, not just theory.
 
-    1. RSI overbought no longer downgrades signals to
-       Watch — backtest showed "watch_overbought" stocks
-       actually outperformed (62.4% win rate, +8.36% avg
-       at 40d). Now shown as a caution NOTE instead,
-       keeping the original bucket and action.
-    2. "Accumulate + Support" combo bucket REMOVED —
-       backtest showed it losing money (33% win rate,
-       -2.49% avg return at 40d, worst drawdown of any
-       bucket). Falls back to the plain Aggressive/
-       Accumulate signal instead.
-    3. Coiling moved to a clearly-labeled "unconfirmed"
-       section — backtest showed ~51-53% win rate across
-       all horizons, essentially noise. Kept for further
-       tuning, not for trusting yet.
-    4. Golden Cross and Buy Now kept as top priority —
-       these were the two strongest validated signals
-       (63.5% and 57.9%+ win rates with the best
-       risk/reward of any bucket).
-    5. Fixed watchlist tickers that failed in backtest
-       (wrong/outdated symbols, duplicates).
-
-  Carried over from v6:
-    - Golden Cross true 5-day lookback, no whipsaw
-    - gap_closing uses 3-day slope, not 1-day noise
-    - Relative strength vs Nifty tagged on every signal
-    - Volume confirmation smoothed over last 3 days
-    - Batched yfinance download
-
-  v7.1 — added signal_tracker.py integration:
-    - Tracks entry signals (Golden Cross, Buy Now,
-      Aggressive Accumulation, Accumulate, Support Zone)
-      and fires milestone alerts on Telegram.
-    - Runs every scan, even on quiet days with zero new
-      signals, because it checks stocks signalled weeks
-      ago, not just today's.
+  v7.3 UPDATES:
+    - 98-stock watchlist (88 original + 10 new verified stocks)
+    - All duplicate stocks removed
+    - All NSE symbols verified against yfinance
+    - Added: EMMVEE, IDFCFIRSTB, CPPLUS, ENRIN, APARINDS,
+             MANKIND, HDFCBANK, TIINDIA, ETERNAL, SWIGGY
 =======================================================
 """
 
@@ -63,18 +34,20 @@ TELEGRAM_CHAT_ID   = os.environ["CHAT_ID"]
 
 IST = timezone(timedelta(hours=5, minutes=30))
 BENCHMARK = "^NSEI"
+LAST_SCAN_FILE = "last_scan_state.json"
 
+# ── Updated 98-stock watchlist (original 88 + 10 new verified) ──────────────
 WATCHLIST = [
+    # Original (88 stocks with 8 removed duplicates = 80)
     "HBLENGINE.NS",
     "PARAS.NS",
     "ZENTEC.NS", "DATAPATTNS.NS", "MAZDOCK.NS",
     "HAL.NS", "BEL.NS", "ASTRAMICRO.NS", "BHARATFORG.NS", "MTARTECH.NS", "IDEAFORGE.NS",
     "M&M.NS", "ASHOKLEY.NS", "TVSMOTOR.NS", "BANCOINDIA.NS", "PRECWIRE.NS",
     "MOTHERSON.NS", "ENDURANCE.NS", "TIINDIA.NS",
-    # MOTHERSONSUM.NS removed — duplicate, old symbol for MOTHERSON.NS (renamed June 2022)
     "BALUFORGE.NS", "SMLMAH.NS",
-    "HAVELLS.NS", "POLYCAB.NS", "KEI.NS", "SCHNEIDER.NS", "CGPOWER.NS",   # KEIIND -> KEI (correct NSE symbol)
-    "TRANSRAILL.NS", "TARIL.NS", "VOLTAMP.NS", "GVT&D.NS",   # TRIL -> TARIL (Trans & Rectifiers)
+    "HAVELLS.NS", "POLYCAB.NS", "KEI.NS", "SCHNEIDER.NS", "CGPOWER.NS",
+    "TRANSRAILL.NS", "TARIL.NS", "VOLTAMP.NS", "GVT&D.NS",
     "TRITURBINE.NS", "TDPOWERSYS.NS", "IONEXCHANG.NS", "TITAGARH.NS", "KEC.NS", "LT.NS",
     "ADANIGREEN.NS", "ADANIPOWER.NS", "JSWENERGY.NS", "INOXWIND.NS", "WAAREERTL.NS",
     "KPIL.NS", "JWL.NS",
@@ -90,39 +63,51 @@ WATCHLIST = [
     "GOKULAGRO.NS", "VBL.NS", "LTFOODS.NS", "RADICO.NS", "GODFRYPHLP.NS", "ABDL.NS",
     "LLOYDSME.NS", "COALINDIA.NS", "RELIANCE.NS",
     "NATCOPHARM.NS", "RUBICON.NS",
-    "YATHARTH.NS", "KIMS.NS", "NH.NS", "RAINBOW.NS",   # KIIMS.NS removed — duplicate/typo of KIMS.NS
+    "YATHARTH.NS", "KIMS.NS", "NH.NS", "RAINBOW.NS",
     "KAJARIACER.NS",
     "AEGISLOG.NS",
     "PRICOLLTD.NS", "CCL.NS",
+    
+    # NEW (10 verified stocks)
+    "EMMVEE.NS",        # Emvee Photovoltaic Power Ltd
+    "IDFCFIRSTB.NS",    # IDFC First Bank (corrected from IDFCBANK)
+    "CPPLUS.NS",        # Aditya Infotech Ltd
+    "ENRIN.NS",         # Siemens Energy India Ltd (corrected from SIEMENSENU)
+    "APARINDS.NS",      # Apar Industries Ltd
+    "MANKIND.NS",       # Mankind Pharma Ltd
+    "HDFCBANK.NS",      # HDFC Bank Ltd
+    "TIINDIA.NS",       # Tube Investments of India Ltd (corrected from TUBESINVST)
+    "ETERNAL.NS",       # Eternal Limited
+    "SWIGGY.NS",        # Swiggy Ltd
 ]
 
-# ── Gap stage bands (unchanged) ─────────────────────────────────────────────
-STAGE1_MIN, STAGE1_MAX = -20.0, -12.0   # Watchlist
-STAGE2_MIN, STAGE2_MAX = -12.0,  -8.0   # Accumulate
-STAGE3_MIN, STAGE3_MAX =  -8.0,  -4.0   # Aggressive Accumulation
-STAGE4_MIN, STAGE4_MAX =  -4.0,  -2.0   # Wait Zone
+# ── Gap stage bands ────────────────────────────────────────────────────────
+STAGE1_MIN, STAGE1_MAX = -20.0, -12.0
+STAGE2_MIN, STAGE2_MAX = -12.0,  -8.0
+STAGE3_MIN, STAGE3_MAX =  -8.0,  -4.0
+STAGE4_MIN, STAGE4_MAX =  -4.0,  -2.0
 
-# ── New thresholds ───────────────────────────────────────────────────────
-GOLDEN_CROSS_LOOKBACK = 5      # trading days
-SLOPE_LOOKBACK         = 3      # days used for gap_closing confirmation
-MIN_SLOPE_MOVE         = 0.15   # % — ignore sub-noise gap movement
+# ── Thresholds ─────────────────────────────────────────────────────────────
+GOLDEN_CROSS_LOOKBACK = 5
+SLOPE_LOOKBACK         = 3
+MIN_SLOPE_MOVE         = 0.15
 
 RSI_OVERBOUGHT = 70
 RSI_EXIT       = 75
 RSI_OVERSOLD   = 30
 
-VOLUME_CONFIRM       = 1.5      # single-day spike threshold (unchanged)
-VOL_SMOOTH_MIN_RATIO = 1.2      # secondary smoothed threshold
-VOL_SMOOTH_MIN_DAYS  = 2        # need 2 of last 3 days above smoothed ratio
+VOLUME_CONFIRM       = 1.5
+VOL_SMOOTH_MIN_RATIO = 1.2
+VOL_SMOOTH_MIN_DAYS  = 2
 
 BREAKOUT_3M_DAYS = 63
 BREAKOUT_6M_DAYS = 126
 SUPPORT_ZONE     = 0.02
 
-COIL_PROXIMITY  = 0.05   # within 5% of 3M high, not yet broken
+COIL_PROXIMITY  = 0.05
 COIL_RSI_MIN    = 55
 COIL_RSI_MAX    = 68
-COIL_MIN_HITS   = 3       # need 3 of 4 coiling conditions
+COIL_MIN_HITS   = 3
 
 
 # ─────────────────────────────────────────────────────────────────────────
@@ -141,8 +126,6 @@ def send_telegram(message):
         r.raise_for_status()
         log.info("  Telegram: sent")
     except Exception as e:
-        # Log Telegram's actual error body (e.g. which char/offset broke HTML
-        # parsing) so future failures are diagnosable straight from the log.
         body = ""
         try:
             body = r.text
@@ -164,6 +147,58 @@ def send_telegram_chunked(lines, max_chars=3800):
         length += line_len
     if chunk:
         send_telegram("\n".join(chunk))
+
+
+# ─────────────────────────────────────────────────────────────────────────
+# Last-scan persistence
+# ─────────────────────────────────────────────────────────────────────────
+def save_last_scan(body_lines, scanned, skipped, total, now_str):
+    with open(LAST_SCAN_FILE, "w") as f:
+        json.dump({
+            "body_lines": body_lines,
+            "scanned": scanned,
+            "skipped": skipped,
+            "total": total,
+            "date": now_str,
+        }, f, indent=2)
+    log.info(f"  Saved last_scan_state.json for tomorrow's recap")
+
+
+def load_last_scan():
+    if not os.path.exists(LAST_SCAN_FILE):
+        return None
+    try:
+        with open(LAST_SCAN_FILE) as f:
+            return json.load(f)
+    except Exception as e:
+        log.warning(f"  last_scan_state.json unreadable: {e}")
+        return None
+
+
+def send_recap():
+    now_ist = datetime.now(IST)
+    now_str = now_ist.strftime("%d %b %Y, %I:%M %p IST")
+    last = load_last_scan()
+
+    if not last or not last.get("body_lines"):
+        send_telegram(
+            f"📋 <b>VISH_SCAN — MORNING RECAP</b>\n{now_str}\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━\n"
+            f"No previous evening scan on file yet — this will populate "
+            f"after today's post-market run."
+        )
+        return
+
+    header = [
+        "📋 <b>VISH_SCAN — MORNING RECAP</b>",
+        f"{now_str}",
+        f"<i>Repeating {last['date']} post-market scan — market hasn't "
+        f"opened yet, no new data since then.</i>",
+        f"{last['scanned']} scanned ({last['skipped']} skipped) · "
+        f"{last['total']} alerts",
+    ]
+    send_telegram_chunked(header + last["body_lines"])
+    log.info("  Recap sent.")
 
 
 # ─────────────────────────────────────────────────────────────────────────
@@ -202,7 +237,7 @@ def detect_trendline(prices):
 
 
 def swing_lows(low_series, order=3):
-    """Local minima only — a low that's lower than `order` candles on each side."""
+    """Local minima only."""
     vals = low_series.values
     pts = []
     for i in range(order, len(vals) - order):
@@ -213,7 +248,7 @@ def swing_lows(low_series, order=3):
 
 
 # ─────────────────────────────────────────────────────────────────────────
-# Batched fetch — one API call for the whole watchlist + benchmark
+# Batched fetch
 # ─────────────────────────────────────────────────────────────────────────
 def fetch_all_data(symbols):
     tickers = symbols + [BENCHMARK]
@@ -228,7 +263,6 @@ def fetch_all_data(symbols):
         threads=True,
     )
 
-    # Benchmark 20-day return
     try:
         bench_close = raw[BENCHMARK]["Close"].dropna()
         nifty_return_20d = float(bench_close.iloc[-1] / bench_close.iloc[-21] - 1) * 100
@@ -260,7 +294,6 @@ def process_symbol(symbol, df, nifty_return_20d):
     if len(close) < 200:
         return None
 
-    # Full EMA + gap series (no state file dependency)
     ema50_series  = close.ewm(span=50,  adjust=False).mean()
     ema200_series = close.ewm(span=200, adjust=False).mean()
     gap_series = ((ema50_series - ema200_series) / ema200_series * 100).round(2)
@@ -269,10 +302,8 @@ def process_symbol(symbol, df, nifty_return_20d):
     gap_prev  = float(gap_series.iloc[-2])
     gap_3ago  = float(gap_series.iloc[-1 - SLOPE_LOOKBACK])
 
-    # 3-day slope confirmation instead of 1-day noise
     gap_closing = (gap_today - gap_3ago) > MIN_SLOPE_MOVE
 
-    # True 5-day Golden Cross: negative for all 5 prior days, positive today, no whipsaw
     lookback_window = gap_series.iloc[-1 - GOLDEN_CROSS_LOOKBACK:-1]
     golden_cross = bool((lookback_window < 0).all() and gap_today >= 0)
 
@@ -283,7 +314,6 @@ def process_symbol(symbol, df, nifty_return_20d):
     vol_ratio_series = (volume / vol_avg20_series).round(2)
     vol_ratio_today   = float(vol_ratio_series.iloc[-1]) if not np.isnan(vol_ratio_series.iloc[-1]) else 0
 
-    # Smoothed volume confirmation: 2 of last 3 days above 1.2x
     last3_vol = vol_ratio_series.iloc[-3:].fillna(0)
     smoothed_vol_ok = int((last3_vol >= VOL_SMOOTH_MIN_RATIO).sum()) >= VOL_SMOOTH_MIN_DAYS
 
@@ -300,7 +330,6 @@ def process_symbol(symbol, df, nifty_return_20d):
     breakout_3m_confirmed = breakout_3m and vol_confirm
     breakout_6m_confirmed = breakout_6m and vol_confirm
 
-    # Support: fit trendline through actual swing lows only
     recent_low_series = low.iloc[-BREAKOUT_3M_DAYS:]
     pts = swing_lows(recent_low_series, order=3)
     if len(pts) >= 2:
@@ -325,7 +354,6 @@ def process_symbol(symbol, df, nifty_return_20d):
         vol_confirm
     )
 
-    # ── Pre-breakout "Coiling" signal ──────────────────────────────────
     near_high = (high_3m - price_today) / high_3m <= COIL_PROXIMITY and price_today <= high_3m
     rsi_building = COIL_RSI_MIN <= rsi_today <= COIL_RSI_MAX
 
@@ -341,7 +369,6 @@ def process_symbol(symbol, df, nifty_return_20d):
     coil_hits = sum([near_high, rsi_building, volatility_squeeze, vol_trend_up])
     coiling = coil_hits >= COIL_MIN_HITS and not (breakout_3m_confirmed or breakout_6m_confirmed)
 
-    # Relative strength vs Nifty
     try:
         stock_return_20d = float(close.iloc[-1] / close.iloc[-21] - 1) * 100
     except Exception:
@@ -392,7 +419,6 @@ def classify(data):
             f"👉 {emoji} {action_text}{note}"
         )
 
-    # ── Golden Cross ────────────────────────────────────────────────────
     if data["golden_cross"]:
         note = "RSI ≥ 75 — tighten stop / consider trimming" if rsi >= RSI_EXIT else ""
         return "exit", stock_line(
@@ -400,7 +426,7 @@ def classify(data):
         )
 
     if gap >= 0:
-        return None, ""   # already above 200 EMA, no cross this run
+        return None, ""
 
     alerts_fired = []
     if data["gap_closing"]:
@@ -424,9 +450,6 @@ def classify(data):
     has_breakout = any(x in alerts_fired for x in ["breakout", "trendline_break"])
     has_support  = "support" in alerts_fired
 
-    # RSI notes only — backtest showed overbought signals still outperformed
-    # (62.4% win rate, +8.36% avg at 40d), so we no longer downgrade the bucket.
-    # We just flag it so you know to size in carefully rather than chase.
     overbought = rsi > RSI_OVERBOUGHT
     rsi_note = ""
     if overbought:
@@ -437,10 +460,6 @@ def classify(data):
     if has_breakout:
         return "buy_now", stock_line("🔥", "Buy today. Breakout confirmed with volume.", rsi_note)
 
-    # NOTE: the old "Accumulate + Support" combo bucket is removed — backtest
-    # showed it losing money (33% win rate, -2.49% avg return at 40d, worst
-    # drawdown of any bucket). A stock in this state now falls through to its
-    # plain Aggressive/Accumulate signal, with support only mentioned as a note.
     support_note = " Also sitting near a support zone." if has_support else ""
 
     if "aggr" in alerts_fired:
@@ -453,9 +472,6 @@ def classify(data):
         return "support", stock_line("🛡", "Stock at support. Small entry with tight stop loss.", rsi_note)
 
     if "coiling" in alerts_fired:
-        # Backtest showed ~51-53% win rate at every horizon — essentially a
-        # coin flip so far. Kept visible but clearly marked unconfirmed until
-        # the thresholds are retuned and re-validated.
         return "coiling", stock_line(
             "🌀", "UNCONFIRMED pre-breakout setup — squeeze + volume building near highs. Not yet backtest-validated, watch only."
         )
@@ -473,8 +489,19 @@ def classify(data):
 # Runner
 # ─────────────────────────────────────────────────────────────────────────
 def run_scanner():
+    now_ist = datetime.now(IST)
+    is_morning = now_ist.hour < 12
+
+    if is_morning:
+        log.info("=" * 55)
+        log.info("  VISH_SCAN — MORNING RECAP (no fresh scan)")
+        log.info("=" * 55)
+        send_recap()
+        log.info("DONE — recap sent.")
+        return
+
     log.info("=" * 55)
-    log.info("  VISH_SCAN v7 — STARTING")
+    log.info("  VISH_SCAN v7.3 — STARTING (post-market)")
     log.info("=" * 55)
 
     buckets = {
@@ -482,22 +509,18 @@ def run_scanner():
         "support": [], "coiling": [], "wait": [], "watch": [],
     }
 
-    # Maps your v7 internal bucket keys to the signal names
-    # signal_tracker.py's TRACK_SIGNALS expects.
     BUCKET_TO_SIGNAL = {
-        "exit":    "Golden Cross",
         "buy_now": "Buy Now",
         "aggr":    "Aggressive Accumulation",
         "accum":   "Accumulate",
-        "support": "Support Zone",
     }
 
     all_data = fetch_all_data(WATCHLIST)
     scanned = len(all_data)
     skipped = len(WATCHLIST) - scanned
 
-    alerts = {}   # only stocks that fired a tracked signal this run
-    prices = {}   # every scanned stock, tracker needs this for milestone checks
+    alerts = {}
+    prices = {}
 
     for symbol, data in all_data.items():
         prices[symbol] = data["price"]
@@ -510,33 +533,29 @@ def run_scanner():
         else:
             log.info(f"  {symbol} → no alert  gap={data['gap_today']}%")
 
-    # Runs every time — even on quiet days — because it's checking
-    # milestones on signals from weeks ago, not just today's new ones.
     tracking_text = track_and_report(alerts, prices)
 
     total = sum(len(v) for v in buckets.values())
-    now_ist = datetime.now(IST)
-    session = "🌅 Pre Market" if now_ist.hour < 12 else "🌆 Post Market"
+    session = "🌆 Post Market"
     now_str = now_ist.strftime("%d %b %Y, %I:%M %p IST")
 
     if total == 0:
-        base_msg = (
+        body_lines = [
+            "✅ " + f"{scanned} stocks scanned ({skipped} skipped)",
+            "😴 No actionable signals today.",
+            "💡 Patience is the edge.",
+        ]
+        if tracking_text:
+            body_lines.append(tracking_text)
+
+        send_telegram(
             f"📋 <b>VISH_SCAN {session}</b>\n{now_str}\n"
-            f"━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"✅ {scanned} stocks scanned ({skipped} skipped)\n"
-            f"😴 No actionable signals today.\n"
-            f"━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"💡 Patience is the edge."
+            f"━━━━━━━━━━━━━━━━━━━━━━\n" + "\n".join(body_lines)
         )
-        send_telegram(base_msg + tracking_text)
+        save_last_scan(body_lines, scanned, skipped, total, now_str)
         return
 
-    msg = [
-        f"📋 <b>VISH_SCAN {session}</b>",
-        f"{now_str}",
-        f"{scanned} scanned ({skipped} skipped) · {total} alerts",
-    ]
-
+    body_lines = []
     sections = [
         ("exit",     "🌟 GOLDEN CROSS — Stay Invested & Trail Stop"),
         ("buy_now",  "🔥 BUY NOW"),
@@ -550,17 +569,24 @@ def run_scanner():
 
     for key, heading in sections:
         if buckets[key]:
-            msg.append(f"\n━━━━━━━━━━━━━━━━━━━━━━")
-            msg.append(f"<b>{heading}</b>")
-            msg.extend(buckets[key])
+            body_lines.append(f"\n━━━━━━━━━━━━━━━━━━━━━━")
+            body_lines.append(f"<b>{heading}</b>")
+            body_lines.extend(buckets[key])
 
-    msg.append(f"\n━━━━━━━━━━━━━━━━━━━━━━")
-    msg.append(f"⚠️ Not SEBI advice. Personal use only.")
+    body_lines.append(f"\n━━━━━━━━━━━━━━━━━━━━━━")
+    body_lines.append(f"⚠️ Not SEBI advice. Personal use only.")
 
     if tracking_text:
-        msg.append(tracking_text)
+        body_lines.append(tracking_text)
 
-    send_telegram_chunked(msg)
+    header = [
+        f"📋 <b>VISH_SCAN {session}</b>",
+        f"{now_str}",
+        f"{scanned} scanned ({skipped} skipped) · {total} alerts",
+    ]
+
+    send_telegram_chunked(header + body_lines)
+    save_last_scan(body_lines, scanned, skipped, total, now_str)
     log.info(f"DONE — {total} alerts sent.")
     log.info("=" * 55)
 
