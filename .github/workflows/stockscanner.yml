@@ -1,5 +1,7 @@
 name: Run Stock Scanner
 
+# scheduler refresh
+
 on:
   schedule:
     - cron: "0 2 * * 1-5"
