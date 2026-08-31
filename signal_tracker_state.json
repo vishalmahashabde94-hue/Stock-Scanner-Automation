@@ -33,7 +33,7 @@
       "entry_price": 297.8,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 4.62,
+      "peak_pct": 5.37,
       "trough_pct": -4.25
     },
     {
@@ -44,7 +44,7 @@
       "milestones_hit": [],
       "drawdown_alerted": true,
       "peak_pct": 0.0,
-      "trough_pct": -12.56
+      "trough_pct": -13.02
     },
     {
       "symbol": "INFY.NS",
@@ -74,7 +74,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 1.64,
-      "trough_pct": -4.16
+      "trough_pct": -7.55
     },
     {
       "symbol": "CDSL.NS",
@@ -162,7 +162,7 @@
       "entry_price": 383.4,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 1.0,
+      "peak_pct": 1.41,
       "trough_pct": -3.81
     },
     {
@@ -173,7 +173,7 @@
       "milestones_hit": [],
       "drawdown_alerted": true,
       "peak_pct": 0.32,
-      "trough_pct": -10.96
+      "trough_pct": -11.82
     },
     {
       "symbol": "INOXWIND.NS",
@@ -193,7 +193,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.53,
-      "trough_pct": -2.77
+      "trough_pct": -4.17
     },
     {
       "symbol": "HBLENGINE.NS",
@@ -203,7 +203,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -7.32
+      "trough_pct": -7.79
     },
     {
       "symbol": "LTFOODS.NS",
@@ -225,7 +225,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.55,
-      "trough_pct": -2.11
+      "trough_pct": -2.5
     },
     {
       "symbol": "KAYNES.NS",
@@ -235,7 +235,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 2.44,
-      "trough_pct": -4.77
+      "trough_pct": -6.38
     },
     {
       "symbol": "MAZDOCK.NS",
@@ -245,14 +245,14 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -4.56
+      "trough_pct": -5.52
     },
     {
       "symbol": "SWIGGY.NS",
       "signal": "Accumulate",
       "signal_date": "2026-08-30",
       "entry_price": 280.5,
-      "peak_pct": 0.0,
+      "peak_pct": 0.5,
       "trough_pct": -0.61,
       "checkpoint_reported": false
     }
