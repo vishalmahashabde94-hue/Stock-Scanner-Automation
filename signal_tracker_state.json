@@ -14,7 +14,8 @@
       ],
       "drawdown_alerted": false,
       "peak_pct": 36.21,
-      "trough_pct": -4.86
+      "trough_pct": -4.86,
+      "checkpoint_reported": true
     },
     {
       "symbol": "HAVELLS.NS",
@@ -24,7 +25,8 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.91,
-      "trough_pct": -6.06
+      "trough_pct": -6.06,
+      "checkpoint_reported": true
     },
     {
       "symbol": "TARIL.NS",
@@ -34,7 +36,8 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 5.37,
-      "trough_pct": -4.25
+      "trough_pct": -4.25,
+      "checkpoint_reported": true
     },
     {
       "symbol": "KEC.NS",
@@ -44,7 +47,8 @@
       "milestones_hit": [],
       "drawdown_alerted": true,
       "peak_pct": 0.0,
-      "trough_pct": -13.02
+      "trough_pct": -13.02,
+      "checkpoint_reported": true
     },
     {
       "symbol": "INFY.NS",
@@ -54,7 +58,8 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 1.33,
-      "trough_pct": -5.47
+      "trough_pct": -5.47,
+      "checkpoint_reported": true
     },
     {
       "symbol": "WIPRO.NS",
@@ -64,7 +69,8 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.03,
-      "trough_pct": -5.94
+      "trough_pct": -5.94,
+      "checkpoint_reported": true
     },
     {
       "symbol": "BHARTIARTL.NS",
@@ -74,7 +80,8 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 1.64,
-      "trough_pct": -7.55
+      "trough_pct": -7.55,
+      "checkpoint_reported": true
     },
     {
       "symbol": "CDSL.NS",
@@ -86,7 +93,8 @@
       ],
       "drawdown_alerted": false,
       "peak_pct": 7.98,
-      "trough_pct": -0.23
+      "trough_pct": -0.23,
+      "checkpoint_reported": true
     },
     {
       "symbol": "KFINTECH.NS",
@@ -96,7 +104,8 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 4.7,
-      "trough_pct": -1.5
+      "trough_pct": -1.5,
+      "checkpoint_reported": true
     },
     {
       "symbol": "BLS.NS",
@@ -108,7 +117,8 @@
       ],
       "drawdown_alerted": false,
       "peak_pct": 9.35,
-      "trough_pct": -6.52
+      "trough_pct": -6.52,
+      "checkpoint_reported": true
     },
     {
       "symbol": "BOROLTD.NS",
@@ -120,7 +130,8 @@
       ],
       "drawdown_alerted": false,
       "peak_pct": 7.06,
-      "trough_pct": -2.32
+      "trough_pct": -2.32,
+      "checkpoint_reported": true
     },
     {
       "symbol": "GODFRYPHLP.NS",
@@ -130,7 +141,8 @@
       "milestones_hit": [],
       "drawdown_alerted": true,
       "peak_pct": 0.48,
-      "trough_pct": -8.11
+      "trough_pct": -9.09,
+      "checkpoint_reported": true
     },
     {
       "symbol": "TRANSRAILL.NS",
@@ -140,7 +152,8 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 1.33,
-      "trough_pct": -7.44
+      "trough_pct": -8.3,
+      "checkpoint_reported": true
     },
     {
       "symbol": "CHALET.NS",
@@ -153,7 +166,8 @@
       ],
       "drawdown_alerted": false,
       "peak_pct": 11.11,
-      "trough_pct": -0.96
+      "trough_pct": -0.96,
+      "checkpoint_reported": true
     },
     {
       "symbol": "INDUSTOWER.NS",
@@ -163,7 +177,8 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 1.41,
-      "trough_pct": -3.81
+      "trough_pct": -3.81,
+      "checkpoint_reported": true
     },
     {
       "symbol": "NATCOPHARM.NS",
@@ -173,7 +188,8 @@
       "milestones_hit": [],
       "drawdown_alerted": true,
       "peak_pct": 0.32,
-      "trough_pct": -11.82
+      "trough_pct": -11.82,
+      "checkpoint_reported": true
     },
     {
       "symbol": "INOXWIND.NS",
@@ -183,7 +199,8 @@
       "milestones_hit": [],
       "drawdown_alerted": true,
       "peak_pct": 0.0,
-      "trough_pct": -10.51
+      "trough_pct": -11.05,
+      "checkpoint_reported": true
     },
     {
       "symbol": "M&M.NS",
@@ -193,7 +210,8 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.53,
-      "trough_pct": -4.17
+      "trough_pct": -4.84,
+      "checkpoint_reported": false
     },
     {
       "symbol": "HBLENGINE.NS",
@@ -203,7 +221,8 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -7.79
+      "trough_pct": -7.79,
+      "checkpoint_reported": false
     },
     {
       "symbol": "LTFOODS.NS",
@@ -215,7 +234,8 @@
       ],
       "drawdown_alerted": false,
       "peak_pct": 7.34,
-      "trough_pct": 0.0
+      "trough_pct": 0.0,
+      "checkpoint_reported": false
     },
     {
       "symbol": "RELIANCE.NS",
@@ -225,7 +245,8 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.55,
-      "trough_pct": -2.5
+      "trough_pct": -2.5,
+      "checkpoint_reported": false
     },
     {
       "symbol": "KAYNES.NS",
@@ -235,7 +256,8 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 2.44,
-      "trough_pct": -6.38
+      "trough_pct": -8.52,
+      "checkpoint_reported": false
     },
     {
       "symbol": "MAZDOCK.NS",
@@ -245,7 +267,8 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -5.52
+      "trough_pct": -5.52,
+      "checkpoint_reported": false
     },
     {
       "symbol": "SWIGGY.NS",
@@ -253,9 +276,10 @@
       "signal_date": "2026-08-30",
       "entry_price": 280.5,
       "peak_pct": 0.5,
-      "trough_pct": -0.61,
+      "trough_pct": -1.96,
       "checkpoint_reported": false
     }
   ],
-  "closed": []
+  "closed": [],
+  "schema_version": 3
 }
