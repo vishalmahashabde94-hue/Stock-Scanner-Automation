@@ -2,12 +2,17 @@ name: Run Stock Scanner
 
 on:
   schedule:
+    # GitHub cron is UTC. These equal 7:30 AM and 4:00 PM IST.
     - cron: "0 2 * * 1-5"
     - cron: "30 10 * * 1-5"
   workflow_dispatch:
 
 permissions:
   contents: write
+
+concurrency:
+  group: vish-scan-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   run-scanner:
@@ -24,23 +29,54 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+          cache: pip
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+          python -m pip check
+
+      - name: Validate code and migration tests
+        run: |
+          python -m py_compile scanner.py signal_tracker.py
+          python -m unittest -v test_signal_tracker.py test_scanner_reliability.py
 
       - name: Run scanner
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
-          TZDIR: /tmp
+          PYTHONUNBUFFERED: "1"
         run: python scanner.py
 
       - name: Save state
+        env:
+          TARGET_BRANCH: ${{ github.ref_name }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -f scanner_state.json || true
-          git add -f signal_tracker_state.json || true
-          git add -f last_scan_state.json || true
-          git diff --cached --quiet || git commit -m "chore: update state [skip ci]" || true
-          git push || true
+
+          for state_file in scanner_state.json signal_tracker_state.json last_scan_state.json; do
+            if [ -f "$state_file" ]; then
+              git add -f "$state_file"
+            fi
+          done
+
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: update state [skip ci]"
+            git pull --rebase origin "$TARGET_BRANCH"
+            git push origin "HEAD:$TARGET_BRANCH"
+          fi
+
+      - name: Notify Telegram if workflow fails
+        if: ${{ failure() }}
+        continue-on-error: true
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          curl --silent --show-error --fail --retry 2 \
+            --data-urlencode "chat_id=$CHAT_ID" \
+            --data-urlencode "text=🚨 VISH_SCAN workflow failed. Check: $RUN_URL" \
+            "https://api.telegram.org/bot$BOT_TOKEN/sendMessage"
