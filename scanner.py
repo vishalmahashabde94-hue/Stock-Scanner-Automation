@@ -1,16 +1,13 @@
 """
 =======================================================
   VISH_SCAN — SCANNER v7.3
-  Backtested against 3 years of history (see
-  backtest_vish_scan.py). Changes from v6 based on
-  actual results, not just theory.
+  Backtested against 3 years of history.
 
   v7.3 UPDATES:
-    - 98-stock watchlist (88 original + 10 new verified stocks)
-    - All duplicate stocks removed
-    - All NSE symbols verified against yfinance
-    - Added: EMMVEE, IDFCFIRSTB, CPPLUS, ENRIN, APARINDS,
-             MANKIND, HDFCBANK, TIINDIA, ETERNAL, SWIGGY
+    - 98-stock watchlist (verified, no duplicates)
+    - Two full daily scans: pre-market (7:30 AM) + post-market (4 PM) IST
+    - 60-day journey tracking (Buy Now, Aggressive Accumulation, Accumulate)
+    - No morning/evening logic — both runs do identical full scans
 =======================================================
 """
 
@@ -34,11 +31,9 @@ TELEGRAM_CHAT_ID   = os.environ["CHAT_ID"]
 
 IST = timezone(timedelta(hours=5, minutes=30))
 BENCHMARK = "^NSEI"
-LAST_SCAN_FILE = "last_scan_state.json"
 
-# ── Updated 98-stock watchlist (original 88 + 10 new verified) ──────────────
+# ── 98-stock watchlist ──────────────────────────────────────────────────
 WATCHLIST = [
-    # Original (88 stocks with 8 removed duplicates = 80)
     "HBLENGINE.NS",
     "PARAS.NS",
     "ZENTEC.NS", "DATAPATTNS.NS", "MAZDOCK.NS",
@@ -67,27 +62,17 @@ WATCHLIST = [
     "KAJARIACER.NS",
     "AEGISLOG.NS",
     "PRICOLLTD.NS", "CCL.NS",
-    
-    # NEW (10 verified stocks)
-    "EMMVEE.NS",        # Emvee Photovoltaic Power Ltd
-    "IDFCFIRSTB.NS",    # IDFC First Bank (corrected from IDFCBANK)
-    "CPPLUS.NS",        # Aditya Infotech Ltd
-    "ENRIN.NS",         # Siemens Energy India Ltd (corrected from SIEMENSENU)
-    "APARINDS.NS",      # Apar Industries Ltd
-    "MANKIND.NS",       # Mankind Pharma Ltd
-    "HDFCBANK.NS",      # HDFC Bank Ltd
-    "TIINDIA.NS",       # Tube Investments of India Ltd (corrected from TUBESINVST)
-    "ETERNAL.NS",       # Eternal Limited
-    "SWIGGY.NS",        # Swiggy Ltd
+    "EMMVEE.NS", "IDFCFIRSTB.NS", "CPPLUS.NS", "ENRIN.NS", "APARINDS.NS",
+    "MANKIND.NS", "HDFCBANK.NS", "TIINDIA.NS", "ETERNAL.NS", "SWIGGY.NS",
 ]
 
-# ── Gap stage bands ────────────────────────────────────────────────────────
+# ── Gap stage bands ────────────────────────────────────────────────────
 STAGE1_MIN, STAGE1_MAX = -20.0, -12.0
 STAGE2_MIN, STAGE2_MAX = -12.0,  -8.0
 STAGE3_MIN, STAGE3_MAX =  -8.0,  -4.0
 STAGE4_MIN, STAGE4_MAX =  -4.0,  -2.0
 
-# ── Thresholds ─────────────────────────────────────────────────────────────
+# ── Thresholds ─────────────────────────────────────────────────────────
 GOLDEN_CROSS_LOOKBACK = 5
 SLOPE_LOOKBACK         = 3
 MIN_SLOPE_MOVE         = 0.15
@@ -147,58 +132,6 @@ def send_telegram_chunked(lines, max_chars=3800):
         length += line_len
     if chunk:
         send_telegram("\n".join(chunk))
-
-
-# ─────────────────────────────────────────────────────────────────────────
-# Last-scan persistence
-# ─────────────────────────────────────────────────────────────────────────
-def save_last_scan(body_lines, scanned, skipped, total, now_str):
-    with open(LAST_SCAN_FILE, "w") as f:
-        json.dump({
-            "body_lines": body_lines,
-            "scanned": scanned,
-            "skipped": skipped,
-            "total": total,
-            "date": now_str,
-        }, f, indent=2)
-    log.info(f"  Saved last_scan_state.json for tomorrow's recap")
-
-
-def load_last_scan():
-    if not os.path.exists(LAST_SCAN_FILE):
-        return None
-    try:
-        with open(LAST_SCAN_FILE) as f:
-            return json.load(f)
-    except Exception as e:
-        log.warning(f"  last_scan_state.json unreadable: {e}")
-        return None
-
-
-def send_recap():
-    now_ist = datetime.now(IST)
-    now_str = now_ist.strftime("%d %b %Y, %I:%M %p IST")
-    last = load_last_scan()
-
-    if not last or not last.get("body_lines"):
-        send_telegram(
-            f"📋 <b>VISH_SCAN — MORNING RECAP</b>\n{now_str}\n"
-            f"━━━━━━━━━━━━━━━━━━━━━━\n"
-            f"No previous evening scan on file yet — this will populate "
-            f"after today's post-market run."
-        )
-        return
-
-    header = [
-        "📋 <b>VISH_SCAN — MORNING RECAP</b>",
-        f"{now_str}",
-        f"<i>Repeating {last['date']} post-market scan — market hasn't "
-        f"opened yet, no new data since then.</i>",
-        f"{last['scanned']} scanned ({last['skipped']} skipped) · "
-        f"{last['total']} alerts",
-    ]
-    send_telegram_chunked(header + last["body_lines"])
-    log.info("  Recap sent.")
 
 
 # ─────────────────────────────────────────────────────────────────────────
@@ -489,19 +422,8 @@ def classify(data):
 # Runner
 # ─────────────────────────────────────────────────────────────────────────
 def run_scanner():
-    now_ist = datetime.now(IST)
-    is_morning = now_ist.hour < 12
-
-    if is_morning:
-        log.info("=" * 55)
-        log.info("  VISH_SCAN — MORNING RECAP (no fresh scan)")
-        log.info("=" * 55)
-        send_recap()
-        log.info("DONE — recap sent.")
-        return
-
     log.info("=" * 55)
-    log.info("  VISH_SCAN v7.3 — STARTING (post-market)")
+    log.info("  VISH_SCAN v7.3 — STARTING")
     log.info("=" * 55)
 
     buckets = {
@@ -536,7 +458,7 @@ def run_scanner():
     tracking_text = track_and_report(alerts, prices)
 
     total = sum(len(v) for v in buckets.values())
-    session = "🌆 Post Market"
+    now_ist = datetime.now(IST)
     now_str = now_ist.strftime("%d %b %Y, %I:%M %p IST")
 
     if total == 0:
@@ -549,10 +471,9 @@ def run_scanner():
             body_lines.append(tracking_text)
 
         send_telegram(
-            f"📋 <b>VISH_SCAN {session}</b>\n{now_str}\n"
+            f"📋 <b>VISH_SCAN</b>\n{now_str}\n"
             f"━━━━━━━━━━━━━━━━━━━━━━\n" + "\n".join(body_lines)
         )
-        save_last_scan(body_lines, scanned, skipped, total, now_str)
         return
 
     body_lines = []
@@ -580,13 +501,12 @@ def run_scanner():
         body_lines.append(tracking_text)
 
     header = [
-        f"📋 <b>VISH_SCAN {session}</b>",
+        f"📋 <b>VISH_SCAN</b>",
         f"{now_str}",
         f"{scanned} scanned ({skipped} skipped) · {total} alerts",
     ]
 
     send_telegram_chunked(header + body_lines)
-    save_last_scan(body_lines, scanned, skipped, total, now_str)
     log.info(f"DONE — {total} alerts sent.")
     log.info("=" * 55)
 
