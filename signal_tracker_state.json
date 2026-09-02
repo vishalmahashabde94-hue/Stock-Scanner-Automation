@@ -25,7 +25,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.91,
-      "trough_pct": -6.06,
+      "trough_pct": -7.38,
       "checkpoint_reported": true
     },
     {
@@ -47,7 +47,7 @@
       "milestones_hit": [],
       "drawdown_alerted": true,
       "peak_pct": 0.0,
-      "trough_pct": -13.02,
+      "trough_pct": -14.84,
       "checkpoint_reported": true
     },
     {
@@ -117,7 +117,7 @@
       ],
       "drawdown_alerted": false,
       "peak_pct": 9.35,
-      "trough_pct": -6.52,
+      "trough_pct": -7.51,
       "checkpoint_reported": true
     },
     {
@@ -141,7 +141,7 @@
       "milestones_hit": [],
       "drawdown_alerted": true,
       "peak_pct": 0.48,
-      "trough_pct": -9.09,
+      "trough_pct": -11.4,
       "checkpoint_reported": true
     },
     {
@@ -152,7 +152,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 1.33,
-      "trough_pct": -8.3,
+      "trough_pct": -9.64,
       "checkpoint_reported": true
     },
     {
@@ -210,7 +210,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.53,
-      "trough_pct": -4.84,
+      "trough_pct": -6.86,
       "checkpoint_reported": false
     },
     {
@@ -256,7 +256,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 2.44,
-      "trough_pct": -8.52,
+      "trough_pct": -8.97,
       "checkpoint_reported": false
     },
     {
@@ -267,7 +267,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -5.52,
+      "trough_pct": -6.32,
       "checkpoint_reported": false
     },
     {
@@ -276,7 +276,16 @@
       "signal_date": "2026-08-30",
       "entry_price": 280.5,
       "peak_pct": 0.5,
-      "trough_pct": -1.96,
+      "trough_pct": -4.56,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "VBL.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-09-02",
+      "entry_price": 415.0,
+      "peak_pct": 0.0,
+      "trough_pct": 0.0,
       "checkpoint_reported": false
     }
   ],
