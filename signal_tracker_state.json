@@ -25,7 +25,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.91,
-      "trough_pct": -7.38,
+      "trough_pct": -7.41,
       "checkpoint_reported": true
     },
     {
@@ -47,7 +47,7 @@
       "milestones_hit": [],
       "drawdown_alerted": true,
       "peak_pct": 0.0,
-      "trough_pct": -14.84,
+      "trough_pct": -15.42,
       "checkpoint_reported": true
     },
     {
@@ -188,7 +188,7 @@
       "milestones_hit": [],
       "drawdown_alerted": true,
       "peak_pct": 0.32,
-      "trough_pct": -11.82,
+      "trough_pct": -12.19,
       "checkpoint_reported": true
     },
     {
@@ -210,7 +210,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.53,
-      "trough_pct": -6.86,
+      "trough_pct": -7.38,
       "checkpoint_reported": false
     },
     {
@@ -256,7 +256,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 2.44,
-      "trough_pct": -8.97,
+      "trough_pct": -11.24,
       "checkpoint_reported": false
     },
     {
@@ -276,7 +276,7 @@
       "signal_date": "2026-08-30",
       "entry_price": 280.5,
       "peak_pct": 0.5,
-      "trough_pct": -4.56,
+      "trough_pct": -4.78,
       "checkpoint_reported": false
     },
     {
@@ -285,7 +285,7 @@
       "signal_date": "2026-09-02",
       "entry_price": 415.0,
       "peak_pct": 0.0,
-      "trough_pct": 0.0,
+      "trough_pct": -1.42,
       "checkpoint_reported": false
     }
   ],
