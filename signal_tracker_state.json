@@ -25,7 +25,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.91,
-      "trough_pct": -7.41,
+      "trough_pct": -10.5,
       "checkpoint_reported": true
     },
     {
@@ -188,7 +188,7 @@
       "milestones_hit": [],
       "drawdown_alerted": true,
       "peak_pct": 0.32,
-      "trough_pct": -12.19,
+      "trough_pct": -12.78,
       "checkpoint_reported": true
     },
     {
@@ -211,7 +211,7 @@
       "drawdown_alerted": false,
       "peak_pct": 0.53,
       "trough_pct": -8.02,
-      "checkpoint_reported": false
+      "checkpoint_reported": true
     },
     {
       "symbol": "HBLENGINE.NS",
@@ -244,7 +244,7 @@
       "entry_price": 1309.8,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 0.55,
+      "peak_pct": 1.47,
       "trough_pct": -2.5,
       "checkpoint_reported": false
     },
