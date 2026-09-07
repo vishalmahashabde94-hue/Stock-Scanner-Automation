@@ -25,7 +25,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.91,
-      "trough_pct": -10.5,
+      "trough_pct": -11.06,
       "checkpoint_reported": true
     },
     {
@@ -47,7 +47,7 @@
       "milestones_hit": [],
       "drawdown_alerted": true,
       "peak_pct": 0.0,
-      "trough_pct": -15.42,
+      "trough_pct": -16.23,
       "checkpoint_reported": true
     },
     {
@@ -58,7 +58,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 1.33,
-      "trough_pct": -5.47,
+      "trough_pct": -7.38,
       "checkpoint_reported": true
     },
     {
@@ -69,7 +69,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.03,
-      "trough_pct": -6.3,
+      "trough_pct": -7.48,
       "checkpoint_reported": true
     },
     {
@@ -152,7 +152,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 1.33,
-      "trough_pct": -9.64,
+      "trough_pct": -10.09,
       "checkpoint_reported": true
     },
     {
@@ -222,7 +222,7 @@
       "drawdown_alerted": false,
       "peak_pct": 0.0,
       "trough_pct": -7.79,
-      "checkpoint_reported": false
+      "checkpoint_reported": true
     },
     {
       "symbol": "LTFOODS.NS",
@@ -235,7 +235,7 @@
       "drawdown_alerted": false,
       "peak_pct": 7.34,
       "trough_pct": 0.0,
-      "checkpoint_reported": false
+      "checkpoint_reported": true
     },
     {
       "symbol": "RELIANCE.NS",
@@ -267,7 +267,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -6.32,
+      "trough_pct": -6.35,
       "checkpoint_reported": false
     },
     {
@@ -285,7 +285,7 @@
       "signal_date": "2026-09-02",
       "entry_price": 415.0,
       "peak_pct": 0.0,
-      "trough_pct": -1.89,
+      "trough_pct": -2.28,
       "checkpoint_reported": false
     }
   ],
