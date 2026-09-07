@@ -58,7 +58,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 1.33,
-      "trough_pct": -7.38,
+      "trough_pct": -7.45,
       "checkpoint_reported": true
     },
     {
@@ -69,7 +69,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.03,
-      "trough_pct": -7.48,
+      "trough_pct": -7.85,
       "checkpoint_reported": true
     },
     {
@@ -152,7 +152,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 1.33,
-      "trough_pct": -10.09,
+      "trough_pct": -11.24,
       "checkpoint_reported": true
     },
     {
@@ -267,7 +267,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -6.35,
+      "trough_pct": -6.51,
       "checkpoint_reported": false
     },
     {
