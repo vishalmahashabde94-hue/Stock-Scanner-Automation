@@ -1,150 +1,6 @@
 {
   "tracking": [
     {
-      "symbol": "BALUFORGE.NS",
-      "signal": "Accumulate",
-      "signal_date": "2026-08-09",
-      "entry_price": 469.05,
-      "milestones_hit": [
-        5,
-        10,
-        15,
-        20,
-        25
-      ],
-      "drawdown_alerted": false,
-      "peak_pct": 36.21,
-      "trough_pct": -4.86,
-      "checkpoint_reported": true
-    },
-    {
-      "symbol": "HAVELLS.NS",
-      "signal": "Aggressive Accumulation",
-      "signal_date": "2026-08-09",
-      "entry_price": 1288.0,
-      "milestones_hit": [],
-      "drawdown_alerted": false,
-      "peak_pct": 0.91,
-      "trough_pct": -11.06,
-      "checkpoint_reported": true
-    },
-    {
-      "symbol": "TARIL.NS",
-      "signal": "Support Zone",
-      "signal_date": "2026-08-09",
-      "entry_price": 297.8,
-      "milestones_hit": [],
-      "drawdown_alerted": false,
-      "peak_pct": 5.37,
-      "trough_pct": -4.25,
-      "checkpoint_reported": true
-    },
-    {
-      "symbol": "KEC.NS",
-      "signal": "Support Zone",
-      "signal_date": "2026-08-09",
-      "entry_price": 478.85,
-      "milestones_hit": [],
-      "drawdown_alerted": true,
-      "peak_pct": 0.0,
-      "trough_pct": -16.23,
-      "checkpoint_reported": true
-    },
-    {
-      "symbol": "INFY.NS",
-      "signal": "Accumulate",
-      "signal_date": "2026-08-09",
-      "entry_price": 1175.1,
-      "milestones_hit": [],
-      "drawdown_alerted": false,
-      "peak_pct": 1.33,
-      "trough_pct": -7.45,
-      "checkpoint_reported": true
-    },
-    {
-      "symbol": "WIPRO.NS",
-      "signal": "Accumulate",
-      "signal_date": "2026-08-09",
-      "entry_price": 187.53,
-      "milestones_hit": [],
-      "drawdown_alerted": false,
-      "peak_pct": 0.03,
-      "trough_pct": -7.85,
-      "checkpoint_reported": true
-    },
-    {
-      "symbol": "BHARTIARTL.NS",
-      "signal": "Golden Cross",
-      "signal_date": "2026-08-09",
-      "entry_price": 1959.9,
-      "milestones_hit": [],
-      "drawdown_alerted": false,
-      "peak_pct": 1.64,
-      "trough_pct": -7.55,
-      "checkpoint_reported": true
-    },
-    {
-      "symbol": "CDSL.NS",
-      "signal": "Support Zone",
-      "signal_date": "2026-08-09",
-      "entry_price": 1328.0,
-      "milestones_hit": [
-        5
-      ],
-      "drawdown_alerted": false,
-      "peak_pct": 7.98,
-      "trough_pct": -0.23,
-      "checkpoint_reported": true
-    },
-    {
-      "symbol": "KFINTECH.NS",
-      "signal": "Aggressive Accumulation",
-      "signal_date": "2026-08-09",
-      "entry_price": 936.0,
-      "milestones_hit": [],
-      "drawdown_alerted": false,
-      "peak_pct": 4.7,
-      "trough_pct": -1.5,
-      "checkpoint_reported": true
-    },
-    {
-      "symbol": "BLS.NS",
-      "signal": "Accumulate",
-      "signal_date": "2026-08-09",
-      "entry_price": 254.33,
-      "milestones_hit": [
-        5
-      ],
-      "drawdown_alerted": false,
-      "peak_pct": 9.35,
-      "trough_pct": -7.51,
-      "checkpoint_reported": true
-    },
-    {
-      "symbol": "BOROLTD.NS",
-      "signal": "Accumulate",
-      "signal_date": "2026-08-09",
-      "entry_price": 244.21,
-      "milestones_hit": [
-        5
-      ],
-      "drawdown_alerted": false,
-      "peak_pct": 7.06,
-      "trough_pct": -2.32,
-      "checkpoint_reported": true
-    },
-    {
-      "symbol": "GODFRYPHLP.NS",
-      "signal": "Accumulate",
-      "signal_date": "2026-08-09",
-      "entry_price": 2286.0,
-      "milestones_hit": [],
-      "drawdown_alerted": true,
-      "peak_pct": 0.48,
-      "trough_pct": -11.4,
-      "checkpoint_reported": true
-    },
-    {
       "symbol": "TRANSRAILL.NS",
       "signal": "Support Zone",
       "signal_date": "2026-08-10",
@@ -210,7 +66,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.53,
-      "trough_pct": -8.02,
+      "trough_pct": -8.33,
       "checkpoint_reported": true
     },
     {
@@ -233,7 +89,7 @@
         5
       ],
       "drawdown_alerted": false,
-      "peak_pct": 7.34,
+      "peak_pct": 7.86,
       "trough_pct": 0.0,
       "checkpoint_reported": true
     },
@@ -246,7 +102,7 @@
       "drawdown_alerted": false,
       "peak_pct": 1.47,
       "trough_pct": -2.5,
-      "checkpoint_reported": false
+      "checkpoint_reported": true
     },
     {
       "symbol": "KAYNES.NS",
@@ -285,10 +141,212 @@
       "signal_date": "2026-09-02",
       "entry_price": 415.0,
       "peak_pct": 0.0,
-      "trough_pct": -2.28,
+      "trough_pct": -2.45,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "BEL.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-09-08",
+      "entry_price": 412.6,
+      "peak_pct": 0.0,
+      "trough_pct": 0.0,
       "checkpoint_reported": false
     }
   ],
-  "closed": [],
+  "closed": [
+    {
+      "symbol": "BALUFORGE.NS",
+      "signal": "Accumulate",
+      "signal_date": "2026-08-09",
+      "entry_price": 469.05,
+      "milestones_hit": [
+        5,
+        10,
+        15,
+        20,
+        25
+      ],
+      "drawdown_alerted": false,
+      "peak_pct": 36.21,
+      "trough_pct": -4.86,
+      "checkpoint_reported": true,
+      "close_date": "2026-09-08",
+      "close_price": 545.85,
+      "final_pct": 16.37,
+      "days_held": 30
+    },
+    {
+      "symbol": "HAVELLS.NS",
+      "signal": "Aggressive Accumulation",
+      "signal_date": "2026-08-09",
+      "entry_price": 1288.0,
+      "milestones_hit": [],
+      "drawdown_alerted": false,
+      "peak_pct": 0.91,
+      "trough_pct": -11.41,
+      "checkpoint_reported": true,
+      "close_date": "2026-09-08",
+      "close_price": 1141.1,
+      "final_pct": -11.41,
+      "days_held": 30
+    },
+    {
+      "symbol": "TARIL.NS",
+      "signal": "Support Zone",
+      "signal_date": "2026-08-09",
+      "entry_price": 297.8,
+      "milestones_hit": [],
+      "drawdown_alerted": false,
+      "peak_pct": 5.37,
+      "trough_pct": -4.25,
+      "checkpoint_reported": true,
+      "close_date": "2026-09-08",
+      "close_price": 297.85,
+      "final_pct": 0.02,
+      "days_held": 30
+    },
+    {
+      "symbol": "KEC.NS",
+      "signal": "Support Zone",
+      "signal_date": "2026-08-09",
+      "entry_price": 478.85,
+      "milestones_hit": [],
+      "drawdown_alerted": true,
+      "peak_pct": 0.0,
+      "trough_pct": -16.23,
+      "checkpoint_reported": true,
+      "close_date": "2026-09-08",
+      "close_price": 405.65,
+      "final_pct": -15.29,
+      "days_held": 30
+    },
+    {
+      "symbol": "INFY.NS",
+      "signal": "Accumulate",
+      "signal_date": "2026-08-09",
+      "entry_price": 1175.1,
+      "milestones_hit": [],
+      "drawdown_alerted": false,
+      "peak_pct": 1.33,
+      "trough_pct": -7.67,
+      "checkpoint_reported": true,
+      "close_date": "2026-09-08",
+      "close_price": 1085.0,
+      "final_pct": -7.67,
+      "days_held": 30
+    },
+    {
+      "symbol": "WIPRO.NS",
+      "signal": "Accumulate",
+      "signal_date": "2026-08-09",
+      "entry_price": 187.53,
+      "milestones_hit": [],
+      "drawdown_alerted": false,
+      "peak_pct": 0.03,
+      "trough_pct": -8.58,
+      "checkpoint_reported": true,
+      "close_date": "2026-09-08",
+      "close_price": 171.44,
+      "final_pct": -8.58,
+      "days_held": 30
+    },
+    {
+      "symbol": "BHARTIARTL.NS",
+      "signal": "Golden Cross",
+      "signal_date": "2026-08-09",
+      "entry_price": 1959.9,
+      "milestones_hit": [],
+      "drawdown_alerted": false,
+      "peak_pct": 1.64,
+      "trough_pct": -7.55,
+      "checkpoint_reported": true,
+      "close_date": "2026-09-08",
+      "close_price": 1839.5,
+      "final_pct": -6.14,
+      "days_held": 30
+    },
+    {
+      "symbol": "CDSL.NS",
+      "signal": "Support Zone",
+      "signal_date": "2026-08-09",
+      "entry_price": 1328.0,
+      "milestones_hit": [
+        5
+      ],
+      "drawdown_alerted": false,
+      "peak_pct": 7.98,
+      "trough_pct": -0.23,
+      "checkpoint_reported": true,
+      "close_date": "2026-09-08",
+      "close_price": 1400.0,
+      "final_pct": 5.42,
+      "days_held": 30
+    },
+    {
+      "symbol": "KFINTECH.NS",
+      "signal": "Aggressive Accumulation",
+      "signal_date": "2026-08-09",
+      "entry_price": 936.0,
+      "milestones_hit": [],
+      "drawdown_alerted": false,
+      "peak_pct": 4.7,
+      "trough_pct": -1.5,
+      "checkpoint_reported": true,
+      "close_date": "2026-09-08",
+      "close_price": 926.65,
+      "final_pct": -1.0,
+      "days_held": 30
+    },
+    {
+      "symbol": "BLS.NS",
+      "signal": "Accumulate",
+      "signal_date": "2026-08-09",
+      "entry_price": 254.33,
+      "milestones_hit": [
+        5
+      ],
+      "drawdown_alerted": false,
+      "peak_pct": 9.35,
+      "trough_pct": -7.51,
+      "checkpoint_reported": true,
+      "close_date": "2026-09-08",
+      "close_price": 238.03,
+      "final_pct": -6.41,
+      "days_held": 30
+    },
+    {
+      "symbol": "BOROLTD.NS",
+      "signal": "Accumulate",
+      "signal_date": "2026-08-09",
+      "entry_price": 244.21,
+      "milestones_hit": [
+        5
+      ],
+      "drawdown_alerted": false,
+      "peak_pct": 7.06,
+      "trough_pct": -2.32,
+      "checkpoint_reported": true,
+      "close_date": "2026-09-08",
+      "close_price": 254.28,
+      "final_pct": 4.12,
+      "days_held": 30
+    },
+    {
+      "symbol": "GODFRYPHLP.NS",
+      "signal": "Accumulate",
+      "signal_date": "2026-08-09",
+      "entry_price": 2286.0,
+      "milestones_hit": [],
+      "drawdown_alerted": true,
+      "peak_pct": 0.48,
+      "trough_pct": -12.03,
+      "checkpoint_reported": true,
+      "close_date": "2026-09-08",
+      "close_price": 2011.0,
+      "final_pct": -12.03,
+      "days_held": 30
+    }
+  ],
   "schema_version": 3
 }
