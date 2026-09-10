@@ -1,20 +1,6 @@
 {
   "tracking": [
     {
-      "symbol": "CHALET.NS",
-      "signal": "Support Zone",
-      "signal_date": "2026-08-11",
-      "entry_price": 821.2,
-      "milestones_hit": [
-        5,
-        10
-      ],
-      "drawdown_alerted": false,
-      "peak_pct": 11.11,
-      "trough_pct": -0.96,
-      "checkpoint_reported": true
-    },
-    {
       "symbol": "INDUSTOWER.NS",
       "signal": "Buy Now",
       "signal_date": "2026-08-12",
@@ -33,7 +19,7 @@
       "milestones_hit": [],
       "drawdown_alerted": true,
       "peak_pct": 0.32,
-      "trough_pct": -13.48,
+      "trough_pct": -14.25,
       "checkpoint_reported": true
     },
     {
@@ -55,7 +41,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.53,
-      "trough_pct": -8.33,
+      "trough_pct": -8.5,
       "checkpoint_reported": true
     },
     {
@@ -90,7 +76,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 1.47,
-      "trough_pct": -2.5,
+      "trough_pct": -2.65,
       "checkpoint_reported": true
     },
     {
@@ -112,8 +98,8 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -8.24,
-      "checkpoint_reported": false
+      "trough_pct": -8.8,
+      "checkpoint_reported": true
     },
     {
       "symbol": "SWIGGY.NS",
@@ -139,7 +125,7 @@
       "signal_date": "2026-09-08",
       "entry_price": 412.6,
       "peak_pct": 0.0,
-      "trough_pct": -1.6,
+      "trough_pct": -1.72,
       "checkpoint_reported": false
     }
   ],
@@ -349,6 +335,24 @@
       "close_date": "2026-09-09",
       "close_price": 427.8,
       "final_pct": -9.5,
+      "days_held": 30
+    },
+    {
+      "symbol": "CHALET.NS",
+      "signal": "Support Zone",
+      "signal_date": "2026-08-11",
+      "entry_price": 821.2,
+      "milestones_hit": [
+        5,
+        10
+      ],
+      "drawdown_alerted": false,
+      "peak_pct": 11.11,
+      "trough_pct": -0.96,
+      "checkpoint_reported": true,
+      "close_date": "2026-09-10",
+      "close_price": 870.2,
+      "final_pct": 5.97,
       "days_held": 30
     }
   ],
