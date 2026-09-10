@@ -41,7 +41,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.53,
-      "trough_pct": -8.5,
+      "trough_pct": -8.79,
       "checkpoint_reported": true
     },
     {
@@ -76,7 +76,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 1.47,
-      "trough_pct": -2.65,
+      "trough_pct": -2.73,
       "checkpoint_reported": true
     },
     {
@@ -98,7 +98,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -8.8,
+      "trough_pct": -9.21,
       "checkpoint_reported": true
     },
     {
@@ -125,7 +125,7 @@
       "signal_date": "2026-09-08",
       "entry_price": 412.6,
       "peak_pct": 0.0,
-      "trough_pct": -1.72,
+      "trough_pct": -1.84,
       "checkpoint_reported": false
     }
   ],
