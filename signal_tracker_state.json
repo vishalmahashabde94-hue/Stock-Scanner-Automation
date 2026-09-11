@@ -1,17 +1,6 @@
 {
   "tracking": [
     {
-      "symbol": "INDUSTOWER.NS",
-      "signal": "Buy Now",
-      "signal_date": "2026-08-12",
-      "entry_price": 383.4,
-      "milestones_hit": [],
-      "drawdown_alerted": false,
-      "peak_pct": 1.41,
-      "trough_pct": -3.81,
-      "checkpoint_reported": true
-    },
-    {
       "symbol": "NATCOPHARM.NS",
       "signal": "Support Zone",
       "signal_date": "2026-08-13",
@@ -19,7 +8,7 @@
       "milestones_hit": [],
       "drawdown_alerted": true,
       "peak_pct": 0.32,
-      "trough_pct": -14.25,
+      "trough_pct": -15.66,
       "checkpoint_reported": true
     },
     {
@@ -41,7 +30,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.53,
-      "trough_pct": -8.79,
+      "trough_pct": -9.26,
       "checkpoint_reported": true
     },
     {
@@ -76,7 +65,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 1.47,
-      "trough_pct": -2.73,
+      "trough_pct": -3.99,
       "checkpoint_reported": true
     },
     {
@@ -87,7 +76,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 2.44,
-      "trough_pct": -11.46,
+      "trough_pct": -12.24,
       "checkpoint_reported": true
     },
     {
@@ -98,7 +87,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -9.21,
+      "trough_pct": -11.24,
       "checkpoint_reported": true
     },
     {
@@ -125,7 +114,7 @@
       "signal_date": "2026-09-08",
       "entry_price": 412.6,
       "peak_pct": 0.0,
-      "trough_pct": -1.84,
+      "trough_pct": -2.02,
       "checkpoint_reported": false
     }
   ],
@@ -353,6 +342,21 @@
       "close_date": "2026-09-10",
       "close_price": 870.2,
       "final_pct": 5.97,
+      "days_held": 30
+    },
+    {
+      "symbol": "INDUSTOWER.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-08-12",
+      "entry_price": 383.4,
+      "milestones_hit": [],
+      "drawdown_alerted": false,
+      "peak_pct": 1.43,
+      "trough_pct": -3.81,
+      "checkpoint_reported": true,
+      "close_date": "2026-09-11",
+      "close_price": 388.9,
+      "final_pct": 1.43,
       "days_held": 30
     }
   ],
