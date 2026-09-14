@@ -1,17 +1,6 @@
 {
   "tracking": [
     {
-      "symbol": "NATCOPHARM.NS",
-      "signal": "Support Zone",
-      "signal_date": "2026-08-13",
-      "entry_price": 954.35,
-      "milestones_hit": [],
-      "drawdown_alerted": true,
-      "peak_pct": 0.32,
-      "trough_pct": -15.66,
-      "checkpoint_reported": true
-    },
-    {
       "symbol": "INOXWIND.NS",
       "signal": "Buy Now",
       "signal_date": "2026-08-17",
@@ -97,7 +86,7 @@
       "entry_price": 280.5,
       "peak_pct": 0.8,
       "trough_pct": -4.78,
-      "checkpoint_reported": false
+      "checkpoint_reported": true
     },
     {
       "symbol": "VBL.NS",
@@ -358,6 +347,21 @@
       "close_price": 388.9,
       "final_pct": 1.43,
       "days_held": 30
+    },
+    {
+      "symbol": "NATCOPHARM.NS",
+      "signal": "Support Zone",
+      "signal_date": "2026-08-13",
+      "entry_price": 954.35,
+      "milestones_hit": [],
+      "drawdown_alerted": true,
+      "peak_pct": 0.32,
+      "trough_pct": -15.66,
+      "checkpoint_reported": true,
+      "close_date": "2026-09-14",
+      "close_price": 815.35,
+      "final_pct": -14.56,
+      "days_held": 32
     }
   ],
   "schema_version": 3
