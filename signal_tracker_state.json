@@ -1,17 +1,6 @@
 {
   "tracking": [
     {
-      "symbol": "INOXWIND.NS",
-      "signal": "Buy Now",
-      "signal_date": "2026-08-17",
-      "entry_price": 78.13,
-      "milestones_hit": [],
-      "drawdown_alerted": true,
-      "peak_pct": 0.0,
-      "trough_pct": -11.05,
-      "checkpoint_reported": true
-    },
-    {
       "symbol": "M&M.NS",
       "signal": "Golden Cross",
       "signal_date": "2026-08-20",
@@ -43,7 +32,7 @@
       ],
       "drawdown_alerted": false,
       "peak_pct": 7.86,
-      "trough_pct": -1.53,
+      "trough_pct": -2.65,
       "checkpoint_reported": true
     },
     {
@@ -65,7 +54,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 2.44,
-      "trough_pct": -13.82,
+      "trough_pct": -13.85,
       "checkpoint_reported": true
     },
     {
@@ -76,7 +65,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -14.82,
+      "trough_pct": -15.09,
       "checkpoint_reported": true
     },
     {
@@ -362,6 +351,21 @@
       "close_price": 815.35,
       "final_pct": -14.56,
       "days_held": 32
+    },
+    {
+      "symbol": "INOXWIND.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-08-17",
+      "entry_price": 78.13,
+      "milestones_hit": [],
+      "drawdown_alerted": true,
+      "peak_pct": 0.0,
+      "trough_pct": -11.05,
+      "checkpoint_reported": true,
+      "close_date": "2026-09-16",
+      "close_price": 73.84,
+      "final_pct": -5.49,
+      "days_held": 30
     }
   ],
   "schema_version": 3
