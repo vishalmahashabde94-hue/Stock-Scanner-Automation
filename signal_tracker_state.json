@@ -18,7 +18,7 @@
       "entry_price": 712.9,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 5.62,
+      "peak_pct": 6.15,
       "trough_pct": -7.79,
       "checkpoint_reported": true
     },
@@ -65,7 +65,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -15.73,
+      "trough_pct": -15.81,
       "checkpoint_reported": true
     },
     {
