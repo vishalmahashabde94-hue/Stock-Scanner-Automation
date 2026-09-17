@@ -18,7 +18,7 @@
       "entry_price": 712.9,
       "milestones_hit": [],
       "drawdown_alerted": false,
-      "peak_pct": 4.22,
+      "peak_pct": 5.62,
       "trough_pct": -7.79,
       "checkpoint_reported": true
     },
@@ -65,7 +65,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -15.09,
+      "trough_pct": -15.73,
       "checkpoint_reported": true
     },
     {
@@ -82,9 +82,9 @@
       "signal": "Buy Now",
       "signal_date": "2026-09-02",
       "entry_price": 415.0,
-      "peak_pct": 0.36,
+      "peak_pct": 0.87,
       "trough_pct": -3.06,
-      "checkpoint_reported": false
+      "checkpoint_reported": true
     },
     {
       "symbol": "BEL.NS",
