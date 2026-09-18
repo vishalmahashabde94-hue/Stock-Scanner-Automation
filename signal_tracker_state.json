@@ -43,7 +43,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 1.47,
-      "trough_pct": -5.69,
+      "trough_pct": -6.37,
       "checkpoint_reported": true
     },
     {
@@ -82,7 +82,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-09-02",
       "entry_price": 415.0,
-      "peak_pct": 1.2,
+      "peak_pct": 1.67,
       "trough_pct": -3.06,
       "checkpoint_reported": true
     },
@@ -100,7 +100,7 @@
       "signal": "Aggressive Accumulation",
       "signal_date": "2026-09-18",
       "entry_price": 253.64,
-      "peak_pct": 0.0,
+      "peak_pct": 2.2,
       "trough_pct": 0.0,
       "checkpoint_reported": false
     }
