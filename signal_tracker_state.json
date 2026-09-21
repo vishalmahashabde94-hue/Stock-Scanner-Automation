@@ -65,7 +65,7 @@
       "signal": "Aggressive Accumulation",
       "signal_date": "2026-09-18",
       "entry_price": 253.64,
-      "peak_pct": 2.2,
+      "peak_pct": 2.96,
       "trough_pct": 0.0,
       "checkpoint_reported": false
     },
@@ -75,7 +75,7 @@
       "signal_date": "2026-09-21",
       "entry_price": 741.0,
       "peak_pct": 0.0,
-      "trough_pct": 0.0,
+      "trough_pct": -0.2,
       "checkpoint_reported": false
     }
   ],
