@@ -1,41 +1,6 @@
 {
   "tracking": [
     {
-      "symbol": "M&M.NS",
-      "signal": "Golden Cross",
-      "signal_date": "2026-08-20",
-      "entry_price": 3424.8,
-      "milestones_hit": [],
-      "drawdown_alerted": false,
-      "peak_pct": 0.53,
-      "trough_pct": -11.54,
-      "checkpoint_reported": true
-    },
-    {
-      "symbol": "HBLENGINE.NS",
-      "signal": "Buy Now",
-      "signal_date": "2026-08-21",
-      "entry_price": 712.9,
-      "milestones_hit": [],
-      "drawdown_alerted": false,
-      "peak_pct": 6.66,
-      "trough_pct": -7.79,
-      "checkpoint_reported": true
-    },
-    {
-      "symbol": "LTFOODS.NS",
-      "signal": "Golden Cross",
-      "signal_date": "2026-08-21",
-      "entry_price": 427.6,
-      "milestones_hit": [
-        5
-      ],
-      "drawdown_alerted": false,
-      "peak_pct": 7.86,
-      "trough_pct": -2.65,
-      "checkpoint_reported": true
-    },
-    {
       "symbol": "RELIANCE.NS",
       "signal": "Support Zone",
       "signal_date": "2026-08-24",
@@ -82,7 +47,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-09-02",
       "entry_price": 415.0,
-      "peak_pct": 1.67,
+      "peak_pct": 3.25,
       "trough_pct": -3.06,
       "checkpoint_reported": true
     },
@@ -101,6 +66,15 @@
       "signal_date": "2026-09-18",
       "entry_price": 253.64,
       "peak_pct": 2.2,
+      "trough_pct": 0.0,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "HDFCBANK.NS",
+      "signal": "Accumulate",
+      "signal_date": "2026-09-21",
+      "entry_price": 741.0,
+      "peak_pct": 0.0,
       "trough_pct": 0.0,
       "checkpoint_reported": false
     }
@@ -375,6 +349,53 @@
       "close_price": 73.84,
       "final_pct": -5.49,
       "days_held": 30
+    },
+    {
+      "symbol": "M&M.NS",
+      "signal": "Golden Cross",
+      "signal_date": "2026-08-20",
+      "entry_price": 3424.8,
+      "milestones_hit": [],
+      "drawdown_alerted": false,
+      "peak_pct": 0.53,
+      "trough_pct": -11.54,
+      "checkpoint_reported": true,
+      "close_date": "2026-09-21",
+      "close_price": 3065.9,
+      "final_pct": -10.48,
+      "days_held": 32
+    },
+    {
+      "symbol": "HBLENGINE.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-08-21",
+      "entry_price": 712.9,
+      "milestones_hit": [],
+      "drawdown_alerted": false,
+      "peak_pct": 6.66,
+      "trough_pct": -7.79,
+      "checkpoint_reported": true,
+      "close_date": "2026-09-21",
+      "close_price": 753.25,
+      "final_pct": 5.66,
+      "days_held": 31
+    },
+    {
+      "symbol": "LTFOODS.NS",
+      "signal": "Golden Cross",
+      "signal_date": "2026-08-21",
+      "entry_price": 427.6,
+      "milestones_hit": [
+        5
+      ],
+      "drawdown_alerted": false,
+      "peak_pct": 7.86,
+      "trough_pct": -2.65,
+      "checkpoint_reported": true,
+      "close_date": "2026-09-21",
+      "close_price": 430.35,
+      "final_pct": 0.64,
+      "days_held": 31
     }
   ],
   "schema_version": 3
