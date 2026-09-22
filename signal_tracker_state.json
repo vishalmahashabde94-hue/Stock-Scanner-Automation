@@ -30,7 +30,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -15.83,
+      "trough_pct": -16.04,
       "checkpoint_reported": true
     },
     {
@@ -38,7 +38,7 @@
       "signal": "Accumulate",
       "signal_date": "2026-08-30",
       "entry_price": 280.5,
-      "peak_pct": 0.8,
+      "peak_pct": 1.27,
       "trough_pct": -4.78,
       "checkpoint_reported": true
     },
@@ -65,7 +65,7 @@
       "signal": "Aggressive Accumulation",
       "signal_date": "2026-09-18",
       "entry_price": 253.64,
-      "peak_pct": 3.73,
+      "peak_pct": 3.91,
       "trough_pct": 0.0,
       "checkpoint_reported": false
     },
@@ -75,7 +75,7 @@
       "signal_date": "2026-09-21",
       "entry_price": 741.0,
       "peak_pct": 0.42,
-      "trough_pct": -0.2,
+      "trough_pct": -0.32,
       "checkpoint_reported": false
     },
     {
@@ -84,7 +84,7 @@
       "signal_date": "2026-09-22",
       "entry_price": 478.9,
       "peak_pct": 0.0,
-      "trough_pct": 0.0,
+      "trough_pct": -0.37,
       "checkpoint_reported": false
     }
   ],
