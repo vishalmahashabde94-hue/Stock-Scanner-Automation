@@ -30,7 +30,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -15.81,
+      "trough_pct": -15.83,
       "checkpoint_reported": true
     },
     {
@@ -47,7 +47,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-09-02",
       "entry_price": 415.0,
-      "peak_pct": 3.25,
+      "peak_pct": 3.95,
       "trough_pct": -3.06,
       "checkpoint_reported": true
     },
@@ -65,7 +65,7 @@
       "signal": "Aggressive Accumulation",
       "signal_date": "2026-09-18",
       "entry_price": 253.64,
-      "peak_pct": 2.96,
+      "peak_pct": 3.73,
       "trough_pct": 0.0,
       "checkpoint_reported": false
     },
@@ -74,8 +74,17 @@
       "signal": "Accumulate",
       "signal_date": "2026-09-21",
       "entry_price": 741.0,
-      "peak_pct": 0.0,
+      "peak_pct": 0.42,
       "trough_pct": -0.2,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "TRANSRAILL.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-09-22",
+      "entry_price": 478.9,
+      "peak_pct": 0.0,
+      "trough_pct": 0.0,
       "checkpoint_reported": false
     }
   ],
