@@ -1,17 +1,6 @@
 {
   "tracking": [
     {
-      "symbol": "RELIANCE.NS",
-      "signal": "Support Zone",
-      "signal_date": "2026-08-24",
-      "entry_price": 1309.8,
-      "milestones_hit": [],
-      "drawdown_alerted": false,
-      "peak_pct": 1.47,
-      "trough_pct": -6.37,
-      "checkpoint_reported": true
-    },
-    {
       "symbol": "KAYNES.NS",
       "signal": "Accumulate",
       "signal_date": "2026-08-25",
@@ -47,7 +36,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-09-02",
       "entry_price": 415.0,
-      "peak_pct": 3.95,
+      "peak_pct": 4.89,
       "trough_pct": -3.06,
       "checkpoint_reported": true
     },
@@ -58,14 +47,14 @@
       "entry_price": 412.6,
       "peak_pct": 0.0,
       "trough_pct": -7.2,
-      "checkpoint_reported": false
+      "checkpoint_reported": true
     },
     {
       "symbol": "BOROLTD.NS",
       "signal": "Aggressive Accumulation",
       "signal_date": "2026-09-18",
       "entry_price": 253.64,
-      "peak_pct": 3.91,
+      "peak_pct": 5.47,
       "trough_pct": 0.0,
       "checkpoint_reported": false
     },
@@ -84,7 +73,7 @@
       "signal_date": "2026-09-22",
       "entry_price": 478.9,
       "peak_pct": 0.0,
-      "trough_pct": -0.37,
+      "trough_pct": -1.32,
       "checkpoint_reported": false
     }
   ],
@@ -405,6 +394,21 @@
       "close_price": 430.35,
       "final_pct": 0.64,
       "days_held": 31
+    },
+    {
+      "symbol": "RELIANCE.NS",
+      "signal": "Support Zone",
+      "signal_date": "2026-08-24",
+      "entry_price": 1309.8,
+      "milestones_hit": [],
+      "drawdown_alerted": false,
+      "peak_pct": 1.47,
+      "trough_pct": -6.37,
+      "checkpoint_reported": true,
+      "close_date": "2026-09-23",
+      "close_price": 1251.0,
+      "final_pct": -4.49,
+      "days_held": 30
     }
   ],
   "schema_version": 3
