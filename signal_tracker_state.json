@@ -8,7 +8,7 @@
       "milestones_hit": [],
       "drawdown_alerted": false,
       "peak_pct": 0.0,
-      "trough_pct": -16.04,
+      "trough_pct": -16.11,
       "checkpoint_reported": true
     },
     {
@@ -53,7 +53,7 @@
       "signal_date": "2026-09-21",
       "entry_price": 741.0,
       "peak_pct": 0.42,
-      "trough_pct": -1.38,
+      "trough_pct": -1.63,
       "checkpoint_reported": false
     },
     {
@@ -62,7 +62,7 @@
       "signal_date": "2026-09-22",
       "entry_price": 478.9,
       "peak_pct": 2.09,
-      "trough_pct": -1.33,
+      "trough_pct": -3.11,
       "checkpoint_reported": false
     }
   ],
