@@ -1,23 +1,12 @@
 {
   "tracking": [
     {
-      "symbol": "MAZDOCK.NS",
-      "signal": "Buy Now",
-      "signal_date": "2026-08-26",
-      "entry_price": 2625.0,
-      "milestones_hit": [],
-      "drawdown_alerted": false,
-      "peak_pct": 0.0,
-      "trough_pct": -16.11,
-      "checkpoint_reported": true
-    },
-    {
       "symbol": "SWIGGY.NS",
       "signal": "Accumulate",
       "signal_date": "2026-08-30",
       "entry_price": 280.5,
       "peak_pct": 1.27,
-      "trough_pct": -4.78,
+      "trough_pct": -6.6,
       "checkpoint_reported": true
     },
     {
@@ -62,7 +51,7 @@
       "signal_date": "2026-09-22",
       "entry_price": 478.9,
       "peak_pct": 2.09,
-      "trough_pct": -3.11,
+      "trough_pct": -3.83,
       "checkpoint_reported": false
     }
   ],
@@ -412,6 +401,21 @@
       "close_date": "2026-09-24",
       "close_price": 3539.0,
       "final_pct": -10.09,
+      "days_held": 30
+    },
+    {
+      "symbol": "MAZDOCK.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-08-26",
+      "entry_price": 2625.0,
+      "milestones_hit": [],
+      "drawdown_alerted": false,
+      "peak_pct": 0.0,
+      "trough_pct": -16.69,
+      "checkpoint_reported": true,
+      "close_date": "2026-09-25",
+      "close_price": 2186.9,
+      "final_pct": -16.69,
       "days_held": 30
     }
   ],
