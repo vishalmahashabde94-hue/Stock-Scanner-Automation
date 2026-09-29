@@ -1,15 +1,6 @@
 {
   "tracking": [
     {
-      "symbol": "SWIGGY.NS",
-      "signal": "Accumulate",
-      "signal_date": "2026-08-30",
-      "entry_price": 280.5,
-      "peak_pct": 1.27,
-      "trough_pct": -8.73,
-      "checkpoint_reported": true
-    },
-    {
       "symbol": "VBL.NS",
       "signal": "Buy Now",
       "signal_date": "2026-09-02",
@@ -42,7 +33,7 @@
       "signal_date": "2026-09-21",
       "entry_price": 741.0,
       "peak_pct": 0.42,
-      "trough_pct": -2.96,
+      "trough_pct": -3.91,
       "checkpoint_reported": false
     },
     {
@@ -416,6 +407,19 @@
       "close_date": "2026-09-25",
       "close_price": 2186.9,
       "final_pct": -16.69,
+      "days_held": 30
+    },
+    {
+      "symbol": "SWIGGY.NS",
+      "signal": "Accumulate",
+      "signal_date": "2026-08-30",
+      "entry_price": 280.5,
+      "peak_pct": 1.27,
+      "trough_pct": -9.41,
+      "checkpoint_reported": true,
+      "close_date": "2026-09-29",
+      "close_price": 254.1,
+      "final_pct": -9.41,
       "days_held": 30
     }
   ],
