@@ -23,7 +23,7 @@
       "signal": "Aggressive Accumulation",
       "signal_date": "2026-09-18",
       "entry_price": 253.64,
-      "peak_pct": 10.71,
+      "peak_pct": 17.48,
       "trough_pct": 0.0,
       "checkpoint_reported": false
     },
@@ -43,6 +43,15 @@
       "entry_price": 478.9,
       "peak_pct": 2.09,
       "trough_pct": -6.11,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "JWL.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-09-30",
+      "entry_price": 238.05,
+      "peak_pct": 0.0,
+      "trough_pct": 0.0,
       "checkpoint_reported": false
     }
   ],
