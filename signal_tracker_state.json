@@ -15,7 +15,7 @@
       "signal_date": "2026-09-08",
       "entry_price": 412.6,
       "peak_pct": 0.0,
-      "trough_pct": -7.2,
+      "trough_pct": -7.68,
       "checkpoint_reported": true
     },
     {
@@ -51,7 +51,16 @@
       "signal_date": "2026-09-30",
       "entry_price": 238.05,
       "peak_pct": 0.0,
-      "trough_pct": -2.07,
+      "trough_pct": -6.17,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "TARIL.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-10-01",
+      "entry_price": 285.3,
+      "peak_pct": 0.0,
+      "trough_pct": 0.0,
       "checkpoint_reported": false
     }
   ],
