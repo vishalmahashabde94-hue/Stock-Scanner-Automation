@@ -60,7 +60,7 @@
       "signal_date": "2026-10-01",
       "entry_price": 285.3,
       "peak_pct": 0.0,
-      "trough_pct": 0.0,
+      "trough_pct": -1.58,
       "checkpoint_reported": false
     }
   ],
