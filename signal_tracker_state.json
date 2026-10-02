@@ -1,15 +1,6 @@
 {
   "tracking": [
     {
-      "symbol": "VBL.NS",
-      "signal": "Buy Now",
-      "signal_date": "2026-09-02",
-      "entry_price": 415.0,
-      "peak_pct": 5.1,
-      "trough_pct": -3.06,
-      "checkpoint_reported": true
-    },
-    {
       "symbol": "BEL.NS",
       "signal": "Buy Now",
       "signal_date": "2026-09-08",
@@ -438,6 +429,19 @@
       "close_date": "2026-09-29",
       "close_price": 254.1,
       "final_pct": -9.41,
+      "days_held": 30
+    },
+    {
+      "symbol": "VBL.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-09-02",
+      "entry_price": 415.0,
+      "peak_pct": 5.1,
+      "trough_pct": -3.06,
+      "checkpoint_reported": true,
+      "close_date": "2026-10-02",
+      "close_price": 425.3,
+      "final_pct": 2.48,
       "days_held": 30
     }
   ],
