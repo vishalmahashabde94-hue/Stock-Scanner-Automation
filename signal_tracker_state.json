@@ -16,7 +16,7 @@
       "entry_price": 253.64,
       "peak_pct": 17.48,
       "trough_pct": 0.0,
-      "checkpoint_reported": false
+      "checkpoint_reported": true
     },
     {
       "symbol": "HDFCBANK.NS",
@@ -24,7 +24,7 @@
       "signal_date": "2026-09-21",
       "entry_price": 741.0,
       "peak_pct": 0.42,
-      "trough_pct": -4.36,
+      "trough_pct": -4.85,
       "checkpoint_reported": false
     },
     {
@@ -52,6 +52,15 @@
       "entry_price": 285.3,
       "peak_pct": 0.0,
       "trough_pct": -1.58,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "INDUSTOWER.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-10-05",
+      "entry_price": 381.05,
+      "peak_pct": 0.0,
+      "trough_pct": 0.0,
       "checkpoint_reported": false
     }
   ],
