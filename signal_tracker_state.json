@@ -6,7 +6,7 @@
       "signal_date": "2026-09-08",
       "entry_price": 412.6,
       "peak_pct": 0.0,
-      "trough_pct": -8.24,
+      "trough_pct": -8.31,
       "checkpoint_reported": true
     },
     {
@@ -50,7 +50,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-01",
       "entry_price": 285.3,
-      "peak_pct": 1.12,
+      "peak_pct": 1.35,
       "trough_pct": -1.58,
       "checkpoint_reported": false
     },
