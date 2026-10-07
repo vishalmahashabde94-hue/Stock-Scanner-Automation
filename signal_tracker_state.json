@@ -6,7 +6,7 @@
       "signal_date": "2026-09-08",
       "entry_price": 412.6,
       "peak_pct": 0.0,
-      "trough_pct": -7.68,
+      "trough_pct": -8.24,
       "checkpoint_reported": true
     },
     {
@@ -24,7 +24,7 @@
       "signal_date": "2026-09-21",
       "entry_price": 741.0,
       "peak_pct": 0.42,
-      "trough_pct": -4.85,
+      "trough_pct": -5.18,
       "checkpoint_reported": true
     },
     {
@@ -34,7 +34,7 @@
       "entry_price": 478.9,
       "peak_pct": 2.09,
       "trough_pct": -6.11,
-      "checkpoint_reported": false
+      "checkpoint_reported": true
     },
     {
       "symbol": "JWL.NS",
@@ -50,7 +50,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-01",
       "entry_price": 285.3,
-      "peak_pct": 0.0,
+      "peak_pct": 1.12,
       "trough_pct": -1.58,
       "checkpoint_reported": false
     },
@@ -69,7 +69,7 @@
       "signal_date": "2026-10-06",
       "entry_price": 1248.0,
       "peak_pct": 0.0,
-      "trough_pct": 0.0,
+      "trough_pct": -0.71,
       "checkpoint_reported": false
     }
   ],
