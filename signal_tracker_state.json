@@ -15,7 +15,7 @@
       "signal_date": "2026-09-21",
       "entry_price": 741.0,
       "peak_pct": 0.42,
-      "trough_pct": -6.51,
+      "trough_pct": -6.58,
       "checkpoint_reported": true
     },
     {
@@ -33,7 +33,7 @@
       "signal_date": "2026-09-30",
       "entry_price": 238.05,
       "peak_pct": 0.0,
-      "trough_pct": -8.64,
+      "trough_pct": -9.08,
       "checkpoint_reported": false
     },
     {
@@ -51,7 +51,7 @@
       "signal_date": "2026-10-05",
       "entry_price": 381.05,
       "peak_pct": 2.36,
-      "trough_pct": -1.44,
+      "trough_pct": -2.11,
       "checkpoint_reported": false
     },
     {
