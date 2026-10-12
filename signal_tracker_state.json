@@ -33,7 +33,7 @@
       "signal_date": "2026-09-30",
       "entry_price": 238.05,
       "peak_pct": 0.0,
-      "trough_pct": -9.93,
+      "trough_pct": -10.67,
       "checkpoint_reported": false
     },
     {
@@ -41,7 +41,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-01",
       "entry_price": 285.3,
-      "peak_pct": 1.88,
+      "peak_pct": 3.01,
       "trough_pct": -1.58,
       "checkpoint_reported": false
     },
@@ -69,7 +69,16 @@
       "signal_date": "2026-10-09",
       "entry_price": 379.5,
       "peak_pct": 0.0,
-      "trough_pct": -2.54,
+      "trough_pct": -4.28,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "VBL.NS",
+      "signal": "Aggressive Accumulation",
+      "signal_date": "2026-10-12",
+      "entry_price": 437.3,
+      "peak_pct": 0.0,
+      "trough_pct": 0.0,
       "checkpoint_reported": false
     }
   ],
