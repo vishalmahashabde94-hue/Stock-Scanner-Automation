@@ -33,7 +33,7 @@
       "signal_date": "2026-09-30",
       "entry_price": 238.05,
       "peak_pct": 0.0,
-      "trough_pct": -13.93,
+      "trough_pct": -15.14,
       "checkpoint_reported": true
     },
     {
@@ -69,7 +69,7 @@
       "signal_date": "2026-10-09",
       "entry_price": 379.5,
       "peak_pct": 0.0,
-      "trough_pct": -5.64,
+      "trough_pct": -6.17,
       "checkpoint_reported": false
     },
     {
@@ -78,7 +78,7 @@
       "signal_date": "2026-10-12",
       "entry_price": 437.3,
       "peak_pct": 1.22,
-      "trough_pct": -0.94,
+      "trough_pct": -1.84,
       "checkpoint_reported": false
     },
     {
@@ -104,7 +104,34 @@
       "signal": "Accumulate",
       "signal_date": "2026-10-14",
       "entry_price": 170.45,
-      "peak_pct": 1.65,
+      "peak_pct": 2.11,
+      "trough_pct": 0.0,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "BHARTIARTL.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-10-15",
+      "entry_price": 1854.0,
+      "peak_pct": 0.0,
+      "trough_pct": 0.0,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "BLS.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-10-15",
+      "entry_price": 227.64,
+      "peak_pct": 0.0,
+      "trough_pct": 0.0,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "RELIANCE.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-10-15",
+      "entry_price": 1215.0,
+      "peak_pct": 0.0,
       "trough_pct": 0.0,
       "checkpoint_reported": false
     }
