@@ -24,7 +24,7 @@
       "signal_date": "2026-09-30",
       "entry_price": 238.05,
       "peak_pct": 0.0,
-      "trough_pct": -16.2,
+      "trough_pct": -17.36,
       "checkpoint_reported": true
     },
     {
@@ -51,7 +51,7 @@
       "signal_date": "2026-10-06",
       "entry_price": 1248.0,
       "peak_pct": 3.66,
-      "trough_pct": -0.95,
+      "trough_pct": -0.96,
       "checkpoint_reported": false
     },
     {
@@ -60,7 +60,7 @@
       "signal_date": "2026-10-09",
       "entry_price": 379.5,
       "peak_pct": 0.0,
-      "trough_pct": -9.35,
+      "trough_pct": -9.47,
       "checkpoint_reported": false
     },
     {
@@ -69,7 +69,7 @@
       "signal_date": "2026-10-12",
       "entry_price": 437.3,
       "peak_pct": 1.22,
-      "trough_pct": -3.52,
+      "trough_pct": -3.83,
       "checkpoint_reported": false
     },
     {
@@ -87,7 +87,7 @@
       "signal_date": "2026-10-14",
       "entry_price": 1103.5,
       "peak_pct": 2.46,
-      "trough_pct": 0.0,
+      "trough_pct": -0.07,
       "checkpoint_reported": false
     },
     {
@@ -114,7 +114,7 @@
       "signal_date": "2026-10-15",
       "entry_price": 227.64,
       "peak_pct": 0.49,
-      "trough_pct": -2.08,
+      "trough_pct": -2.9,
       "checkpoint_reported": false
     },
     {
@@ -123,7 +123,7 @@
       "signal_date": "2026-10-15",
       "entry_price": 1215.0,
       "peak_pct": 0.0,
-      "trough_pct": -0.73,
+      "trough_pct": -1.07,
       "checkpoint_reported": false
     },
     {
@@ -133,6 +133,15 @@
       "entry_price": 812.85,
       "peak_pct": 2.5,
       "trough_pct": -0.25,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "NATCOPHARM.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-10-19",
+      "entry_price": 800.85,
+      "peak_pct": 0.0,
+      "trough_pct": 0.0,
       "checkpoint_reported": false
     }
   ],
