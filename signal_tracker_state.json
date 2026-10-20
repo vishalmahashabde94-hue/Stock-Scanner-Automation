@@ -43,7 +43,7 @@
       "entry_price": 381.05,
       "peak_pct": 2.36,
       "trough_pct": -2.11,
-      "checkpoint_reported": false
+      "checkpoint_reported": true
     },
     {
       "symbol": "AXISBANK.NS",
@@ -141,7 +141,7 @@
       "signal_date": "2026-10-19",
       "entry_price": 800.85,
       "peak_pct": 0.0,
-      "trough_pct": 0.0,
+      "trough_pct": -1.97,
       "checkpoint_reported": false
     }
   ],
