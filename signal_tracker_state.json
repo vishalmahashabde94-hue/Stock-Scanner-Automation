@@ -42,7 +42,7 @@
       "signal_date": "2026-10-09",
       "entry_price": 379.5,
       "peak_pct": 0.0,
-      "trough_pct": -12.44,
+      "trough_pct": -12.53,
       "checkpoint_reported": false
     },
     {
@@ -51,7 +51,7 @@
       "signal_date": "2026-10-12",
       "entry_price": 437.3,
       "peak_pct": 1.22,
-      "trough_pct": -8.03,
+      "trough_pct": -8.35,
       "checkpoint_reported": false
     },
     {
@@ -77,7 +77,7 @@
       "signal": "Accumulate",
       "signal_date": "2026-10-14",
       "entry_price": 170.45,
-      "peak_pct": 11.21,
+      "peak_pct": 11.71,
       "trough_pct": 0.0,
       "checkpoint_reported": false
     },
@@ -105,7 +105,7 @@
       "signal_date": "2026-10-15",
       "entry_price": 1215.0,
       "peak_pct": 0.0,
-      "trough_pct": -1.89,
+      "trough_pct": -2.51,
       "checkpoint_reported": false
     },
     {
@@ -114,7 +114,7 @@
       "signal_date": "2026-10-16",
       "entry_price": 812.85,
       "peak_pct": 2.5,
-      "trough_pct": -3.23,
+      "trough_pct": -3.49,
       "checkpoint_reported": false
     },
     {
