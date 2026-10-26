@@ -43,7 +43,7 @@
       "entry_price": 379.5,
       "peak_pct": 0.0,
       "trough_pct": -15.31,
-      "checkpoint_reported": false
+      "checkpoint_reported": true
     },
     {
       "symbol": "VBL.NS",
