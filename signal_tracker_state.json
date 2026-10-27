@@ -52,7 +52,7 @@
       "entry_price": 437.3,
       "peak_pct": 1.22,
       "trough_pct": -11.39,
-      "checkpoint_reported": false
+      "checkpoint_reported": true
     },
     {
       "symbol": "INFY.NS",
@@ -69,7 +69,7 @@
       "signal_date": "2026-10-14",
       "entry_price": 1103.5,
       "peak_pct": 2.46,
-      "trough_pct": -8.6,
+      "trough_pct": -8.92,
       "checkpoint_reported": false
     },
     {
@@ -86,7 +86,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-15",
       "entry_price": 1854.0,
-      "peak_pct": 3.43,
+      "peak_pct": 6.04,
       "trough_pct": 0.0,
       "checkpoint_reported": false
     },
@@ -124,6 +124,15 @@
       "entry_price": 800.85,
       "peak_pct": 0.0,
       "trough_pct": -2.3,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "KFINTECH.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-10-27",
+      "entry_price": 878.0,
+      "peak_pct": 0.0,
+      "trough_pct": 0.0,
       "checkpoint_reported": false
     }
   ],
