@@ -86,7 +86,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-15",
       "entry_price": 1854.0,
-      "peak_pct": 6.04,
+      "peak_pct": 6.73,
       "trough_pct": 0.0,
       "checkpoint_reported": false
     },
@@ -131,6 +131,15 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-27",
       "entry_price": 878.0,
+      "peak_pct": 0.0,
+      "trough_pct": -0.95,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "KAYNES.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-10-27",
+      "entry_price": 3350.4,
       "peak_pct": 0.0,
       "trough_pct": 0.0,
       "checkpoint_reported": false
