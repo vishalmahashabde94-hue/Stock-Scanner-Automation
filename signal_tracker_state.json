@@ -61,7 +61,7 @@
       "entry_price": 1064.3,
       "peak_pct": 9.74,
       "trough_pct": -0.21,
-      "checkpoint_reported": false
+      "checkpoint_reported": true
     },
     {
       "symbol": "HAVELLS.NS",
@@ -105,7 +105,7 @@
       "signal_date": "2026-10-15",
       "entry_price": 1215.0,
       "peak_pct": 0.0,
-      "trough_pct": -3.49,
+      "trough_pct": -4.31,
       "checkpoint_reported": false
     },
     {
@@ -132,7 +132,7 @@
       "signal_date": "2026-10-27",
       "entry_price": 878.0,
       "peak_pct": 0.0,
-      "trough_pct": -0.95,
+      "trough_pct": -1.67,
       "checkpoint_reported": false
     },
     {
@@ -140,6 +140,15 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-27",
       "entry_price": 3350.4,
+      "peak_pct": 0.0,
+      "trough_pct": -5.4,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "LT.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-10-28",
+      "entry_price": 3818.6,
       "peak_pct": 0.0,
       "trough_pct": 0.0,
       "checkpoint_reported": false
