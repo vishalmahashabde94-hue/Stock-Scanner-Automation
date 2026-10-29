@@ -70,7 +70,7 @@
       "entry_price": 1103.5,
       "peak_pct": 2.46,
       "trough_pct": -8.92,
-      "checkpoint_reported": false
+      "checkpoint_reported": true
     },
     {
       "symbol": "WIPRO.NS",
@@ -79,7 +79,7 @@
       "entry_price": 170.45,
       "peak_pct": 11.71,
       "trough_pct": 0.0,
-      "checkpoint_reported": false
+      "checkpoint_reported": true
     },
     {
       "symbol": "BHARTIARTL.NS",
@@ -149,7 +149,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-28",
       "entry_price": 3818.6,
-      "peak_pct": 0.0,
+      "peak_pct": 0.36,
       "trough_pct": -0.45,
       "checkpoint_reported": false
     }
