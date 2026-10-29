@@ -149,8 +149,17 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-28",
       "entry_price": 3818.6,
-      "peak_pct": 0.36,
+      "peak_pct": 0.48,
       "trough_pct": -0.45,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "CDSL.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-10-29",
+      "entry_price": 1282.0,
+      "peak_pct": 0.0,
+      "trough_pct": 0.0,
       "checkpoint_reported": false
     }
   ],
