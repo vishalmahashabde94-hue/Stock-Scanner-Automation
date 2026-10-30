@@ -1,15 +1,6 @@
 {
   "tracking": [
     {
-      "symbol": "JWL.NS",
-      "signal": "Buy Now",
-      "signal_date": "2026-09-30",
-      "entry_price": 238.05,
-      "peak_pct": 0.0,
-      "trough_pct": -27.16,
-      "checkpoint_reported": true
-    },
-    {
       "symbol": "TARIL.NS",
       "signal": "Buy Now",
       "signal_date": "2026-10-01",
@@ -59,7 +50,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-13",
       "entry_price": 1064.3,
-      "peak_pct": 9.74,
+      "peak_pct": 10.47,
       "trough_pct": -0.21,
       "checkpoint_reported": true
     },
@@ -77,7 +68,7 @@
       "signal": "Accumulate",
       "signal_date": "2026-10-14",
       "entry_price": 170.45,
-      "peak_pct": 11.71,
+      "peak_pct": 15.68,
       "trough_pct": 0.0,
       "checkpoint_reported": true
     },
@@ -88,7 +79,7 @@
       "entry_price": 1854.0,
       "peak_pct": 6.73,
       "trough_pct": 0.0,
-      "checkpoint_reported": false
+      "checkpoint_reported": true
     },
     {
       "symbol": "BLS.NS",
@@ -97,7 +88,7 @@
       "entry_price": 227.64,
       "peak_pct": 0.49,
       "trough_pct": -8.53,
-      "checkpoint_reported": false
+      "checkpoint_reported": true
     },
     {
       "symbol": "RELIANCE.NS",
@@ -105,8 +96,8 @@
       "signal_date": "2026-10-15",
       "entry_price": 1215.0,
       "peak_pct": 0.0,
-      "trough_pct": -4.69,
-      "checkpoint_reported": false
+      "trough_pct": -5.03,
+      "checkpoint_reported": true
     },
     {
       "symbol": "HBLENGINE.NS",
@@ -132,7 +123,7 @@
       "signal_date": "2026-10-27",
       "entry_price": 878.0,
       "peak_pct": 0.0,
-      "trough_pct": -2.62,
+      "trough_pct": -3.89,
       "checkpoint_reported": false
     },
     {
@@ -149,7 +140,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-28",
       "entry_price": 3818.6,
-      "peak_pct": 0.48,
+      "peak_pct": 0.82,
       "trough_pct": -0.45,
       "checkpoint_reported": false
     },
@@ -158,6 +149,15 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-29",
       "entry_price": 1282.0,
+      "peak_pct": 0.0,
+      "trough_pct": -1.92,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "BOROLTD.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-10-30",
+      "entry_price": 286.4,
       "peak_pct": 0.0,
       "trough_pct": 0.0,
       "checkpoint_reported": false
@@ -602,6 +602,19 @@
       "close_date": "2026-10-22",
       "close_price": 459.0,
       "final_pct": -4.16,
+      "days_held": 30
+    },
+    {
+      "symbol": "JWL.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-09-30",
+      "entry_price": 238.05,
+      "peak_pct": 0.0,
+      "trough_pct": -27.16,
+      "checkpoint_reported": true,
+      "close_date": "2026-10-30",
+      "close_price": 182.74,
+      "final_pct": -23.23,
       "days_held": 30
     }
   ],
