@@ -106,7 +106,7 @@
       "entry_price": 800.85,
       "peak_pct": 0.0,
       "trough_pct": -2.3,
-      "checkpoint_reported": false
+      "checkpoint_reported": true
     },
     {
       "symbol": "KFINTECH.NS",
@@ -159,7 +159,7 @@
       "signal_date": "2026-11-02",
       "entry_price": 2170.0,
       "peak_pct": 0.0,
-      "trough_pct": 0.0,
+      "trough_pct": -2.3,
       "checkpoint_reported": false
     },
     {
@@ -168,7 +168,7 @@
       "signal_date": "2026-11-02",
       "entry_price": 493.0,
       "peak_pct": 0.0,
-      "trough_pct": 0.0,
+      "trough_pct": -4.66,
       "checkpoint_reported": false
     },
     {
@@ -177,7 +177,7 @@
       "signal_date": "2026-11-02",
       "entry_price": 12365.0,
       "peak_pct": 0.0,
-      "trough_pct": 0.0,
+      "trough_pct": -11.04,
       "checkpoint_reported": false
     },
     {
@@ -186,7 +186,7 @@
       "signal_date": "2026-11-02",
       "entry_price": 1838.9,
       "peak_pct": 0.0,
-      "trough_pct": 0.0,
+      "trough_pct": -6.45,
       "checkpoint_reported": false
     }
   ],
