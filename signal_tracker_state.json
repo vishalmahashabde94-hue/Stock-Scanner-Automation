@@ -1,15 +1,6 @@
 {
   "tracking": [
     {
-      "symbol": "TARIL.NS",
-      "signal": "Buy Now",
-      "signal_date": "2026-10-01",
-      "entry_price": 285.3,
-      "peak_pct": 22.5,
-      "trough_pct": -1.58,
-      "checkpoint_reported": true
-    },
-    {
       "symbol": "INDUSTOWER.NS",
       "signal": "Buy Now",
       "signal_date": "2026-10-05",
@@ -77,7 +68,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-15",
       "entry_price": 1854.0,
-      "peak_pct": 6.73,
+      "peak_pct": 6.84,
       "trough_pct": 0.0,
       "checkpoint_reported": true
     },
@@ -95,7 +86,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-15",
       "entry_price": 1215.0,
-      "peak_pct": 0.0,
+      "peak_pct": 3.99,
       "trough_pct": -5.03,
       "checkpoint_reported": true
     },
@@ -106,7 +97,7 @@
       "entry_price": 812.85,
       "peak_pct": 2.5,
       "trough_pct": -7.82,
-      "checkpoint_reported": false
+      "checkpoint_reported": true
     },
     {
       "symbol": "NATCOPHARM.NS",
@@ -140,7 +131,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-28",
       "entry_price": 3818.6,
-      "peak_pct": 1.39,
+      "peak_pct": 2.8,
       "trough_pct": -0.45,
       "checkpoint_reported": false
     },
@@ -150,7 +141,7 @@
       "signal_date": "2026-10-29",
       "entry_price": 1282.0,
       "peak_pct": 0.0,
-      "trough_pct": -1.92,
+      "trough_pct": -2.18,
       "checkpoint_reported": false
     },
     {
@@ -158,6 +149,42 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-30",
       "entry_price": 286.4,
+      "peak_pct": 6.74,
+      "trough_pct": 0.0,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "TIINDIA.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-11-02",
+      "entry_price": 2170.0,
+      "peak_pct": 0.0,
+      "trough_pct": 0.0,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "TRITURBINE.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-11-02",
+      "entry_price": 493.0,
+      "peak_pct": 0.0,
+      "trough_pct": 0.0,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "DIXON.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-11-02",
+      "entry_price": 12365.0,
+      "peak_pct": 0.0,
+      "trough_pct": 0.0,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "NH.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-11-02",
+      "entry_price": 1838.9,
       "peak_pct": 0.0,
       "trough_pct": 0.0,
       "checkpoint_reported": false
@@ -616,6 +643,19 @@
       "close_price": 182.74,
       "final_pct": -23.23,
       "days_held": 30
+    },
+    {
+      "symbol": "TARIL.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-10-01",
+      "entry_price": 285.3,
+      "peak_pct": 22.5,
+      "trough_pct": -1.58,
+      "checkpoint_reported": true,
+      "close_date": "2026-11-02",
+      "close_price": 309.1,
+      "final_pct": 8.34,
+      "days_held": 32
     }
   ],
   "schema_version": 3
