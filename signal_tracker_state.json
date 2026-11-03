@@ -24,7 +24,7 @@
       "signal_date": "2026-10-09",
       "entry_price": 379.5,
       "peak_pct": 0.0,
-      "trough_pct": -16.42,
+      "trough_pct": -16.64,
       "checkpoint_reported": true
     },
     {
@@ -68,7 +68,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-15",
       "entry_price": 1854.0,
-      "peak_pct": 10.73,
+      "peak_pct": 11.38,
       "trough_pct": 0.0,
       "checkpoint_reported": true
     },
@@ -86,7 +86,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-15",
       "entry_price": 1215.0,
-      "peak_pct": 7.05,
+      "peak_pct": 7.65,
       "trough_pct": -5.03,
       "checkpoint_reported": true
     },
@@ -131,7 +131,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-28",
       "entry_price": 3818.6,
-      "peak_pct": 2.8,
+      "peak_pct": 3.39,
       "trough_pct": -0.45,
       "checkpoint_reported": false
     },
@@ -140,7 +140,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-29",
       "entry_price": 1282.0,
-      "peak_pct": 2.89,
+      "peak_pct": 2.96,
       "trough_pct": -2.18,
       "checkpoint_reported": false
     },
@@ -158,7 +158,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-11-02",
       "entry_price": 2170.0,
-      "peak_pct": 0.72,
+      "peak_pct": 0.92,
       "trough_pct": -2.3,
       "checkpoint_reported": false
     },
@@ -185,7 +185,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-11-02",
       "entry_price": 1838.9,
-      "peak_pct": 1.68,
+      "peak_pct": 1.72,
       "trough_pct": -6.45,
       "checkpoint_reported": false
     },
@@ -195,7 +195,7 @@
       "signal_date": "2026-11-03",
       "entry_price": 487.3,
       "peak_pct": 0.0,
-      "trough_pct": 0.0,
+      "trough_pct": -0.12,
       "checkpoint_reported": false
     },
     {
@@ -204,7 +204,7 @@
       "signal_date": "2026-11-03",
       "entry_price": 1739.3,
       "peak_pct": 0.0,
-      "trough_pct": 0.0,
+      "trough_pct": -0.25,
       "checkpoint_reported": false
     }
   ],
