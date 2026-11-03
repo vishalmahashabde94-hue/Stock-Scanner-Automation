@@ -24,7 +24,7 @@
       "signal_date": "2026-10-09",
       "entry_price": 379.5,
       "peak_pct": 0.0,
-      "trough_pct": -15.31,
+      "trough_pct": -16.42,
       "checkpoint_reported": true
     },
     {
@@ -68,7 +68,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-15",
       "entry_price": 1854.0,
-      "peak_pct": 6.84,
+      "peak_pct": 10.73,
       "trough_pct": 0.0,
       "checkpoint_reported": true
     },
@@ -86,7 +86,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-15",
       "entry_price": 1215.0,
-      "peak_pct": 3.99,
+      "peak_pct": 7.05,
       "trough_pct": -5.03,
       "checkpoint_reported": true
     },
@@ -105,7 +105,7 @@
       "signal_date": "2026-10-19",
       "entry_price": 800.85,
       "peak_pct": 0.0,
-      "trough_pct": -2.3,
+      "trough_pct": -2.48,
       "checkpoint_reported": true
     },
     {
@@ -140,7 +140,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-29",
       "entry_price": 1282.0,
-      "peak_pct": 0.0,
+      "peak_pct": 2.89,
       "trough_pct": -2.18,
       "checkpoint_reported": false
     },
@@ -149,7 +149,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-30",
       "entry_price": 286.4,
-      "peak_pct": 6.74,
+      "peak_pct": 7.12,
       "trough_pct": 0.0,
       "checkpoint_reported": false
     },
@@ -158,7 +158,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-11-02",
       "entry_price": 2170.0,
-      "peak_pct": 0.0,
+      "peak_pct": 0.72,
       "trough_pct": -2.3,
       "checkpoint_reported": false
     },
@@ -185,8 +185,26 @@
       "signal": "Buy Now",
       "signal_date": "2026-11-02",
       "entry_price": 1838.9,
-      "peak_pct": 0.0,
+      "peak_pct": 1.68,
       "trough_pct": -6.45,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "BALUFORGE.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-11-03",
+      "entry_price": 487.3,
+      "peak_pct": 0.0,
+      "trough_pct": 0.0,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "GODFRYPHLP.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-11-03",
+      "entry_price": 1739.3,
+      "peak_pct": 0.0,
+      "trough_pct": 0.0,
       "checkpoint_reported": false
     }
   ],
