@@ -1,15 +1,6 @@
 {
   "tracking": [
     {
-      "symbol": "INDUSTOWER.NS",
-      "signal": "Buy Now",
-      "signal_date": "2026-10-05",
-      "entry_price": 381.05,
-      "peak_pct": 2.36,
-      "trough_pct": -2.11,
-      "checkpoint_reported": true
-    },
-    {
       "symbol": "AXISBANK.NS",
       "signal": "Buy Now",
       "signal_date": "2026-10-06",
@@ -86,7 +77,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-15",
       "entry_price": 1215.0,
-      "peak_pct": 7.65,
+      "peak_pct": 8.19,
       "trough_pct": -5.03,
       "checkpoint_reported": true
     },
@@ -113,7 +104,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-27",
       "entry_price": 878.0,
-      "peak_pct": 0.0,
+      "peak_pct": 2.02,
       "trough_pct": -3.89,
       "checkpoint_reported": false
     },
@@ -140,7 +131,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-29",
       "entry_price": 1282.0,
-      "peak_pct": 2.96,
+      "peak_pct": 3.21,
       "trough_pct": -2.18,
       "checkpoint_reported": false
     },
@@ -149,7 +140,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-30",
       "entry_price": 286.4,
-      "peak_pct": 7.12,
+      "peak_pct": 8.8,
       "trough_pct": 0.0,
       "checkpoint_reported": false
     },
@@ -158,7 +149,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-11-02",
       "entry_price": 2170.0,
-      "peak_pct": 0.92,
+      "peak_pct": 4.1,
       "trough_pct": -2.3,
       "checkpoint_reported": false
     },
@@ -167,7 +158,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-11-02",
       "entry_price": 493.0,
-      "peak_pct": 0.0,
+      "peak_pct": 1.08,
       "trough_pct": -4.66,
       "checkpoint_reported": false
     },
@@ -185,7 +176,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-11-02",
       "entry_price": 1838.9,
-      "peak_pct": 1.72,
+      "peak_pct": 4.74,
       "trough_pct": -6.45,
       "checkpoint_reported": false
     },
@@ -194,7 +185,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-11-03",
       "entry_price": 487.3,
-      "peak_pct": 0.0,
+      "peak_pct": 4.08,
       "trough_pct": -0.12,
       "checkpoint_reported": false
     },
@@ -203,8 +194,17 @@
       "signal": "Buy Now",
       "signal_date": "2026-11-03",
       "entry_price": 1739.3,
-      "peak_pct": 0.0,
+      "peak_pct": 2.5,
       "trough_pct": -0.25,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "HDFCBANK.NS",
+      "signal": "Accumulate",
+      "signal_date": "2026-11-04",
+      "entry_price": 737.2,
+      "peak_pct": 0.0,
+      "trough_pct": 0.0,
       "checkpoint_reported": false
     }
   ],
@@ -674,6 +674,19 @@
       "close_price": 309.1,
       "final_pct": 8.34,
       "days_held": 32
+    },
+    {
+      "symbol": "INDUSTOWER.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-10-05",
+      "entry_price": 381.05,
+      "peak_pct": 2.36,
+      "trough_pct": -2.11,
+      "checkpoint_reported": true,
+      "close_date": "2026-11-04",
+      "close_price": 388.8,
+      "final_pct": 2.03,
+      "days_held": 30
     }
   ],
   "schema_version": 3
