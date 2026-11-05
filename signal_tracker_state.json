@@ -1,15 +1,6 @@
 {
   "tracking": [
     {
-      "symbol": "AXISBANK.NS",
-      "signal": "Buy Now",
-      "signal_date": "2026-10-06",
-      "entry_price": 1248.0,
-      "peak_pct": 3.66,
-      "trough_pct": -3.78,
-      "checkpoint_reported": true
-    },
-    {
       "symbol": "KEC.NS",
       "signal": "Buy Now",
       "signal_date": "2026-10-09",
@@ -50,7 +41,7 @@
       "signal": "Accumulate",
       "signal_date": "2026-10-14",
       "entry_price": 170.45,
-      "peak_pct": 16.34,
+      "peak_pct": 16.47,
       "trough_pct": 0.0,
       "checkpoint_reported": true
     },
@@ -86,7 +77,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-16",
       "entry_price": 812.85,
-      "peak_pct": 2.9,
+      "peak_pct": 5.19,
       "trough_pct": -7.82,
       "checkpoint_reported": true
     },
@@ -104,7 +95,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-27",
       "entry_price": 878.0,
-      "peak_pct": 2.14,
+      "peak_pct": 4.86,
       "trough_pct": -3.89,
       "checkpoint_reported": false
     },
@@ -122,7 +113,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-28",
       "entry_price": 3818.6,
-      "peak_pct": 3.39,
+      "peak_pct": 5.97,
       "trough_pct": -0.45,
       "checkpoint_reported": false
     },
@@ -131,7 +122,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-29",
       "entry_price": 1282.0,
-      "peak_pct": 3.26,
+      "peak_pct": 4.13,
       "trough_pct": -2.18,
       "checkpoint_reported": false
     },
@@ -149,7 +140,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-11-02",
       "entry_price": 2170.0,
-      "peak_pct": 4.1,
+      "peak_pct": 6.02,
       "trough_pct": -2.3,
       "checkpoint_reported": false
     },
@@ -158,7 +149,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-11-02",
       "entry_price": 493.0,
-      "peak_pct": 1.22,
+      "peak_pct": 4.43,
       "trough_pct": -4.66,
       "checkpoint_reported": false
     },
@@ -167,7 +158,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-11-02",
       "entry_price": 12365.0,
-      "peak_pct": 0.0,
+      "peak_pct": 1.99,
       "trough_pct": -11.04,
       "checkpoint_reported": false
     },
@@ -185,7 +176,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-11-03",
       "entry_price": 487.3,
-      "peak_pct": 4.08,
+      "peak_pct": 4.57,
       "trough_pct": -0.12,
       "checkpoint_reported": false
     },
@@ -194,7 +185,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-11-03",
       "entry_price": 1739.3,
-      "peak_pct": 2.5,
+      "peak_pct": 3.86,
       "trough_pct": -0.25,
       "checkpoint_reported": false
     },
@@ -203,8 +194,35 @@
       "signal": "Accumulate",
       "signal_date": "2026-11-04",
       "entry_price": 737.2,
-      "peak_pct": 0.0,
+      "peak_pct": 2.98,
       "trough_pct": -0.07,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "BEL.NS",
+      "signal": "Aggressive Accumulation",
+      "signal_date": "2026-11-05",
+      "entry_price": 394.6,
+      "peak_pct": 0.0,
+      "trough_pct": 0.0,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "M&M.NS",
+      "signal": "Aggressive Accumulation",
+      "signal_date": "2026-11-05",
+      "entry_price": 3111.6,
+      "peak_pct": 0.0,
+      "trough_pct": 0.0,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "BANCOINDIA.NS",
+      "signal": "Aggressive Accumulation",
+      "signal_date": "2026-11-05",
+      "entry_price": 620.55,
+      "peak_pct": 0.0,
+      "trough_pct": 0.0,
       "checkpoint_reported": false
     }
   ],
@@ -686,6 +704,19 @@
       "close_date": "2026-11-04",
       "close_price": 388.8,
       "final_pct": 2.03,
+      "days_held": 30
+    },
+    {
+      "symbol": "AXISBANK.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-10-06",
+      "entry_price": 1248.0,
+      "peak_pct": 3.66,
+      "trough_pct": -3.78,
+      "checkpoint_reported": true,
+      "close_date": "2026-11-05",
+      "close_price": 1280.5,
+      "final_pct": 2.6,
       "days_held": 30
     }
   ],
