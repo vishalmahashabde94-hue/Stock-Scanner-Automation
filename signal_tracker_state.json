@@ -1,15 +1,6 @@
 {
   "tracking": [
     {
-      "symbol": "KEC.NS",
-      "signal": "Buy Now",
-      "signal_date": "2026-10-09",
-      "entry_price": 379.5,
-      "peak_pct": 0.0,
-      "trough_pct": -16.64,
-      "checkpoint_reported": true
-    },
-    {
       "symbol": "VBL.NS",
       "signal": "Aggressive Accumulation",
       "signal_date": "2026-10-12",
@@ -32,7 +23,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-14",
       "entry_price": 1103.5,
-      "peak_pct": 2.46,
+      "peak_pct": 4.66,
       "trough_pct": -8.92,
       "checkpoint_reported": true
     },
@@ -68,7 +59,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-15",
       "entry_price": 1215.0,
-      "peak_pct": 8.64,
+      "peak_pct": 9.05,
       "trough_pct": -5.03,
       "checkpoint_reported": true
     },
@@ -113,7 +104,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-28",
       "entry_price": 3818.6,
-      "peak_pct": 7.83,
+      "peak_pct": 9.65,
       "trough_pct": -0.45,
       "checkpoint_reported": false
     },
@@ -122,7 +113,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-29",
       "entry_price": 1282.0,
-      "peak_pct": 4.13,
+      "peak_pct": 5.8,
       "trough_pct": -2.18,
       "checkpoint_reported": false
     },
@@ -176,7 +167,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-11-03",
       "entry_price": 487.3,
-      "peak_pct": 5.66,
+      "peak_pct": 9.04,
       "trough_pct": -0.12,
       "checkpoint_reported": false
     },
@@ -194,7 +185,7 @@
       "signal": "Accumulate",
       "signal_date": "2026-11-04",
       "entry_price": 737.2,
-      "peak_pct": 6.92,
+      "peak_pct": 8.22,
       "trough_pct": -0.07,
       "checkpoint_reported": false
     },
@@ -212,7 +203,7 @@
       "signal": "Aggressive Accumulation",
       "signal_date": "2026-11-05",
       "entry_price": 3111.6,
-      "peak_pct": 5.64,
+      "peak_pct": 5.8,
       "trough_pct": 0.0,
       "checkpoint_reported": false
     },
@@ -221,7 +212,7 @@
       "signal": "Aggressive Accumulation",
       "signal_date": "2026-11-05",
       "entry_price": 620.55,
-      "peak_pct": 0.0,
+      "peak_pct": 5.72,
       "trough_pct": -3.6,
       "checkpoint_reported": false
     }
@@ -718,6 +709,19 @@
       "close_price": 1280.5,
       "final_pct": 2.6,
       "days_held": 30
+    },
+    {
+      "symbol": "KEC.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-10-09",
+      "entry_price": 379.5,
+      "peak_pct": 0.0,
+      "trough_pct": -16.64,
+      "checkpoint_reported": true,
+      "close_date": "2026-11-09",
+      "close_price": 333.15,
+      "final_pct": -12.21,
+      "days_held": 31
     }
   ],
   "schema_version": 3
