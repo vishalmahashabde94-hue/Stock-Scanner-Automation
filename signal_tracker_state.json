@@ -1,24 +1,6 @@
 {
   "tracking": [
     {
-      "symbol": "HAVELLS.NS",
-      "signal": "Buy Now",
-      "signal_date": "2026-10-14",
-      "entry_price": 1103.5,
-      "peak_pct": 6.4,
-      "trough_pct": -8.92,
-      "checkpoint_reported": true
-    },
-    {
-      "symbol": "WIPRO.NS",
-      "signal": "Accumulate",
-      "signal_date": "2026-10-14",
-      "entry_price": 170.45,
-      "peak_pct": 16.75,
-      "trough_pct": 0.0,
-      "checkpoint_reported": true
-    },
-    {
       "symbol": "BHARTIARTL.NS",
       "signal": "Buy Now",
       "signal_date": "2026-10-15",
@@ -97,7 +79,7 @@
       "entry_price": 1282.0,
       "peak_pct": 13.49,
       "trough_pct": -2.18,
-      "checkpoint_reported": false
+      "checkpoint_reported": true
     },
     {
       "symbol": "BOROLTD.NS",
@@ -213,7 +195,7 @@
       "signal_date": "2026-11-12",
       "entry_price": 453.25,
       "peak_pct": 0.0,
-      "trough_pct": 0.0,
+      "trough_pct": -0.82,
       "checkpoint_reported": false
     },
     {
@@ -221,6 +203,15 @@
       "signal": "Buy Now",
       "signal_date": "2026-11-12",
       "entry_price": 486.45,
+      "peak_pct": 0.0,
+      "trough_pct": -5.7,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "ENRIN.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-11-13",
+      "entry_price": 2962.3,
       "peak_pct": 0.0,
       "trough_pct": 0.0,
       "checkpoint_reported": false
@@ -756,6 +747,32 @@
       "close_date": "2026-11-12",
       "close_price": 1149.0,
       "final_pct": 7.96,
+      "days_held": 30
+    },
+    {
+      "symbol": "HAVELLS.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-10-14",
+      "entry_price": 1103.5,
+      "peak_pct": 6.4,
+      "trough_pct": -8.92,
+      "checkpoint_reported": true,
+      "close_date": "2026-11-13",
+      "close_price": 1174.1,
+      "final_pct": 6.4,
+      "days_held": 30
+    },
+    {
+      "symbol": "WIPRO.NS",
+      "signal": "Accumulate",
+      "signal_date": "2026-10-14",
+      "entry_price": 170.45,
+      "peak_pct": 16.75,
+      "trough_pct": 0.0,
+      "checkpoint_reported": true,
+      "close_date": "2026-11-13",
+      "close_price": 197.99,
+      "final_pct": 16.16,
       "days_held": 30
     }
   ],
