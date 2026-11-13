@@ -5,7 +5,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-15",
       "entry_price": 1854.0,
-      "peak_pct": 13.75,
+      "peak_pct": 14.22,
       "trough_pct": 0.0,
       "checkpoint_reported": true
     },
@@ -23,7 +23,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-15",
       "entry_price": 1215.0,
-      "peak_pct": 10.06,
+      "peak_pct": 10.2,
       "trough_pct": -5.03,
       "checkpoint_reported": true
     },
@@ -176,7 +176,7 @@
       "signal": "Aggressive Accumulation",
       "signal_date": "2026-11-05",
       "entry_price": 620.55,
-      "peak_pct": 9.26,
+      "peak_pct": 9.72,
       "trough_pct": -3.6,
       "checkpoint_reported": false
     },
@@ -185,7 +185,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-11-11",
       "entry_price": 723.4,
-      "peak_pct": 1.11,
+      "peak_pct": 2.05,
       "trough_pct": 0.0,
       "checkpoint_reported": false
     },
@@ -212,7 +212,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-11-13",
       "entry_price": 2962.3,
-      "peak_pct": 0.0,
+      "peak_pct": 6.81,
       "trough_pct": 0.0,
       "checkpoint_reported": false
     }
