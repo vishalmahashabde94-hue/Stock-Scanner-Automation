@@ -1,47 +1,11 @@
 {
   "tracking": [
     {
-      "symbol": "BHARTIARTL.NS",
-      "signal": "Buy Now",
-      "signal_date": "2026-10-15",
-      "entry_price": 1854.0,
-      "peak_pct": 14.22,
-      "trough_pct": 0.0,
-      "checkpoint_reported": true
-    },
-    {
-      "symbol": "BLS.NS",
-      "signal": "Buy Now",
-      "signal_date": "2026-10-15",
-      "entry_price": 227.64,
-      "peak_pct": 0.81,
-      "trough_pct": -8.53,
-      "checkpoint_reported": true
-    },
-    {
-      "symbol": "RELIANCE.NS",
-      "signal": "Buy Now",
-      "signal_date": "2026-10-15",
-      "entry_price": 1215.0,
-      "peak_pct": 10.26,
-      "trough_pct": -5.03,
-      "checkpoint_reported": true
-    },
-    {
-      "symbol": "HBLENGINE.NS",
-      "signal": "Buy Now",
-      "signal_date": "2026-10-16",
-      "entry_price": 812.85,
-      "peak_pct": 5.21,
-      "trough_pct": -7.82,
-      "checkpoint_reported": true
-    },
-    {
       "symbol": "NATCOPHARM.NS",
       "signal": "Buy Now",
       "signal_date": "2026-10-19",
       "entry_price": 800.85,
-      "peak_pct": 1.2,
+      "peak_pct": 3.63,
       "trough_pct": -2.48,
       "checkpoint_reported": true
     },
@@ -60,7 +24,7 @@
       "signal_date": "2026-10-27",
       "entry_price": 3350.4,
       "peak_pct": 3.7,
-      "trough_pct": -6.55,
+      "trough_pct": -11.32,
       "checkpoint_reported": true
     },
     {
@@ -86,9 +50,9 @@
       "signal": "Buy Now",
       "signal_date": "2026-10-30",
       "entry_price": 286.4,
-      "peak_pct": 11.4,
+      "peak_pct": 18.85,
       "trough_pct": 0.0,
-      "checkpoint_reported": false
+      "checkpoint_reported": true
     },
     {
       "symbol": "TIINDIA.NS",
@@ -149,7 +113,7 @@
       "signal": "Accumulate",
       "signal_date": "2026-11-04",
       "entry_price": 737.2,
-      "peak_pct": 10.09,
+      "peak_pct": 10.28,
       "trough_pct": -0.07,
       "checkpoint_reported": false
     },
@@ -195,7 +159,7 @@
       "signal_date": "2026-11-12",
       "entry_price": 453.25,
       "peak_pct": 0.0,
-      "trough_pct": -0.82,
+      "trough_pct": -2.78,
       "checkpoint_reported": false
     },
     {
@@ -774,6 +738,58 @@
       "close_price": 197.99,
       "final_pct": 16.16,
       "days_held": 30
+    },
+    {
+      "symbol": "BHARTIARTL.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-10-15",
+      "entry_price": 1854.0,
+      "peak_pct": 15.76,
+      "trough_pct": 0.0,
+      "checkpoint_reported": true,
+      "close_date": "2026-11-16",
+      "close_price": 2146.1,
+      "final_pct": 15.76,
+      "days_held": 32
+    },
+    {
+      "symbol": "BLS.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-10-15",
+      "entry_price": 227.64,
+      "peak_pct": 0.81,
+      "trough_pct": -8.53,
+      "checkpoint_reported": true,
+      "close_date": "2026-11-16",
+      "close_price": 224.98,
+      "final_pct": -1.17,
+      "days_held": 32
+    },
+    {
+      "symbol": "RELIANCE.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-10-15",
+      "entry_price": 1215.0,
+      "peak_pct": 10.3,
+      "trough_pct": -5.03,
+      "checkpoint_reported": true,
+      "close_date": "2026-11-16",
+      "close_price": 1340.1,
+      "final_pct": 10.3,
+      "days_held": 32
+    },
+    {
+      "symbol": "HBLENGINE.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-10-16",
+      "entry_price": 812.85,
+      "peak_pct": 5.21,
+      "trough_pct": -7.82,
+      "checkpoint_reported": true,
+      "close_date": "2026-11-16",
+      "close_price": 779.75,
+      "final_pct": -4.07,
+      "days_held": 31
     }
   ],
   "schema_version": 3
