@@ -106,7 +106,7 @@
       "entry_price": 737.2,
       "peak_pct": 10.76,
       "trough_pct": -0.07,
-      "checkpoint_reported": false
+      "checkpoint_reported": true
     },
     {
       "symbol": "BEL.NS",
