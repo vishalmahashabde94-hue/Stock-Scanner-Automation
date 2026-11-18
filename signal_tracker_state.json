@@ -131,7 +131,7 @@
       "signal": "Aggressive Accumulation",
       "signal_date": "2026-11-05",
       "entry_price": 620.55,
-      "peak_pct": 12.87,
+      "peak_pct": 14.63,
       "trough_pct": -3.6,
       "checkpoint_reported": false
     },
@@ -150,7 +150,7 @@
       "signal_date": "2026-11-12",
       "entry_price": 453.25,
       "peak_pct": 0.0,
-      "trough_pct": -3.01,
+      "trough_pct": -4.98,
       "checkpoint_reported": false
     },
     {
@@ -159,7 +159,7 @@
       "signal_date": "2026-11-12",
       "entry_price": 486.45,
       "peak_pct": 0.0,
-      "trough_pct": -5.7,
+      "trough_pct": -6.47,
       "checkpoint_reported": false
     },
     {
