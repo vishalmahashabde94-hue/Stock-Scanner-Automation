@@ -115,7 +115,7 @@
       "entry_price": 394.6,
       "peak_pct": 2.45,
       "trough_pct": -0.23,
-      "checkpoint_reported": false
+      "checkpoint_reported": true
     },
     {
       "symbol": "M&M.NS",
@@ -124,7 +124,7 @@
       "entry_price": 3111.6,
       "peak_pct": 12.77,
       "trough_pct": 0.0,
-      "checkpoint_reported": false
+      "checkpoint_reported": true
     },
     {
       "symbol": "BANCOINDIA.NS",
@@ -133,7 +133,7 @@
       "entry_price": 620.55,
       "peak_pct": 14.63,
       "trough_pct": -3.6,
-      "checkpoint_reported": false
+      "checkpoint_reported": true
     },
     {
       "symbol": "TITAGARH.NS",
@@ -177,7 +177,7 @@
       "signal_date": "2026-11-19",
       "entry_price": 1729.2,
       "peak_pct": 0.0,
-      "trough_pct": 0.0,
+      "trough_pct": -2.59,
       "checkpoint_reported": false
     }
   ],
