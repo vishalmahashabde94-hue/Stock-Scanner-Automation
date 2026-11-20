@@ -186,6 +186,15 @@
       "signal_date": "2026-11-20",
       "entry_price": 953.05,
       "peak_pct": 0.0,
+      "trough_pct": -0.89,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "AXISBANK.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-11-21",
+      "entry_price": 1380.8,
+      "peak_pct": 0.0,
       "trough_pct": 0.0,
       "checkpoint_reported": false
     }
