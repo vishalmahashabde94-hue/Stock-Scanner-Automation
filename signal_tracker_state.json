@@ -15,7 +15,7 @@
       "signal_date": "2026-10-27",
       "entry_price": 3350.4,
       "peak_pct": 3.7,
-      "trough_pct": -14.7,
+      "trough_pct": -16.16,
       "checkpoint_reported": true
     },
     {
@@ -60,7 +60,7 @@
       "signal_date": "2026-11-02",
       "entry_price": 493.0,
       "peak_pct": 4.48,
-      "trough_pct": -5.43,
+      "trough_pct": -7.76,
       "checkpoint_reported": true
     },
     {
@@ -68,7 +68,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-11-02",
       "entry_price": 12365.0,
-      "peak_pct": 6.11,
+      "peak_pct": 8.29,
       "trough_pct": -11.04,
       "checkpoint_reported": true
     },
@@ -77,7 +77,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-11-02",
       "entry_price": 1838.9,
-      "peak_pct": 5.7,
+      "peak_pct": 7.36,
       "trough_pct": -6.45,
       "checkpoint_reported": true
     },
@@ -141,7 +141,7 @@
       "signal_date": "2026-11-11",
       "entry_price": 723.4,
       "peak_pct": 2.05,
-      "trough_pct": 0.0,
+      "trough_pct": -0.8,
       "checkpoint_reported": false
     },
     {
@@ -150,7 +150,7 @@
       "signal_date": "2026-11-12",
       "entry_price": 453.25,
       "peak_pct": 0.0,
-      "trough_pct": -5.58,
+      "trough_pct": -6.56,
       "checkpoint_reported": false
     },
     {
@@ -159,7 +159,7 @@
       "signal_date": "2026-11-12",
       "entry_price": 486.45,
       "peak_pct": 0.0,
-      "trough_pct": -7.28,
+      "trough_pct": -9.15,
       "checkpoint_reported": false
     },
     {
@@ -186,7 +186,7 @@
       "signal_date": "2026-11-20",
       "entry_price": 953.05,
       "peak_pct": 0.0,
-      "trough_pct": -0.89,
+      "trough_pct": -1.63,
       "checkpoint_reported": false
     },
     {
@@ -194,6 +194,24 @@
       "signal": "Buy Now",
       "signal_date": "2026-11-21",
       "entry_price": 1380.8,
+      "peak_pct": 0.56,
+      "trough_pct": 0.0,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "HAVELLS.NS",
+      "signal": "Aggressive Accumulation",
+      "signal_date": "2026-11-23",
+      "entry_price": 1184.0,
+      "peak_pct": 0.0,
+      "trough_pct": 0.0,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "WIPRO.NS",
+      "signal": "Aggressive Accumulation",
+      "signal_date": "2026-11-23",
+      "entry_price": 187.29,
       "peak_pct": 0.0,
       "trough_pct": 0.0,
       "checkpoint_reported": false
