@@ -1,24 +1,6 @@
 {
   "tracking": [
     {
-      "symbol": "KFINTECH.NS",
-      "signal": "Buy Now",
-      "signal_date": "2026-10-27",
-      "entry_price": 878.0,
-      "peak_pct": 9.91,
-      "trough_pct": -3.89,
-      "checkpoint_reported": true
-    },
-    {
-      "symbol": "KAYNES.NS",
-      "signal": "Buy Now",
-      "signal_date": "2026-10-27",
-      "entry_price": 3350.4,
-      "peak_pct": 3.7,
-      "trough_pct": -19.47,
-      "checkpoint_reported": true
-    },
-    {
       "symbol": "LT.NS",
       "signal": "Buy Now",
       "signal_date": "2026-10-28",
@@ -142,7 +124,7 @@
       "entry_price": 723.4,
       "peak_pct": 2.99,
       "trough_pct": -0.8,
-      "checkpoint_reported": false
+      "checkpoint_reported": true
     },
     {
       "symbol": "TRANSRAILL.NS",
@@ -222,7 +204,7 @@
       "signal_date": "2026-11-25",
       "entry_price": 222.46,
       "peak_pct": 0.0,
-      "trough_pct": 0.0,
+      "trough_pct": -16.66,
       "checkpoint_reported": false
     },
     {
@@ -231,7 +213,7 @@
       "signal_date": "2026-11-25",
       "entry_price": 1130.0,
       "peak_pct": 0.0,
-      "trough_pct": 0.0,
+      "trough_pct": -2.35,
       "checkpoint_reported": false
     },
     {
@@ -239,6 +221,15 @@
       "signal": "Aggressive Accumulation",
       "signal_date": "2026-11-25",
       "entry_price": 437.1,
+      "peak_pct": 0.0,
+      "trough_pct": -2.28,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "BLS.NS",
+      "signal": "Accumulate",
+      "signal_date": "2026-11-26",
+      "entry_price": 220.44,
       "peak_pct": 0.0,
       "trough_pct": 0.0,
       "checkpoint_reported": false
@@ -865,6 +856,32 @@
       "close_date": "2026-11-18",
       "close_price": 828.65,
       "final_pct": 3.47,
+      "days_held": 30
+    },
+    {
+      "symbol": "KFINTECH.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-10-27",
+      "entry_price": 878.0,
+      "peak_pct": 9.91,
+      "trough_pct": -3.89,
+      "checkpoint_reported": true,
+      "close_date": "2026-11-26",
+      "close_price": 929.75,
+      "final_pct": 5.89,
+      "days_held": 30
+    },
+    {
+      "symbol": "KAYNES.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-10-27",
+      "entry_price": 3350.4,
+      "peak_pct": 3.7,
+      "trough_pct": -19.47,
+      "checkpoint_reported": true,
+      "close_date": "2026-11-26",
+      "close_price": 2809.0,
+      "final_pct": -16.16,
       "days_held": 30
     }
   ],
