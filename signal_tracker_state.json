@@ -15,7 +15,7 @@
       "signal_date": "2026-10-27",
       "entry_price": 3350.4,
       "peak_pct": 3.7,
-      "trough_pct": -16.16,
+      "trough_pct": -19.47,
       "checkpoint_reported": true
     },
     {
@@ -60,7 +60,7 @@
       "signal_date": "2026-11-02",
       "entry_price": 493.0,
       "peak_pct": 4.48,
-      "trough_pct": -7.76,
+      "trough_pct": -9.17,
       "checkpoint_reported": true
     },
     {
@@ -77,7 +77,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-11-02",
       "entry_price": 1838.9,
-      "peak_pct": 7.36,
+      "peak_pct": 8.96,
       "trough_pct": -6.45,
       "checkpoint_reported": true
     },
@@ -113,7 +113,7 @@
       "signal": "Aggressive Accumulation",
       "signal_date": "2026-11-05",
       "entry_price": 394.6,
-      "peak_pct": 2.45,
+      "peak_pct": 2.46,
       "trough_pct": -0.23,
       "checkpoint_reported": true
     },
@@ -140,7 +140,7 @@
       "signal": "Buy Now",
       "signal_date": "2026-11-11",
       "entry_price": 723.4,
-      "peak_pct": 2.05,
+      "peak_pct": 2.99,
       "trough_pct": -0.8,
       "checkpoint_reported": false
     },
@@ -150,7 +150,7 @@
       "signal_date": "2026-11-12",
       "entry_price": 453.25,
       "peak_pct": 0.0,
-      "trough_pct": -6.56,
+      "trough_pct": -7.24,
       "checkpoint_reported": false
     },
     {
@@ -212,8 +212,35 @@
       "signal": "Aggressive Accumulation",
       "signal_date": "2026-11-23",
       "entry_price": 187.29,
-      "peak_pct": 0.0,
+      "peak_pct": 0.94,
       "trough_pct": -0.85,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "JWL.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-11-25",
+      "entry_price": 222.46,
+      "peak_pct": 0.0,
+      "trough_pct": 0.0,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "INFY.NS",
+      "signal": "Aggressive Accumulation",
+      "signal_date": "2026-11-25",
+      "entry_price": 1130.0,
+      "peak_pct": 0.0,
+      "trough_pct": 0.0,
+      "checkpoint_reported": false
+    },
+    {
+      "symbol": "VBL.NS",
+      "signal": "Aggressive Accumulation",
+      "signal_date": "2026-11-25",
+      "entry_price": 437.1,
+      "peak_pct": 0.0,
+      "trough_pct": 0.0,
       "checkpoint_reported": false
     }
   ],
