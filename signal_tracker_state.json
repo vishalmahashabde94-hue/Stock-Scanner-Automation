@@ -1,15 +1,6 @@
 {
   "tracking": [
     {
-      "symbol": "LT.NS",
-      "signal": "Buy Now",
-      "signal_date": "2026-10-28",
-      "entry_price": 3818.6,
-      "peak_pct": 10.3,
-      "trough_pct": -0.45,
-      "checkpoint_reported": true
-    },
-    {
       "symbol": "CDSL.NS",
       "signal": "Buy Now",
       "signal_date": "2026-10-29",
@@ -133,7 +124,7 @@
       "entry_price": 453.25,
       "peak_pct": 0.0,
       "trough_pct": -7.24,
-      "checkpoint_reported": false
+      "checkpoint_reported": true
     },
     {
       "symbol": "ANANTRAJ.NS",
@@ -142,7 +133,7 @@
       "entry_price": 486.45,
       "peak_pct": 0.0,
       "trough_pct": -9.15,
-      "checkpoint_reported": false
+      "checkpoint_reported": true
     },
     {
       "symbol": "ENRIN.NS",
@@ -231,7 +222,7 @@
       "signal_date": "2026-11-26",
       "entry_price": 220.44,
       "peak_pct": 0.0,
-      "trough_pct": -2.12,
+      "trough_pct": -2.37,
       "checkpoint_reported": false
     }
   ],
@@ -882,6 +873,19 @@
       "close_date": "2026-11-26",
       "close_price": 2809.0,
       "final_pct": -16.16,
+      "days_held": 30
+    },
+    {
+      "symbol": "LT.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-10-28",
+      "entry_price": 3818.6,
+      "peak_pct": 10.3,
+      "trough_pct": -0.45,
+      "checkpoint_reported": true,
+      "close_date": "2026-11-27",
+      "close_price": 4156.0,
+      "final_pct": 8.84,
       "days_held": 30
     }
   ],
