@@ -1,15 +1,6 @@
 {
   "tracking": [
     {
-      "symbol": "CDSL.NS",
-      "signal": "Buy Now",
-      "signal_date": "2026-10-29",
-      "entry_price": 1282.0,
-      "peak_pct": 13.49,
-      "trough_pct": -2.18,
-      "checkpoint_reported": true
-    },
-    {
       "symbol": "BOROLTD.NS",
       "signal": "Buy Now",
       "signal_date": "2026-10-30",
@@ -142,7 +133,7 @@
       "entry_price": 2962.3,
       "peak_pct": 6.81,
       "trough_pct": -0.62,
-      "checkpoint_reported": false
+      "checkpoint_reported": true
     },
     {
       "symbol": "BHARATFORG.NS",
@@ -231,7 +222,7 @@
       "signal_date": "2026-11-27",
       "entry_price": 3753.9,
       "peak_pct": 0.0,
-      "trough_pct": 0.0,
+      "trough_pct": -2.87,
       "checkpoint_reported": false
     },
     {
@@ -240,7 +231,7 @@
       "signal_date": "2026-11-27",
       "entry_price": 825.7,
       "peak_pct": 0.0,
-      "trough_pct": 0.0,
+      "trough_pct": -16.66,
       "checkpoint_reported": false
     }
   ],
@@ -904,6 +895,19 @@
       "close_date": "2026-11-27",
       "close_price": 4156.0,
       "final_pct": 8.84,
+      "days_held": 30
+    },
+    {
+      "symbol": "CDSL.NS",
+      "signal": "Buy Now",
+      "signal_date": "2026-10-29",
+      "entry_price": 1282.0,
+      "peak_pct": 13.49,
+      "trough_pct": -2.18,
+      "checkpoint_reported": true,
+      "close_date": "2026-11-28",
+      "close_price": 1441.0,
+      "final_pct": 12.4,
       "days_held": 30
     }
   ],
